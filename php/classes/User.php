@@ -338,7 +338,7 @@ class User
         }
     }
 
-    function generateScheduleNotDelayedVac080($study_name,$pid, $date, $v_point, $status)
+    function generateScheduleNotDelayedVac080($study_name, $pid, $date, $v_point, $status)
     {
         $x = $v_point;
         $arr = array();
@@ -351,6 +351,8 @@ class User
         $hw = 0;
         if ($x == 1) {
             $nxt_visit = date('Y-m-d', strtotime($nxt_visit));
+            $pre_vac1 = date('Y-m-d', strtotime($nxt_visit . ' - 1 days'));
+            $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => 'Pre-Vac1', 'visit_group' => $vg, 'visit_date' => $pre_vac1, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
             $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => $vc, 'visit_group' => $vg, 'visit_date' => $nxt_visit, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
         }
         while ($x < 730) {
@@ -400,6 +402,8 @@ class User
                     $lw = 0;
                     $hw = 0;
                 }
+                $pre_vac2 = date('Y-m-d', strtotime($nxt_visit . ' - 1 days'));
+                $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => 'Pre-Vac2', 'visit_group' => $vg, 'visit_date' => $pre_vac2, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
                 $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => $vc, 'visit_group' => $vg, 'visit_date' => $nxt_visit, 'schedule' => 'Scheduled', 'visit_type' => $vty, 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
                 $y = 1;
             } elseif ($x >= 28 && $x < 35) {
@@ -445,6 +449,8 @@ class User
                 $vty = 'Clinic';
                 $lw = 7;
                 $hw = 14;
+                $pre_vac3 = date('Y-m-d', strtotime($nxt_visit . ' - 1 days'));
+                $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => 'Pre-Vac3', 'visit_group' => $vg, 'visit_date' => $pre_vac3, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
                 $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => $vc, 'visit_group' => $vg, 'visit_date' => $nxt_visit, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
             } elseif ($x >= 56 && $x < 63) {
                 $nxt_visit = date('Y-m-d', strtotime($nxt_visit . ' + 1 days'));
@@ -566,6 +572,8 @@ class User
         $hw = 0;
         if ($x == 1) {
             $nxt_visit = date('Y-m-d', strtotime($nxt_visit));
+            $pre_vac1 = date('Y-m-d', strtotime($nxt_visit . ' - 1 days'));
+            $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => 'Pre-Vac1', 'visit_group' => $vg, 'visit_date' => $pre_vac1, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
             $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => $vc, 'visit_group' => $vg, 'visit_date' => $nxt_visit, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
         }
         while ($x < 856) {
@@ -615,6 +623,8 @@ class User
                     $lw = 0;
                     $hw = 0;
                 }
+                $pre_vac2 = date('Y-m-d', strtotime($nxt_visit . ' - 1 days'));
+                $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => 'Pre-Vac2', 'visit_group' => $vg, 'visit_date' => $pre_vac2, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
                 $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => $vc, 'visit_group' => $vg, 'visit_date' => $nxt_visit, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
                 $y = 1;
             } elseif ($x >= 28 && $x < 35) {
@@ -669,6 +679,8 @@ class User
                 $vty = 'Clinic';
                 $lw = 7;
                 $hw = 14;
+                $pre_vac3 = date('Y-m-d', strtotime($nxt_visit . ' - 1 days'));
+                $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => 'Pre-Vac3', 'visit_group' => $vg, 'visit_date' => $pre_vac3, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
                 $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => $vc, 'visit_group' => $vg, 'visit_date' => $nxt_visit, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
             } elseif ($x >= 182 && $x < 189) {
                 $nxt_visit = date('Y-m-d', strtotime($nxt_visit . ' + 1 days'));
@@ -749,12 +761,12 @@ class User
         }
     }
 
-    function updateScheduleDelayedVac080($study_name,$pid, $date, $day)
+    function updateScheduleDelayedVac080($study_name, $pid, $date, $day)
     {
         if ($day == 1) {
             $visit = 'V' . $day;
             $this->deleteRecord('visit', 'client_id', $pid);
-            $this->generateScheduleDelayedVac080($study_name,$pid, $date, $day, 'c');
+            $this->generateScheduleDelayedVac080($study_name, $pid, $date, $day, 'c');
         } elseif ($day == 2) {
             $visit = 'V2';
             $v_p = 14;
@@ -765,14 +777,14 @@ class User
             foreach ($this->_override->getNews('visit', 'client_id', $pid, 'visit_group', $visit) as $vst) {
                 $this->deleteRecord('visit', 'id', $vst['id']);
             }
-            $this->generateScheduleDelayedVac080($study_name,$pid, $date, $v_p, 'u');
+            $this->generateScheduleDelayedVac080($study_name, $pid, $date, $v_p, 'u');
         } elseif ($day == 3) {
             $visit = 'V3';
             $v_p = 56;
             foreach ($this->_override->getNews('visit', 'client_id', $pid, 'visit_group', $visit) as $vst) {
                 $this->deleteRecord('visit', 'id', $vst['id']);
             }
-            $this->generateScheduleDelayedVac080($study_name,$pid, $date, $v_p, 'u');
+            $this->generateScheduleDelayedVac080($study_name, $pid, $date, $v_p, 'u');
         }
     }
 
@@ -790,6 +802,8 @@ class User
         $hw = 0;
         if ($x == 1) {
             $nxt_visit = date('Y-m-d', strtotime($nxt_visit));
+            $pre_vac1 = date('Y-m-d', strtotime($nxt_visit . ' - 1 days'));
+            $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => 'Pre-Vac1', 'visit_group' => $vg, 'visit_date' => $pre_vac1, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
             $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => $vc, 'visit_group' => $vg, 'visit_date' => $nxt_visit, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
         }
         while ($x < 728) {
@@ -839,6 +853,8 @@ class User
                     $lw = 0;
                     $hw = 0;
                 }
+                $pre_vac2 = date('Y-m-d', strtotime($nxt_visit . ' - 1 days'));
+                $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => 'Pre-Vac2', 'visit_group' => $vg, 'visit_date' => $pre_vac2, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
                 $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => $vc, 'visit_group' => $vg, 'visit_date' => $nxt_visit, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
                 $y = 1;
             } elseif ($x >= 28 && $x < 35) {
@@ -884,6 +900,8 @@ class User
                 $vty = 'Clinic';
                 $lw = 7;
                 $hw = 14;
+                $pre_vac3 = date('Y-m-d', strtotime($nxt_visit . ' - 1 days'));
+                $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => 'Pre-Vac3', 'visit_group' => $vg, 'visit_date' => $pre_vac3, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
                 $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => $vc, 'visit_group' => $vg, 'visit_date' => $nxt_visit, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
             } elseif ($x >= 56 && $x < 63) {
                 $nxt_visit = date('Y-m-d', strtotime($nxt_visit . ' + 1 days'));
@@ -964,12 +982,12 @@ class User
         }
     }
 
-    function updateScheduleNotDelayedVac082($study_name,$pid, $date, $day)
+    function updateScheduleNotDelayedVac082($study_name, $pid, $date, $day)
     {
         if ($day == 1) {
             $visit = 'V' . $day;
             $this->deleteRecord('visit', 'client_id', $pid);
-            $this->generateScheduleNotDelayedVac082($study_name,$pid, $date, $day, 'c');
+            $this->generateScheduleNotDelayedVac082($study_name, $pid, $date, $day, 'c');
         } elseif ($day == 2) {
             $visit = 'V2';
             $v_p = 14;
@@ -980,14 +998,14 @@ class User
             foreach ($this->_override->getNews('visit', 'client_id', $pid, 'visit_group', $visit) as $vst) {
                 $this->deleteRecord('visit', 'id', $vst['id']);
             }
-            $this->generateScheduleNotDelayedVac082($study_name,$pid, $date, $v_p, 'u');
+            $this->generateScheduleNotDelayedVac082($study_name, $pid, $date, $v_p, 'u');
         } elseif ($day == 3) {
             $visit = 'V3';
             $v_p = 42;
             foreach ($this->_override->getNews('visit', 'client_id', $pid, 'visit_group', $visit) as $vst) {
                 $this->deleteRecord('visit', 'id', $vst['id']);
             }
-            $this->generateScheduleNotDelayedVac082($study_name,$pid, $date, $v_p, 'u');
+            $this->generateScheduleNotDelayedVac082($study_name, $pid, $date, $v_p, 'u');
         }
     }
 
@@ -1004,6 +1022,8 @@ class User
         $hw = 0;
         if ($x == 1) {
             $nxt_visit = date('Y-m-d', strtotime($nxt_visit));
+            $pre_vac1 = date('Y-m-d', strtotime($nxt_visit . ' - 1 days'));
+            $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => 'Pre-Vac1', 'visit_group' => $vg, 'visit_date' => $pre_vac1, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
             $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => $vc, 'visit_group' => $vg, 'visit_date' => $nxt_visit, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
         }
         while ($x < 856) {
@@ -1053,6 +1073,8 @@ class User
                     $lw = 0;
                     $hw = 0;
                 }
+                $pre_vac2 = date('Y-m-d', strtotime($nxt_visit . ' - 1 days'));
+                $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => 'Pre-Vac2', 'visit_group' => $vg, 'visit_date' => $pre_vac2, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
                 $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => $vc, 'visit_group' => $vg, 'visit_date' => $nxt_visit, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
                 $y = 1;
             } elseif ($x >= 28 && $x < 35) {
@@ -1107,6 +1129,8 @@ class User
                 $vty = 'Clinic';
                 $lw = 7;
                 $hw = 14;
+                $pre_vac3 = date('Y-m-d', strtotime($nxt_visit . ' - 1 days'));
+                $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => 'Pre-Vac3', 'visit_group' => $vg, 'visit_date' => $pre_vac3, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
                 $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => $vc, 'visit_group' => $vg, 'visit_date' => $nxt_visit, 'visit_type' => $vty, 'schedule' => 'Scheduled', 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
             } elseif ($x >= 182 && $x < 189) {
                 $nxt_visit = date('Y-m-d', strtotime($nxt_visit . ' + 1 days'));
@@ -1193,12 +1217,12 @@ class User
         return $date / 86400;
     }
 
-    function updateScheduleDelayedVac082($study_name,$pid, $date, $day)
+    function updateScheduleDelayedVac082($study_name, $pid, $date, $day)
     {
         if ($day == 1) {
             $visit = 'V' . $day;
             $this->deleteRecord('visit', 'client_id', $pid);
-            $this->generateScheduleDelayedVac082($study_name,$pid, $date, $day, 'c');
+            $this->generateScheduleDelayedVac082($study_name, $pid, $date, $day, 'c');
         } elseif ($day == 2) {
             $visit = 'V2';
             $v_p = 14;
@@ -1209,20 +1233,20 @@ class User
             foreach ($this->_override->getNews('visit', 'client_id', $pid, 'visit_group', $visit) as $vst) {
                 $this->deleteRecord('visit', 'id', $vst['id']);
             }
-            $this->generateScheduleDelayedVac082($study_name,$pid, $date, $v_p, 'u');
+            $this->generateScheduleDelayedVac082($study_name, $pid, $date, $v_p, 'u');
         } elseif ($day == 3) {
             $visit = 'V3';
             $v_p = 56;
             foreach ($this->_override->getNews('visit', 'client_id', $pid, 'visit_group', $visit) as $vst) {
                 $this->deleteRecord('visit', 'id', $vst['id']);
             }
-            $this->generateScheduleDelayedVac082($study_name,$pid, $date, $v_p, 'u');
+            $this->generateScheduleDelayedVac082($study_name, $pid, $date, $v_p, 'u');
         }
     }
 
 
 
-    function generateUnSchedule($study_name,$pid, $date, $v_point, $day, $vty, $vty2)
+    function generateUnSchedule($study_name, $pid, $date, $v_point, $day, $vty, $vty2)
     {
         $x = $v_point;
         $arr = array();
@@ -1234,19 +1258,19 @@ class User
             $vg = 'V1';
             $un_visit = date('Y-m-d', strtotime($un_visit));
             $vc = 'V1 + ' . $day;
-            $this->createRecord('visit', array('project_id' => $study_name,'visit_code' => $vc, 'visit_group' => $vg, 'visit_date' => $un_visit, 'schedule' => $vty, 'visit_type' => $vty2, 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
+            $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => $vc, 'visit_group' => $vg, 'visit_date' => $un_visit, 'schedule' => $vty, 'visit_type' => $vty2, 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
         } elseif ($x == 2) {
             $vc = 'V2';
             $vg = 'V2';
             $un_visit = date('Y-m-d', strtotime($un_visit));
             $vc = 'V2 + ' . $day;
-            $this->createRecord('visit', array('project_id' => $study_name,'visit_code' => $vc, 'visit_group' => $vg, 'visit_date' => $un_visit, 'schedule' => $vty, 'visit_type' => $vty2, 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
+            $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => $vc, 'visit_group' => $vg, 'visit_date' => $un_visit, 'schedule' => $vty, 'visit_type' => $vty2, 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
         } elseif ($x == 3) {
             $vc = 'V3';
             $vg = 'V3';
             $un_visit = date('Y-m-d', strtotime($un_visit));
             $vc = 'V3 + ' . $day;
-            $this->createRecord('visit', array('project_id' => $study_name,'visit_code' => $vc, 'visit_group' => $vg, 'visit_date' => $un_visit, 'schedule' => $vty, 'visit_type' => $vty2, 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
+            $this->createRecord('visit', array('project_id' => $study_name, 'visit_code' => $vc, 'visit_group' => $vg, 'visit_date' => $un_visit, 'schedule' => $vty, 'visit_type' => $vty2, 'l_window' => $lw, 'h_window' => $hw, 'client_id' => $pid, 'status' => 0, 'staff_id' => $this->data()->id));
         }
     }
 
