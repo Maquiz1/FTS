@@ -220,7 +220,9 @@ if ($user->isLoggedIn()) {
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <?php require 'topBar.php' ?>
+                <?php 
+                require 'topBar.php' 
+                ?>
             </div>
         </div>
         <div class="row">
@@ -475,12 +477,6 @@ if ($user->isLoggedIn()) {
                                             </div>
 
 
-
-
-
-
-
-
                                             <div class="modal" id="appnt<?= $x ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
@@ -665,7 +661,7 @@ if ($user->isLoggedIn()) {
             },
             // columns: columnDefs,
 
-            dom: 'Bfrtip',
+            dom: 'lBfrtip',
             buttons: [{
 
                     extend: 'excelHtml5',
@@ -698,7 +694,8 @@ if ($user->isLoggedIn()) {
                 //         // name: 'printButton'
                 //         title: 'VISITS'
                 //     }
-            ]
+            ],
+            "pageLength": 100
         });
 
         // $(".dataTables_empty").text("There is No Any Visit Today.").css('color', '#FF0000');

@@ -14,6 +14,14 @@ if ($_GET['content'] == 'visit') {
         <option value="">Select Site</option>
         <?php foreach ($sites as $site) { ?>
             <option value="<?= $site['id'] ?>"><?= $site['name'] ?></option>
+        <?php }
+    }
+} elseif ($_GET['content'] == 'district') {
+    if ($_GET['regionId']) {
+        $district = $override->getNews('district', 'region_id', $_GET['regionId'], 'status', 1); ?>
+        <option value="">Select Dstrict</option>
+        <?php foreach ($district as $district) { ?>
+            <option value="<?= $district['id'] ?>"><?= $district['name'] ?></option>
     <?php }
     }
 } elseif ($_GET['cnt'] == 'study') {

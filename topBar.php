@@ -82,6 +82,171 @@ if ($user->isLoggedIn()) {
             } else {
                 $pageError = $validate->errors();
             }
+        }
+        if (Input::get('register_voluntier')) {
+            $validate = new validate();
+            $validate = $validate->check($_POST, array(
+                'project_id' => array(
+                    'required' => true,
+                ),
+                'initial' => array(
+                    'required' => true,
+                ),
+                'sensitization_no' => array(
+                    'required' => true,
+                ),
+                'client_category' => array(
+                    'required' => true,
+                ),
+                'fname' => array(
+                    'required' => true,
+                ),
+                'mname' => array(
+                    'required' => true,
+                ),
+                'lname' => array(
+                    'required' => true,
+                ),
+                'dob' => array(
+                    'required' => true,
+                ),
+                'year' => array(
+                    'required' => true,
+                ),
+                'gender' => array(
+                    'required' => true,
+                ),
+                'pregnant' => array(
+                    'required' => true,
+                ),
+                'literate' => array(
+                    'required' => true,
+                ),
+                'education' => array(
+                    'required' => true,
+                ),
+                'marital' => array(
+                    'required' => true,
+                ),
+                'occupation' => array(
+                    'required' => true,
+                ),
+                'phone1' => array(
+                    'required' => true,
+                    'unique' => 'details'
+                ),
+                'attend_school' => array(
+                    'required' => true,
+                ),
+                'region' => array(
+                    'required' => true,
+                ),
+                'district' => array(
+                    'required' => true,
+                ),
+                'ward' => array(
+                    'required' => true,
+                ),
+                'village' => array(
+                    'required' => true,
+                ),
+                'hamlet' => array(
+                    'required' => true,
+                ),
+                'duration' => array(
+                    'required' => true,
+                ),
+                'willing_contact' => array(
+                    'required' => true,
+                ),
+                'location' => array(
+                    'required' => true,
+                ),
+                'interviewer_initial' => array(
+                    'required' => true,
+                ),
+                'interviewer_date' => array(
+                    'required' => true,
+                ),
+
+                'reviewer_initial' => array(
+                    'required' => true,
+                ),
+                'reviewer_date' => array(
+                    'required' => true,
+                ),
+                'enrolled' => array(
+                    'required' => true,
+                ),
+                'reason' => array(
+                    'required' => true,
+                )
+                // 'date_death' => array(
+                //     'required' => true,
+                // ),
+                // 'details' => array(
+                //     'required' => true,
+                // )
+                // 'end_study' => array(
+                //     'required' => true,
+                // )
+            ));
+            if ($validate->passed()) {
+                $dob_date = date('Y-m-d', strtotime(Input::get('dob')));
+                $intwr_date = date('Y-m-d', strtotime(Input::get('interviewer_date')));
+                $rvwr_date = date('Y-m-d', strtotime(Input::get('reviewer_date')));
+                $death_date = date('Y-m-d', strtotime(Input::get('death_date')));
+                try {
+                    $user->createRecord('details', array(
+                        'project_name' => Input::get('project_id'),
+                        'initial' => Input::get('initial'),
+                        'sensitization_no' => Input::get('sensitization_no'),
+                        'client_category' => Input::get('client_category'),
+                        'fname' => Input::get('fname'),
+                        'mname' => Input::get('mname'),
+                        'lname' => Input::get('lname'),
+                        'dob' => $dob_date,
+                        'year' => Input::get('year'),
+                        'month' => Input::get('month'),
+                        'gender' => Input::get('gender'),
+                        'pregnant' => Input::get('pregnant'),
+                        'literate' => Input::get('literate'),
+                        'education' => Input::get('education'),
+                        'marital' => Input::get('marital'),
+                        'occupation' => Input::get('occupation'),
+                        'other_occupation' => Input::get('other_occupation'),
+                        'phone1' => Input::get('phone1'),
+                        'phone2' => Input::get('phone2'),
+                        'attend_school' => Input::get('attend_school'),
+                        'region' => Input::get('region'),
+                        'district' => Input::get('district'),
+                        'ward' => Input::get('ward'),
+                        'village' => Input::get('village'),
+                        'hamlet' => Input::get('hamlet'),
+                        'duration' => Input::get('duration'),
+                        'willing_contact' => Input::get('willing_contact'),
+                        'location' => Input::get('location'),
+                        'interviewer_initial' => Input::get('interviewer_initial'),
+                        'interviewer_date' => $intwr_date,
+                        'reviewer_initial' => Input::get('reviewer_initial'),
+                        'reviewer_date' => $rvwr_date,
+                        'staff_id' => $user->data()->id,
+                        'enrolled' => Input::get('enrolled'),
+                        'reason' => Input::get('reason'),
+                        'other_reason' => Input::get('other_reason'),
+                        'status' => Input::get('status'),
+                        'death_date' => $death_date,
+                        'details' => Input::get('details'),
+                        'end_study' => Input::get('end_study'),
+                    ));
+
+                    $successMessage = 'Client Registered Successful';
+                } catch (Exception $e) {
+                    die($e->getMessage());
+                }
+            } else {
+                $pageError = $validate->errors();
+            }
         } elseif (Input::get('add_staff')) {
             $validate = new validate();
             $validate = $validate->check($_POST, array(
@@ -162,6 +327,26 @@ if ($user->isLoggedIn()) {
             } else {
                 $pageError = $validate->errors();
             }
+        } elseif (Input::get('add_gender')) {
+            $validate = new validate();
+            $validate = $validate->check($_POST, array(
+                'gender_name' => array(
+                    'required' => true,
+                    // 'min' => 2,
+                )
+            ));
+            if ($validate->passed()) {
+                try {
+                    $user->createRecord('gender', array(
+                        'gender_name' => Input::get('gender_name')
+                    ));
+                    $successMessage = 'Gender Registered Successful';
+                } catch (Exception $e) {
+                    die($e->getMessage());
+                }
+            } else {
+                $pageError = $validate->errors();
+            }
         } elseif (Input::get('add_country')) {
             $validate = new validate();
             $validate = $validate->check($_POST, array(
@@ -195,7 +380,7 @@ if ($user->isLoggedIn()) {
                 ),
                 'short_code' => array(
                     'required' => true,
-                    'min' => 2,
+                    'min' => 3,
                 )
             ));
             if ($validate->passed()) {
@@ -218,15 +403,19 @@ if ($user->isLoggedIn()) {
                 'district_name' => array(
                     'required' => true,
                 ),
+                'region_id' => array(
+                    'required' => true,
+                ),
                 'short_code' => array(
                     'required' => true,
-                    'min' => 2,
+                    'min' => 3,
                 )
             ));
             if ($validate->passed()) {
                 try {
                     $user->createRecord('district', array(
                         'name' => Input::get('district_name'),
+                        'region_id' => Input::get('region_id'),
                         'short_code' => Input::get('short_code'),
                         'status' => 1
                     ));
@@ -243,15 +432,19 @@ if ($user->isLoggedIn()) {
                 'ward_name' => array(
                     'required' => true,
                 ),
+                'district_id' => array(
+                    'required' => true,
+                ),
                 'short_code' => array(
                     'required' => true,
-                    'min' => 2,
+                    'min' => 3,
                 )
             ));
             if ($validate->passed()) {
                 try {
                     $user->createRecord('ward', array(
                         'name' => Input::get('ward_name'),
+                        'district_id' => Input::get('district_id'),
                         'short_code' => Input::get('short_code'),
                         'status' => 1
                     ));
@@ -268,19 +461,72 @@ if ($user->isLoggedIn()) {
                 'village_name' => array(
                     'required' => true,
                 ),
+                'region_id' => array(
+                    'required' => true,
+                ),
+                'district_id' => array(
+                    'required' => true,
+                ),
+                'ward_id' => array(
+                    'required' => true,
+                ),
                 'short_code' => array(
                     'required' => true,
-                    'min' => 2,
+                    'min' => 3,
                 )
             ));
             if ($validate->passed()) {
                 try {
                     $user->createRecord('village', array(
+                        'region_id' => Input::get('region_id'),
+                        'district_id' => Input::get('district_id'),
+                        'ward_id' => Input::get('ward_id'),
                         'name' => Input::get('village_name'),
                         'short_code' => Input::get('short_code'),
                         'status' => 1
                     ));
                     $successMessage = 'Village Registered Successful';
+                } catch (Exception $e) {
+                    die($e->getMessage());
+                }
+            } else {
+                $pageError = $validate->errors();
+            }
+        } elseif (Input::get('add_hamlet')) {
+            $validate = new validate();
+            $validate = $validate->check($_POST, array(
+                'hamlet_name' => array(
+                    'required' => true,
+                ),
+                'region_id' => array(
+                    'required' => true,
+                ),
+                'district_id' => array(
+                    'required' => true,
+                ),
+                'ward_id' => array(
+                    'required' => true,
+                ),
+                'village_id' => array(
+                    'required' => true,
+                ),
+                'short_code' => array(
+                    'required' => true,
+                    'min' => 3,
+                )
+            ));
+            if ($validate->passed()) {
+                try {
+                    $user->createRecord('hamlet', array(
+                        'region_id' => Input::get('region_id'),
+                        'district_id' => Input::get('district_id'),
+                        'ward_id' => Input::get('ward_id'),
+                        'village_id' => Input::get('village_id'),
+                        'name' => Input::get('hamlet_name'),
+                        'short_code' => Input::get('short_code'),
+                        'status' => 1
+                    ));
+                    $successMessage = 'Hamlet Registered Successful';
                 } catch (Exception $e) {
                     die($e->getMessage());
                 }
@@ -329,6 +575,29 @@ if ($user->isLoggedIn()) {
                         'reason' => Input::get('reason'),
                     ));
                     $successMessage = 'Reason Registered Successful';
+                } catch (Exception $e) {
+                    die($e->getMessage());
+                }
+            } else {
+                $pageError = $validate->errors();
+            }
+        } elseif (Input::get('add_occupation')) {
+            $validate = new validate();
+            $validate = $validate->check($_POST, array(
+                'name' => array(
+                    'required' => true,
+                ),
+                // 'name_english' => array(
+                // 'required' => true,
+                // ),
+            ));
+            if ($validate->passed()) {
+                try {
+                    $user->createRecord('occupation', array(
+                        'name' => Input::get('name'),
+                        'name_english' => Input::get('name_english'),
+                    ));
+                    $successMessage = 'Occupation Registered Successful';
                 } catch (Exception $e) {
                     die($e->getMessage());
                 }
@@ -447,6 +716,7 @@ if ($user->isLoggedIn()) {
     Redirect::to('index.php');
 }
 ?>
+
 <nav class="navbar brb" role="navigation">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -528,8 +798,10 @@ if ($user->isLoggedIn()) {
                             <li><a href="#add_district" data-toggle="modal" data-backdrop="static" data-keyboard="false">ADD DISTRICT</a></li>
                             <li><a href="#add_ward" data-toggle="modal" data-backdrop="static" data-keyboard="false">ADD WARD</a></li>
                             <li><a href="#add_village" data-toggle="modal" data-backdrop="static" data-keyboard="false">ADD VILLAGE</a></li>
+                            <li><a href="#add_occupation" data-toggle="modal" data-backdrop="static" data-keyboard="false">ADD Occupation</a></li>
                             <li><a href="#add_hamlet" data-toggle="modal" data-backdrop="static" data-keyboard="false">ADD HAMLET</a></li>
                             <li><a href="#add_site" data-toggle="modal" data-backdrop="static" data-keyboard="false">ADD SITE</a></li>
+                            <li><a href="#add_gender" data-toggle="modal" data-backdrop="static" data-keyboard="false">ADD GENDER</a></li>
                             <li><a href="#add_images" data-toggle="modal" data-backdrop="static" data-keyboard="false">ADD LOGO</a></li>
                             <li><a href="#add_project" data-toggle="modal" data-backdrop="static" data-keyboard="false">ADD STUDY</a></li>
                             <li><a href="#add_pt_group" data-toggle="modal" data-backdrop="static" data-keyboard="false">ADD PATIENT GROUP</a></li>
@@ -546,15 +818,28 @@ if ($user->isLoggedIn()) {
                         </ul>
                     </li>
                 <?php } ?>
+
+                <li class="dropdown active">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-group"></span> VOLUNTIER</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#add_voluntier" data-toggle="modal" data-backdrop="static" data-keyboard="false">REGISTER</a></li>
+                        <li><a href="info.php?id=14">MANAGE VOLUNTIER</a></li>
+                    </ul>
+                </li>
         </ul>
 
     <?php } ?>
+
+
+
 
     <form class="navbar-form navbar-right" role="search">
         <div class="form-group">
             <input type="text" class="form-control" placeholder="search..." />
         </div>
     </form>
+
+
     </div>
 </nav>
 
@@ -930,6 +1215,40 @@ if ($user->isLoggedIn()) {
         </div>
     </div>
 </div>
+
+<!-- ADD GENDER -->
+<div class="modal" id="add_gender" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">ADD GENDER</h4>
+                </div>
+                <div class="modal-body clearfix">
+                    <div class="controls">
+                        <div class="form-row">
+                            <div class="col-md-2">Name:</div>
+                            <div class="col-md-10">
+                                <input type="text" name="gender_name" class="form-control" value="" required="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="pull-right col-md-3">
+                        <input type="submit" name="add_gender" value="ADD" class="btn btn-success btn-clean">
+                    </div>
+                    <div class="pull-right col-md-2">
+                        <button type="button" class="btn btn-default btn-clean" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 <div class="modal" id="end_study_reason" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -1207,6 +1526,9 @@ if ($user->isLoggedIn()) {
         </div>
     </div>
 </div>
+
+
+<!-- ADD DISTRICT -->
 <div class="modal" id="add_district" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -1216,6 +1538,19 @@ if ($user->isLoggedIn()) {
                     <h4 class="modal-title">ADD DISTRICT</h4>
                 </div>
                 <div class="modal-body clearfix">
+
+                    <div class="form-row" id="st">
+                        <div class="col-md-2">REGION NAME:</div>
+                        <div class="col-md-10">
+                            <select class="form-control" id="region_id" name="region_id" required>
+                                <option value="">SELECT</option>
+                                <?php foreach ($override->getData('region') as $group) { ?>
+                                    <option value="<?= $group['id'] ?>"><?= $group['name'] ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="controls">
                         <div class="form-row">
                             <div class="col-md-2">Name:</div>
@@ -1243,6 +1578,8 @@ if ($user->isLoggedIn()) {
         </div>
     </div>
 </div>
+
+<!-- WARD  -->
 <div class="modal" id="add_ward" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -1253,6 +1590,32 @@ if ($user->isLoggedIn()) {
                 </div>
                 <div class="modal-body clearfix">
                     <div class="controls">
+
+                        <div class="form-row" id="rg">
+                            <div class="col-md-2">REGION:</div>
+                            <div class="col-md-10">
+                                <select class="form-control" id="region_id" name="region_id" required>
+                                    <option value="">SELECT</option>
+                                    <?php foreach ($override->getData('region') as $group) { ?>
+                                        <option value="<?= $group['id'] ?>"><?= $group['name'] ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="waitdst" style="display:none;" class="col-md-offset-5 col-md-1"><img src='img/owl/spinner-mini.gif' width="12" height="12" /><br>Loading..</div>
+                        <div class="form-row" id="rg">
+                            <div class="col-md-2">DISTRICT:</div>
+                            <div class="col-md-10">
+                                <select class="form-control" id="district_id" name="district_id" required>
+                                    <option value="">SELECT</option>
+                                    <?php foreach ($override->getData('district') as $group) { ?>
+                                        <option value="<?= $group['id'] ?>"><?= $group['name'] ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="form-row">
                             <div class="col-md-2">Name:</div>
                             <div class="col-md-10">
@@ -1279,6 +1642,8 @@ if ($user->isLoggedIn()) {
         </div>
     </div>
 </div>
+
+<!-- ADD VILLAGE  -->
 <div class="modal" id="add_village" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -1287,10 +1652,50 @@ if ($user->isLoggedIn()) {
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title">ADD VILLAGE</h4>
                 </div>
+
                 <div class="modal-body clearfix">
+
+                    <div class="form-row" id="rg2">
+                        <div class="col-md-2">REGION:</div>
+                        <div class="col-md-10">
+                            <select class="form-control" id="region_id" name="region_id" required>
+                                <option value="">SELECT</option>
+                                <?php foreach ($override->getData('region') as $group) { ?>
+                                    <option value="<?= $group['id'] ?>"><?= $group['name'] ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="waitrg2" style="display:none;" class="col-md-offset-5 col-md-1"><img src='img/owl/spinner-mini.gif' width="12" height="12" /><br>Loading..</div>
+                    <div class="form-row" id="st">
+                        <div class="col-md-2">DISTRICT:</div>
+                        <div class="col-md-10">
+                            <select class="form-control" id="district_id" name="district_id" required>
+                                <option value="">SELECT</option>
+                                <?php foreach ($override->getData('district') as $group) { ?>
+                                    <option value="<?= $group['id'] ?>"><?= $group['name'] ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="waitrg3" style="display:none;" class="col-md-offset-5 col-md-1"><img src='img/owl/spinner-mini.gif' width="12" height="12" /><br>Loading..</div>
+                    <div class="form-row" id="st">
+                        <div class="col-md-2">WARD NAME:</div>
+                        <div class="col-md-10">
+                            <select class="form-control" id="ward_id" name="ward_id" required>
+                                <option value="">SELECT</option>
+                                <?php foreach ($override->getData('ward') as $ward) { ?>
+                                    <option value="<?= $ward['id'] ?>"><?= $ward['name'] ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </div>
+
+
                     <div class="controls">
                         <div class="form-row">
-                            <div class="col-md-2">Name:</div>
+                            <div class="col-md-2">Village Name:</div>
                             <div class="col-md-10">
                                 <input type="text" name="village_name" class="form-control" value="" />
                             </div>
@@ -1315,6 +1720,8 @@ if ($user->isLoggedIn()) {
         </div>
     </div>
 </div>
+
+<!-- ADD HAMLET  -->
 <div class="modal" id="add_hamlet" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -1324,6 +1731,56 @@ if ($user->isLoggedIn()) {
                     <h4 class="modal-title">ADD HAMLET</h4>
                 </div>
                 <div class="modal-body clearfix">
+
+                    <div class="form-row" id="st">
+                        <div class="col-md-2">REGION:</div>
+                        <div class="col-md-10">
+                            <select class="form-control" id="region_id" name="region_id" required>
+                                <option value="">SELECT</option>
+                                <?php foreach ($override->getData('region') as $group) { ?>
+                                    <option value="<?= $group['id'] ?>"><?= $group['name'] ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="waitSty" style="display:none;" class="col-md-offset-5 col-md-1"><img src='img/owl/spinner-mini.gif' width="12" height="12" /><br>Loading..</div>
+                    <div class="form-row" id="st">
+                        <div class="col-md-2">DISTRICT:</div>
+                        <div class="col-md-10">
+                            <select class="form-control" id="district_id" name="district_id" required>
+                                <option value="">SELECT</option>
+                                <?php foreach ($override->getData('district') as $group) { ?>
+                                    <option value="<?= $group['id'] ?>"><?= $group['name'] ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="waitSty2" style="display:none;" class="col-md-offset-5 col-md-1"><img src='img/owl/spinner-mini.gif' width="12" height="12" /><br>Loading..</div>
+                    <div class="form-row" id="st">
+                        <div class="col-md-2">WARD NAME:</div>
+                        <div class="col-md-10">
+                            <select class="form-control" id="ward_id" name="ward_id" required>
+                                <option value="">SELECT</option>
+                                <?php foreach ($override->getData('ward') as $ward) { ?>
+                                    <option value="<?= $ward['id'] ?>"><?= $ward['name'] ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="waitSty3" style="display:none;" class="col-md-offset-5 col-md-1"><img src='img/owl/spinner-mini.gif' width="12" height="12" /><br>Loading..</div>
+                    <div class="form-row" id="st">
+                        <div class="col-md-2">Village Name:</div>
+                        <div class="col-md-10">
+                            <select class="form-control" id="village_id" name="village_id" required>
+                                <option value="">SELECT</option>
+                                <?php foreach ($override->getData('village') as $ward) { ?>
+                                    <option value="<?= $ward['id'] ?>"><?= $ward['name'] ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="controls">
                         <div class="form-row">
                             <div class="col-md-2">Name:</div>
@@ -1351,6 +1808,575 @@ if ($user->isLoggedIn()) {
         </div>
     </div>
 </div>
+
+<!-- OCCUPATION  -->
+<div class="modal" id="add_occupation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">ADD OCCUPATION</h4>
+                </div>
+                <div class="modal-body clearfix">
+                    <div class="controls">
+
+                        <div class="form-row">
+                            <div class="col-md-2">Name:</div>
+                            <div class="col-md-10">
+                                <input type="text" name="name" class="form-control" value="" required />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-2">Englis Name:</div>
+                            <div class="col-md-10">
+                                <input type="text" name="name_english" class="form-control" value="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="pull-right col-md-3">
+                        <input type="submit" name="add_occupation" value="ADD" class="btn btn-success btn-clean">
+                    </div>
+                    <div class="pull-right col-md-2">
+                        <button type="button" class="btn btn-default btn-clean" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- ADD VOLUNTIER  -->
+<!-- <div class="container">
+    <div class="card mx-auto" style="width: 80rem;"> -->
+<div class="modal faed-in" id="add_voluntier" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">ADD NEW VOLUNTIER</h4>
+                </div>
+                <div class="modal-body clearfix">
+                    <!-- <div class="controls"> -->
+
+                        <div class="form-row" id="st">
+                            <div>STUDY NAME:</div>
+                            <div class="col-md-10">
+                                <select class="form-control" id="project_id" name="project_id" required>
+                                    <option value="">SELECT STUDY</option>
+                                    <?php foreach ($override->getData('study') as $group) { ?>
+                                        <option value="<?= $group['name'] ?>"><?= $group['name'] ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row-md-12">
+                            <div class="col-md-6">
+                                <div class="form-row">
+                                    <div>INITIALS:</div>
+                                    <div class="col-md-10">
+                                        <input type="text" name="initial" class="form-control" value="" minlength="3" maxlength="3" required="" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-row">
+                                    <div>SENSITIZATION NUMBER</div>
+                                    <div class="col-md-10">
+                                        <input type="text" name="sensitization_no" class="form-control" pattern="\d*" value="" minlength="3" maxlength="3" required="" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row" id="st">
+                            <div>Respondent is</div>
+                            <div class="col-md-10">
+                                <select class="form-control" id="client_category" name="client_category" required>
+                                    <option value="">SELECT</option>
+                                    <?php foreach ($override->getData('client_category') as $group) { ?>
+                                        <option value="<?= $group['name'] ?>"><?= $group['name'] ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row-md-12">
+                            <div class="col-md-4">
+                                <div class="form-row">
+                                    <div>First Name:</div>
+                                    <div class="col-md-10">
+                                        <input type="text" name="fname" class="form-control" value="" required="" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-row">
+                                    <div>Midle Name:</div>
+                                    <div class="col-md-10">
+                                        <input type="text" name="mname" class="form-control" value="" required="" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-row">
+                                    <div>Last name:</div>
+                                    <div class="col-md-10">
+                                        <input type="text" name="lname" class="form-control" value="" required="" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- DATE OF BIRTH  -->
+
+                        <div class="row-md-12">
+                            <div class="col-md-4">
+                                <div class="form-row">
+                                    <div><i class="fas fa-calendar input-prefix" tabindex="0"></i>DATE OF BIRTH:</div>
+                                    <div class="col-md-10">
+                                        <input type="date" class="form-control fas fa-calendar input-prefix" name="dob" id="dob" required="" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-row">
+                                    <div>YEARS:</div>
+                                    <div class="col-md-10">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="year" id="year" pattern="\d*" minlength="2" maxlength="2" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-row">
+                                    <div>MONTHS:</div>
+                                    <div class="col-md-10">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="month" id="month" pattern="\d*" minlength="2" maxlength="2" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- DATE OF BIRTH  -->
+
+                        <div class="row-md-12">
+                            <div class="col-md-4">
+                                <div class="form-row">
+                                    <div>GENDER:</div>
+                                    <div class="col-md-10">
+                                        <select id="gender" name="gender" class="form-control" required>
+                                            <option value="">SELECT GENDER</option>
+                                            <?php foreach ($override->getData('gender') as $gender) { ?>
+                                                <option value="<?= $gender['name'] ?>"><?= $gender['name'] ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row-md-4">
+                            <div class="col-md-4">
+                                <div class="form-row">
+                                    <div>Pregnant?:</div>
+                                    <div class="col-md-10">
+                                        <select id="pregnant" name="pregnant" class="form-control" required>
+                                            <option value="">SELECT</option>
+                                            <?php foreach ($override->getData('yes_no_na') as $preg) { ?>
+                                                <option value="<?= $preg['name'] ?>"><?= $preg['name'] ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row-md-4">
+                            <div class="col-md-4">
+                                <div class="form-row">
+                                    <div>Literate?:</div>
+                                    <div class="col-md-10">
+                                        <select id="literate" name="literate" class="form-control" required>
+                                            <option value="">SELECT</option>
+                                            <?php foreach ($override->getData('yes_no') as $lt) { ?>
+                                                <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row-md-12">
+                            <!-- <div class="row-md-3"> -->
+                            <div class="col-md-4">
+                                <div class="form-row">
+                                    <div>Level of education</div>
+                                    <div class="col-md-10">
+                                        <select id="education" name="education" class="form-control" required>
+                                            <option value="">SELECT</option>
+                                            <?php foreach ($override->getData('education') as $lt) { ?>
+                                                <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- </div> -->
+
+                            <!-- <div class="row-md-4"> -->
+                            <div class="col-md-4">
+                                <div class="form-row">
+                                    <div>Marital Status</div>
+                                    <div class="col-md-10">
+                                        <select id="marital" name="marital" class="form-control" required>
+                                            <option value="">SELECT</option>
+                                            <?php foreach ($override->getData('marital_status') as $lt) { ?>
+                                                <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- </div> -->
+                        </div>
+
+
+                        <!-- <div class="row-md-12"> -->
+
+                        <!-- <div class="row-md-4"> -->
+                        <div class="col-md-4">
+                            <div class="form-row">
+                                <div>Occupation</div>
+                                <div class="col-md-10">
+                                    <select id="occupation" name="occupation" class="form-control" required>
+                                        <option value="">SELECT</option>
+                                        <?php foreach ($override->getData('occupation') as $lt) { ?>
+                                            <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-12">
+                            <div class="form-row">
+                                <label for="duration">Other Occupation:</label>
+                                <div class="col-md-2"></div>
+                                <div class="col-md-10">
+                                    <textarea name="other_occupation" id="other_occupation" cols="40%" rows="2"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- </div> -->
+
+
+                        <!-- POHONE  -->
+
+                        <div class="row-md-12">
+                            <div class="col-md-6">
+                                <div class="form-row">
+                                    <div class="col-md-2">Phone:</div>
+                                    <div class="col-md-10">
+                                        <input type="text" name="phone1" class="form-control" value="" pattern="\d*" minlength="10" maxlength="10" required="" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-row">
+                                    <div class="col-md-2">Phone2:</div>
+                                    <div class="col-md-10">
+                                        <input type="text" name="phone2" class="form-control" value="" pattern="\d*" minlength="10" maxlength="10" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- POHONE  -->
+
+                        <div class="row-md-12">
+                            <div class="col-md-12">
+                                <div class="form-row">
+                                    <div>Child attending school?</div>
+                                    <div class="col-md-10">
+                                        <select id="attend_school" name="attend_school" class="form-control" required>
+                                            <option value="">SELECT</option>
+                                            <?php foreach ($override->getData('yes_no_na') as $lt) { ?>
+                                                <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- DEMOGRAPHIC  -->
+
+                        <div class="row-md-12">
+                            <div class="col-md-6">
+                                <div class="form-row">
+                                    <div>REGION:</div>
+                                    <div class="col-md-10">
+                                        <select id="region" name="region" class="form-control" required>
+                                            <option value="">SELECT</option>
+                                            <?php foreach ($override->getData('region') as $lt) { ?>
+                                                <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-row">
+                                    <div>DISTRICT:</div>
+                                    <div class="col-md-10">
+                                        <select id="district" name="district" class="form-control" required>
+                                            <option value="">SELECT</option>
+                                            <?php foreach ($override->getData('district') as $lt) { ?>
+                                                <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row-md-12">
+                            <div class="col-md-4">
+                                <div class="form-row">
+                                    <div>WARD:</div>
+                                    <div class="col-md-10">
+                                        <select id="ward" name="ward" class="form-control" required>
+                                            <option value="">SELECT</option>
+                                            <?php foreach ($override->getData('ward') as $lt) { ?>
+                                                <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-row">
+                                    <div>VILLAGE:</div>
+                                    <div class="col-md-10">
+                                        <select id="village" name="village" class="form-control" required>
+                                            <option value="">SELECT</option>
+                                            <?php foreach ($override->getData('village') as $lt) { ?>
+                                                <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-row">
+                                    <div>Hamlet / Kitongoji:</div>
+                                    <div class="col-md-10">
+                                        <select id="hamlet" name="hamlet" class="form-control" required>
+                                            <option value="">SELECT</option>
+                                            <?php foreach ($override->getData('hamlet') as $lt) { ?>
+                                                <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+                        <br>
+                        <br><br>
+                        <div class="row-md-12">
+                            <div class="col-md-6">
+                                <div class="form-row">
+                                    <label for="duration">For Bagamoyo residents, please specify the intended duration of stay in Bagamoyo:</label>
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-10">
+                                        <select id="duration" name="duration" class="form-control" required>
+                                            <option value="">SELECT</option>
+                                            <?php foreach ($override->getData('duration') as $lt) { ?>
+                                                <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-row">
+                                    <label for="duration">Is the participant willing to be contacted for the next sensitization meeting?</label>
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-10">
+                                        <select id="willing_contact" name="willing_contact" class="form-control" required>
+                                            <option value="">SELECT</option>
+                                            <?php foreach ($override->getData('yes_no') as $lt) { ?>
+                                                <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+                        <br>
+                        <br><br>
+                        <div class="form-row">
+                            <label for="duration">Briefly describe participant residential location in relation to the nearest famous neighborhoods:</label>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-10">
+                                <textarea name="location" id="location" cols="100%" rows="4" required></textarea>
+                            </div>
+                        </div>
+
+                        <!-- DEMOGRAPHIC  -->
+
+
+                        <div class="row-md-12">
+                            <div class="col-md-6">
+                                <div class="form-row">
+                                    <label for="duration">Enrolled:</label>
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-10">
+                                        <select id="enrolled" name="enrolled" class="form-control" required>
+                                            <option value="">SELECT</option>
+                                            <?php foreach ($override->getData('yes_no_not_yet') as $lt) { ?>
+                                                <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-row">
+                                    <label for="duration">Reason</label>
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-10">
+                                        <select id="reason" name="reason" class="form-control" required>
+                                            <option value="">SELECT</option>
+                                            <?php foreach ($override->getData('end_study_reason') as $lt) { ?>
+                                                <option value="<?= $lt['reason'] ?>"><?= $lt['reason'] ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-row">
+                                <label for="duration">Other reason Details:</label>
+                                <div class="col-md-2"></div>
+                                <div class="col-md-10">
+                                    <textarea name="other_reason" id="other_reason" cols="40%" rows="2"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- INITIALS  -->
+
+                        <div class="row-md-12">
+                            <div class="col-md-6">
+                                <div class="form-row">
+                                    <div>Interviewer Initials:</div>
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control" name="interviewer_initial" id="interviewer_initial" placeholder="Enter UInitial" minlength="3" maxlength="3" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-row">
+                                    <div><i class="fas fa-calendar input-prefix" tabindex="0"></i>Interviewer Date:</div>
+                                    <div class="col-md-10">
+                                        <input type="date" class="form-control fas fa-calendar input-prefix" name="interviewer_date" id="interviewer_date" required="" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row-md-12">
+                            <div class="col-md-6">
+                                <div class="form-row">
+                                    <div>Reviewer Initials:</div>
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control" name="reviewer_initial" id="reviewer_initial" placeholder="Enter UInitial" minlength="3" maxlength="3" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-row">
+                                    <div><i class="fas fa-calendar input-prefix" tabindex="0"></i>Reviewer Date:</div>
+                                    <div class="col-md-10">
+                                        <input type="date" class="form-control fas fa-calendar input-prefix" name="reviewer_date" id="reviewer_date" required="" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <!-- </div> -->
+
+                </div>
+
+                <!-- INITIALS  -->
+                <div class="modal-footer">
+                    <div class="pull-right col-md-3">
+                        <input type="submit" name="register_voluntier" value="ADD" class="btn btn-success btn-clean">
+                    </div>
+                    <div class="pull-right col-md-2">
+                        <button type="button" class="btn btn-default btn-clean" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- </div>
+</div> -->
+
+
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+
+
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous"> -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> -->
+
+<!-- Datatable JS -->
+<!-- <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script> -->
+
+<!-- Datatable CSS -->
+<!-- <link href='//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css' rel='stylesheet' type='text/css'> -->
+
+
+<!-- <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js"></script> -->
+
 <script>
     $(document).ready(function() {
         $('#study_id').change(function() {
@@ -1390,38 +2416,85 @@ if ($user->isLoggedIn()) {
             });
         });
 
-
-        $('#example').DataTable({
-            dom: 'Bfrtip',
-            buttons: [{
-
-                    extend: 'excelHtml5',
-                    title: 'VISITS',
-                    className: 'btn-primary'
+        $('#region_id').change(function() {
+            var regionId = $(this).val();
+            $('#rg').hide();
+            $('#waitdst').show();
+            $.ajax({
+                url: "process.php?content=district",
+                method: "GET",
+                data: {
+                    regionId: regionId
                 },
-                {
-                    extend: 'pdfHtml5',
-                    title: 'VISITS',
-                    className: 'btn-primary'
-
-                },
-                {
-                    extend: 'csvHtml5',
-                    title: 'VISITS',
-                    className: 'btn-primary'
-                },
-                {
-                    extend: 'copyHtml5',
-                    title: 'VISITS',
-                    className: 'btn-primary'
-                },
-                //     {
-                //         extend: 'print',
-                //         // name: 'printButton'
-                //         title: 'VISITS'
-                //     }
-            ]
+                dataType: "text",
+                success: function(data) {
+                    $('#district_id').html(data);
+                    $('#rg').show();
+                    $('#waitdst').hide();
+                }
+            });
         });
+
+
+        // $('#searchSchedule').DataTable({
+        //     dom: 'Bfrtip',
+        //     buttons: [{
+
+        //             extend: 'excelHtml5',
+        //             title: 'VISITS',
+        //             className: 'btn-primary'
+        //         },
+        //         {
+        //             extend: 'pdfHtml5',
+        //             title: 'VISITS',
+        //             className: 'btn-primary'
+
+        //         },
+        //         {
+        //             extend: 'csvHtml5',
+        //             title: 'VISITS',
+        //             className: 'btn-primary'
+        //         },
+        //         {
+        //             extend: 'copyHtml5',
+        //             title: 'VISITS',
+        //             className: 'btn-primary'
+        //         },
+        //         //     {
+        //         //         extend: 'print',
+        //         //         // name: 'printButton'
+        //         //         title: 'VISITS'
+        //         //     }
+        //     ],
+
+        //     fields: [
+        //     //     {
+        //     //     label: 'First name:',
+        //     //     name: 'first_name'
+        //     // }, {
+        //     //     label: 'Last name:',
+        //     //     name: 'last_name'
+        //     // }, {
+        //     //     label: 'Updated date:',
+        //     //     name: 'updated_date',
+        //     //     type: 'date',
+        //     //     def: function() {
+        //     //         return new Date();
+        //     //     },
+        //     //     dateFormat: $.datepicker.ISO_8601
+        //     // }, 
+        //     {
+        //         label: 'From:',
+        //         name: 'from_date',
+        //         type: 'date',
+        //         def: function() {
+        //             return new Date();
+        //         },
+        //         dateFormat: $.datepicker.ISO_8601
+        //     }]
+
+
+        // });
 
 
         // $("#search_schedule").on("submit", function() {

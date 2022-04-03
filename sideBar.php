@@ -156,7 +156,7 @@ if ($clntNo) {
 
             <li class="list-group-item">
                 <div class="dropdown">
-                    <a href="info.php?id=4" class="list-group-item dropdown-toggle" data-toggle="dropdown"><span class="icon-calendar"></span>Total Vaccinated Patients<i class="icon-angle-right pull-right"></i><span class="label label-info pull-right"><?= $override->countActiveUser(); ?></span></a>
+                    <a href="info.php?id=4" class="list-group-item dropdown-toggle" data-toggle="dropdown"><span class="icon-calendar"></span>Total Vaccinated Participants<i class="icon-angle-right pull-right"></i><span class="label label-info pull-right"><?= $override->countActiveUser(); ?></span></a>
 
                     <ul class="dropdown-menu">
                         <?php foreach ($override->getData('study') as $study) { ?>

@@ -449,6 +449,10 @@ if ($user->isLoggedIn()) {
                         $user->updateScheduleNotDelayedVac082(Input::get('project_name'), Input::get('id'), Input::get('visit_date'), Input::get('visit'));
                     } elseif ((Input::get('project_name') == 'VAC082') and (Input::get('group_name') == 'Group 3C' || Input::get('group_name') == 'Group 4A' || Input::get('group_name') == 'Group 4B' || Input::get('group_name') == 'Group 4C')) {
                         $user->updateScheduleDelayedVac082(Input::get('project_name'), Input::get('id'), Input::get('visit_date'), Input::get('visit'));
+                    } elseif ((Input::get('project_name') == 'RAB002')) {
+                        $user->updateScheduleRAB002(Input::get('project_name'), Input::get('id'), Input::get('visit_date'), Input::get('visit'));
+                    } elseif ((Input::get('project_name') == 'EBL08')) {
+                        $user->updateScheduleEBL08(Input::get('project_name'), Input::get('id'), Input::get('visit_date'), Input::get('visit'));
                     }
                     $successMessage = 'Visit Edited Successful';
                 } catch (Exception $e) {
@@ -1364,7 +1368,7 @@ if ($user->isLoggedIn()) {
                 <?php } elseif ($_GET['id'] == 4) { ?>
                     <div class="block">
                         <div class="header">
-                            <h2>TOTAL VACCINATED PATIENTS</h2>
+                            <h2>TOTAL VACCINATED PARTICIPANTS</h2>
                         </div>
                         <div class="content">
                             <table id="allVisit" cellpadding="0" cellspacing="0" width="100%" class="table table-bordered table-striped sortable">
@@ -1441,7 +1445,7 @@ if ($user->isLoggedIn()) {
                 <?php } elseif ($_GET['id'] == 5) { ?>
                     <div class="block">
                         <div class="header">
-                            <h2>LIST OF ALL SCREENED PATIENTS</h2>
+                            <h2>LIST OF ALL SCREENED PARTICIPANTS</h2>
                         </div>
                         <div class="content">
                             <table id="allVisit" cellpadding="0" cellspacing="0" width="100%" class="table table-bordered table-striped sortable">
@@ -1926,7 +1930,7 @@ if ($user->isLoggedIn()) {
                 <?php } elseif ($_GET['id'] == 7) { ?>
                     <div class="block">
                         <div class="header">
-                            <h2>PATIENT VISIT</h2>
+                            <h2>PARTICIPANTS VISIT</h2>
                         </div>
                         <div class="content">
                             <table id="allVisit" cellpadding="0" cellspacing="0" width="100%" class="table table-bordered table-striped sortable">
@@ -2509,7 +2513,7 @@ if ($user->isLoggedIn()) {
                         <div class="col-md-6">
                             <div class="block">
                                 <div class="header">
-                                    <h2>PATIENT GROUP</h2>
+                                    <h2>PARTICIPANT GROUP</h2>
                                 </div>
                                 <div class="content">
                                     <table id="allVisit" class="table table-bordered">
@@ -3382,6 +3386,232 @@ if ($user->isLoggedIn()) {
                             </table>
                         </div>
                     </div>
+                    <?php } elseif ($_GET['id'] == 14) { ?>
+                        <div class="block">
+                        <div class="header">
+                            <h2>STAFF</h2>
+                        </div>
+                        <div class="content">
+                            <table id="allVisit" cellpadding="0" cellspacing="0" width="100%" class="table table-bordered table-striped sortable">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th width="15%">FIRST NAME</th>
+                                        <th width="10%">MIDDLE NAME </th>
+                                        <th width="10%">LAST NAME</th>
+                                        <th width="10%">INITIAL</th>
+                                        <th width="10%">SENSITIZATION</th>
+                                        <th width="10%">CATEGORY</th>
+                                        <th width="10%">STUDY</th>
+                                        <th width="10%">GENDER</th>
+                                        <th width="10%">AGE</th>
+                                        <th width="10%">PHONE</th>
+                                        <th width="10%">NEXT CONTACT</th>
+                                        <th width="10%">Enrolled</th>
+                                        <th width="10%">STATUS</th>
+                                        <th width="25%">MANAGE</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $y = 0;
+                                    $x = 1;
+                                    if ($user->data()->access_level == 1 || $user->data()->access_level == 2 || $user->data()->access_level == 3) {
+                                        $staffs = $override->get1('details');
+                                    } elseif ($user->data()->access_level == 4) {
+                                        $staffs = $override->getNews('staff', 'status', 1, 'c_id', $user->data()->c_id);
+                                    }
+                                    foreach ($staffs as $staff) {
+                                        if ($user->data()->access_level != 1 || $user->data()->id != $staff['id']) {
+                                            if ($user->data()->access_level == 1) {
+                                                $power = 1;
+                                            } else {
+                                                $power = 0;
+                                            }
+                                            $site = $override->get('site', 'id', $staff['s_id']);
+                                            $country = $override->get('country', 'id', $staff['c_id']);
+                                            $position = $override->get('position', 'id', $staff['position'])[0] ?>
+                                            <tr>
+                                                <td><?= $x ?></td>
+                                                <td><?= $staff['fname']; ?></td>
+                                                <td><?= $staff['mname']; ?></td>
+                                                <td><?= $staff['lname']; ?></td>
+                                                <td><?= $staff['initial'] ?></td>
+                                                <td><?= $staff['sensitization_no'] ?></td>
+                                                <td><?= $staff['client_category'] ?></td>
+                                                <td><?= $staff['project_name'] ?></td>
+                                                <td><?= $staff['gender'] ?></td>
+                                                <td><?= $staff['year'] ?></td>
+                                                <td><?= $staff['phone1'] ?></td>
+                                                <td><?= $staff['willing_contact'] ?></td>
+                                                <td><?= $staff['enrolled'] ?></td>
+                                                <td><?= $staff['status'] ?></td>
+                                                <td></td>
+                                                <td>
+                                                    <div class="btn-group btn-group-xs"> <?php if ($staff['token'] || $staff['count'] >= 4) { ?><button class="btn btn-warning">INACTIVE</button> <?php } else { ?><button class="btn btn-success">ACTIVE</button><?php } ?></div>
+                                                </td>
+                                                </td>
+                                                <td>
+                                                    <?php if ($staff['access_level'] != 2 || $power == 1) { ?>
+                                                        <a href="#edit_staff<?= $y ?>" data-toggle="modal" class="widget-icon" title="Edit Staff Information"><span class="icon-pencil"></span></a>
+                                                        <a href="#reset_password<?= $y ?>" data-toggle="modal" class="widget-icon" title="Reset Password to Default"><span class="icon-refresh"></span></a>
+                                                        <a href="#delete_staff<?= $y ?>" data-toggle="modal" class="widget-icon" title="Delete Staff"><span class="icon-trash"></span></a>
+                                                    <?php } ?>
+                                                </td>
+                                            </tr>
+                                            <div class="modal" id="edit_staff<?= $y ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <form method="post">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                <h4 class="modal-title">EDIT STAFF</h4>
+                                                            </div>
+                                                            <div class="modal-body clearfix">
+                                                                <div class="controls">
+                                                                    <div class="form-row">
+                                                                        <div class="col-md-2">First Name:</div>
+                                                                        <div class="col-md-10">
+                                                                            <input type="text" name="firstname" class="form-control" value="<?= $staff['firstname'] ?>" required="" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-row">
+                                                                        <div class="col-md-2">Last Name:</div>
+                                                                        <div class="col-md-10">
+                                                                            <input type="text" name="lastname" class="form-control" value="<?= $staff['lastname'] ?>" required="" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-row">
+                                                                        <div class="col-md-2">Country:</div>
+                                                                        <div class="col-md-10">
+                                                                            <select class="form-control" id="c" name="country_id" required="">
+                                                                                <option value="<?= $country[0]['id'] ?>"><?= $country[0]['name'] ?></option>
+                                                                                <?php if ($user->data()->access_level == 1 || $user->data()->access_level == 2) {
+                                                                                    $countries = $override->get('country', 'status', 1);
+                                                                                } elseif ($user->data()->access_level == 4) {
+                                                                                    $countries = $override->getNews('country', 'id', $user->data()->c_id, 'status', 1);
+                                                                                }
+                                                                                foreach ($countries as $country) { ?>
+                                                                                    <option value="<?= $country['id'] ?>"><?= $country['name'] ?></option>
+                                                                                <?php } ?>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div id="w" style="display:none;" class="col-md-offset-5 col-md-1"><img src='img/owl/spinner-mini.gif' width="12" height="12" /><br>Loading..</div>
+                                                                    <div class="form-row" id="s_i">
+                                                                        <div class="col-md-2">Site:</div>
+                                                                        <div class="col-md-10">
+                                                                            <select class="form-control" id="site_i" name="site_id" required="">
+                                                                                <option value="<?= $site[0]['id'] ?>"><?= $site[0]['name'] ?></option>
+                                                                                <?php foreach ($override->get('site', 'status', 1) as $site) { ?>
+                                                                                    <option value="<?= $site['id'] ?>"><?= $site['name'] ?></option>
+                                                                                <?php } ?>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-row">
+                                                                        <div class="col-md-2">Position:</div>
+                                                                        <div class="col-md-10">
+                                                                            <select class="form-control" name="position" required="">
+                                                                                <!-- you need to properly manage positions -->
+                                                                                <option value="<?= $position['id'] ?>"><?= $position['name'] ?></option>
+                                                                                <?php foreach ($override->getData('position') as $position) {
+                                                                                    if ($user->data()->access_level == 1 && $user->data()->power == 1) { ?>
+                                                                                        <option value="<?= $position['id'] ?>"><?= $position['name'] ?></option>
+                                                                                    <?php } elseif ($user->data()->access_level == 1 && $position['name'] != 'Principle Investigator') { ?>
+                                                                                        <option value="<?= $position['id'] ?>"><?= $position['name'] ?></option>
+                                                                                    <?php } elseif ($user->data()->access_level == 2 && $position['name'] != 'Coordinator' && $position['name'] != 'Principle Investigator') { ?>
+                                                                                        <option value="<?= $position['id'] ?>"><?= $position['name'] ?></option>
+                                                                                <?php }
+                                                                                } ?>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-row">
+                                                                        <div class="col-md-2">Username:</div>
+                                                                        <div class="col-md-10">
+                                                                            <input type="text" name="username" class="form-control" value="<?= $staff['username'] ?>" required="" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-row">
+                                                                        <div class="col-md-2">Phone:</div>
+                                                                        <div class="col-md-10">
+                                                                            <input type="text" name="phone_number" class="form-control" value="<?= $staff['phone_number'] ?>" required="" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-row">
+                                                                        <div class="col-md-2">Email:</div>
+                                                                        <div class="col-md-10">
+                                                                            <input type="text" name="email_address" class="form-control" value="<?= $staff['email_address'] ?>" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <div class="pull-right col-md-3">
+                                                                    <input type="hidden" name="id" value="<?= $staff['id'] ?>">
+                                                                    <input type="submit" name="edit_staff" value="Submit" class="btn btn-success btn-clean">
+                                                                </div>
+                                                                <div class="pull-right col-md-2">
+                                                                    <button type="button" class="btn btn-default btn-clean" data-dismiss="modal">Close</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal modal-info" id="reset_password<?= $y ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <form method="post">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                <h4 class="modal-title">YOU SURE YOU WANT TO RESET PASSWORD FOR THIS STAFF ?</h4>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <div class="col-md-2 pull-right">
+                                                                    <input type="hidden" name="firstname" value="<?= $staff['firstname'] ?>">
+                                                                    <input type="hidden" name="email" value="<?= $staff['email_address'] ?>">
+                                                                    <input type="hidden" name="id" value="<?= $staff['id'] ?>">
+                                                                    <input type="submit" name="reset_password" value="RESET" class="btn btn-default btn-clean">
+                                                                </div>
+                                                                <div class="col-md-2 pull-right">
+                                                                    <button type="button" class="btn btn-default btn-clean" data-dismiss="modal">Close</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal modal-danger" id="delete_staff<?= $y ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <form method="post">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                <h4 class="modal-title">YOU SURE YOU WANT TO DELETE THIS STAFF ?</h4>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <div class="col-md-2 pull-right">
+                                                                    <input type="hidden" name="id" value="<?= $staff['id'] ?>">
+                                                                    <input type="submit" name="delete_staff" value="DELETE" class="btn btn-default btn-clean">
+                                                                </div>
+                                                                <div class="col-md-2 pull-right">
+                                                                    <button type="button" class="btn btn-default btn-clean" data-dismiss="modal">Close</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    <?php $x++;
+                                        }
+                                        $y++;
+                                    } ?>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
                 <?php } ?>
             </div>
         </div>
@@ -3441,7 +3671,7 @@ if ($user->isLoggedIn()) {
                 // }],
 
 
-                dom: 'Bfrtip',
+                dom: 'lBfrtip',
                 buttons: [{
 
                         extend: 'excelHtml5',
@@ -3485,6 +3715,7 @@ if ($user->isLoggedIn()) {
                 // buttons: [
                 //     'copy', 'excel', 'pdf'
                 // ]
+                "pageLength": 100
 
 
 
@@ -3502,7 +3733,7 @@ if ($user->isLoggedIn()) {
                 },
                 // columns: columnDefs,
 
-                dom: 'Bfrtip',
+                dom: 'lBfrtip',
                 buttons: [{
 
                         extend: 'excelHtml5',
@@ -3535,7 +3766,8 @@ if ($user->isLoggedIn()) {
                     //         // name: 'printButton'
                     //         title: 'VISITS'
                     //     }
-                ]
+                ],
+                "pageLength": 100
             });
 
             // $(".dataTables_empty").text("There is No Any Visit Today.").css('color', '#FF0000');
@@ -3548,7 +3780,7 @@ if ($user->isLoggedIn()) {
                 },
                 // columns: columnDefs,
 
-                dom: 'Bfrtip',
+                dom: 'lBfrtip',
                 buttons: [{
 
                         extend: 'excelHtml5',
@@ -3581,7 +3813,8 @@ if ($user->isLoggedIn()) {
                     //         // name: 'printButton'
                     //         title: 'VISITS'
                     //     }
-                ]
+                ],
+                "pageLength": 100
             });
 
             // $(".dataTables_empty").text("There is No Any Visit Today.").css('color', '#FF0000');

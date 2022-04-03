@@ -46,6 +46,10 @@ if ($user->isLoggedIn()) {
                             $user->generateScheduleNotDelayedVac082(Input::get('study_name'), Input::get('client_id'), $date = date('Y-m-d', strtotime(Input::get('visit_date'))), 1, 'c');
                         } elseif ((Input::get('study_name') == 'VAC082') and (Input::get('group') == 'Group 3C' || Input::get('group') == 'Group 4A' || Input::get('group') == 'Group 4B' || Input::get('group') == 'Group 4C')) {
                             $user->generateScheduleDelayedVac082(Input::get('study_name'), Input::get('client_id'), $date = date('Y-m-d', strtotime(Input::get('visit_date'))), 1, 'c');
+                        } elseif ((Input::get('study_name') == 'RAB002')) {
+                            $user->generateScheduleRAB002(Input::get('study_name'), Input::get('client_id'), $date = date('Y-m-d', strtotime(Input::get('visit_date'))), 1, 'c');
+                        } elseif ((Input::get('study_name') == 'EBL08')) {
+                            $user->generateScheduleEBL08(Input::get('study_name'), Input::get('client_id'), $date = date('Y-m-d', strtotime(Input::get('visit_date'))), 1, 'c');
                         }
                         $successMessage = 'Schedules Added Successful';
                     } else {
