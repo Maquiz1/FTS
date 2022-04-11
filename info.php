@@ -230,76 +230,76 @@ if ($user->isLoggedIn()) {
             } else {
                 $pageError = $validate->errors();
             }
-        }elseif (Input::get('edit_participant')) {
+        } elseif (Input::get('edit_participant')) {
             $validate = new validate();
-                $validate = $validate->check($_POST, array(
-                    'project_id' => array(
-                        'required' => true,
-                    ),
-                    'initial' => array(
-                        'required' => true,
-                    ),
-                    'sensitization_one' => array(
-                        'required' => true,
-                    ),
-                    'sensitization_two' => array(
-                        'required' => true,
-                    ),
-                    'sensitization_no' => array(
-                        'required' => true,
-                    ),
-                    'client_category' => array(
-                        'required' => true,
-                    ),
-                    'fname' => array(
-                        'required' => true,
-                    ),
-                    'mname' => array(
-                        'required' => true,
-                    ),
-                    'lname' => array(
-                        'required' => true,
-                    ),
-                    'dob' => array(
-                        'required' => true,
-                    ),
-                    'gender' => array(
-                        'required' => true,
-                    ),
-                    'phone1' => array(
-                        'required' => true,
-                        // 'unique' => 'details'
-                    ),
-                    'attend_school' => array(
-                        'required' => true,
-                    ),
-                    'region' => array(
-                        'required' => true,
-                    ),
-                    'district' => array(
-                        'required' => true,
-                    ),
-                    'ward' => array(
-                        'required' => true,
-                    ),
-                    'village' => array(
-                        'required' => true,
-                    ),
-                    'hamlet' => array(
-                        'required' => true,
-                    ),
-                    'duration' => array(
-                        'required' => true,
-                    ),
-                    'willing_contact' => array(
-                        'required' => true,
-                    ),
-                    'location' => array(
-                        'required' => true,
-                    ),
-                    'status' => array(
-                        'required' => true,
-                    )
+            $validate = $validate->check($_POST, array(
+                'project_id' => array(
+                    'required' => true,
+                ),
+                'initial' => array(
+                    'required' => true,
+                ),
+                'sensitization_one' => array(
+                    'required' => true,
+                ),
+                'sensitization_two' => array(
+                    'required' => true,
+                ),
+                'sensitization_no' => array(
+                    'required' => true,
+                ),
+                'client_category' => array(
+                    'required' => true,
+                ),
+                'fname' => array(
+                    'required' => true,
+                ),
+                'mname' => array(
+                    'required' => true,
+                ),
+                'lname' => array(
+                    'required' => true,
+                ),
+                'dob' => array(
+                    'required' => true,
+                ),
+                'gender' => array(
+                    'required' => true,
+                ),
+                'phone1' => array(
+                    'required' => true,
+                    // 'unique' => 'details'
+                ),
+                'attend_school' => array(
+                    'required' => true,
+                ),
+                'region' => array(
+                    'required' => true,
+                ),
+                'district' => array(
+                    'required' => true,
+                ),
+                'ward' => array(
+                    'required' => true,
+                ),
+                'village' => array(
+                    'required' => true,
+                ),
+                'hamlet' => array(
+                    'required' => true,
+                ),
+                'duration' => array(
+                    'required' => true,
+                ),
+                'willing_contact' => array(
+                    'required' => true,
+                ),
+                'location' => array(
+                    'required' => true,
+                ),
+                'status' => array(
+                    'required' => true,
+                )
             ));
             if ($validate->passed()) {
                 try {
@@ -3681,7 +3681,7 @@ if ($user->isLoggedIn()) {
                                                 <td><?= $staff['phone1'] ?></td>
                                                 <td><?= $staff['willing_contact'] ?></td>
                                                 <td>
-                                                    <div class="btn-group btn-group-xs"> <?php if ($staff['status'] == 'In Study'|| $staff['status'] >= 'Enrolled') { ?><button class="btn btn-success">Enrolled</button> <?php } else { ?><button class="btn btn-warning">Not Enrolled</button><?php } ?></div>
+                                                    <div class="btn-group btn-group-xs"> <?php if ($staff['status'] == 'Enrolled') { ?><button class="btn btn-success">Enrolled</button> <?php } else { ?><button class="btn btn-warning">Not Enrolled</button><?php } ?></div>
                                                 </td>
                                                 </td>
                                                 <td>
@@ -3690,8 +3690,50 @@ if ($user->isLoggedIn()) {
                                                     <?php } ?>
                                                 </td>
                                             </tr>
+                                            
 
-                                            <div class="modal" id="edit_participant<?= $y ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <!-- <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header text-center">
+                                                            <h4 class="modal-title w-100 font-weight-bold">Sign up</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body mx-3">
+                                                            <div class="md-form mb-5">
+                                                                <i class="fas fa-user prefix grey-text"></i>
+                                                                <input type="text" id="orangeForm-name" class="form-control validate">
+                                                                <label data-error="wrong" data-success="right" for="orangeForm-name">Your name</label>
+                                                            </div>
+                                                            <div class="md-form mb-5">
+                                                                <i class="fas fa-envelope prefix grey-text"></i>
+                                                                <input type="email" id="orangeForm-email" class="form-control validate">
+                                                                <label data-error="wrong" data-success="right" for="orangeForm-email">Your email</label>
+                                                            </div>
+
+                                                            <div class="md-form mb-4">
+                                                                <i class="fas fa-lock prefix grey-text"></i>
+                                                                <input type="password" id="orangeForm-pass" class="form-control validate">
+                                                                <label data-error="wrong" data-success="right" for="orangeForm-pass">Your password</label>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="modal-footer d-flex justify-content-center">
+                                                            <button class="btn btn-deep-orange">Sign up</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="text-center">
+                                                <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalRegisterForm">Launch
+                                                    Modal Register Form</a>
+                                            </div> -->
+
+
+                                            <div class="modal fade-in" id="edit_participant<?= $y ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <form method="post">
@@ -3865,7 +3907,7 @@ if ($user->isLoggedIn()) {
                                                                 <div class="row-md-12">
                                                                     <div class="col-md-6">
                                                                         <div class="form-row">
-                                                                            <div class="col-md-2">Phone:</div>
+                                                                            <div>Phone:</div>
                                                                             <div class="col-md-10">
                                                                                 <input type="text" name="phone1" class="form-control" value="<?= $staff['phone1']; ?>" pattern="\d*" minlength="10" maxlength="10" required="" />
                                                                             </div>
@@ -3873,7 +3915,7 @@ if ($user->isLoggedIn()) {
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <div class="form-row">
-                                                                            <div class="col-md-2">Phone2:</div>
+                                                                            <div>Phone2:</div>
                                                                             <div class="col-md-10">
                                                                                 <input type="text" name="phone2" class="form-control" value="<?= $staff['phone2']; ?>" pattern="\d*" minlength="10" maxlength="10" />
                                                                             </div>
@@ -4082,7 +4124,6 @@ if ($user->isLoggedIn()) {
             </div>
         </div>
     </div>
-
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>

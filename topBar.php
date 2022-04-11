@@ -1867,7 +1867,7 @@ if ($user->isLoggedIn()) {
 <!-- ADD VOLUNTIER  -->
 <!-- <div class="container">
     <div class="card mx-auto" style="width: 80rem;"> -->
-<div class="modal faed-in" id="add_voluntier" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal faed" id="add_voluntier" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <form method="post">
