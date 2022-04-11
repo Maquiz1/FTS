@@ -168,6 +168,9 @@ if ($user->isLoggedIn()) {
                 'location' => array(
                     'required' => true,
                 ),
+                'status' => array(
+                    'required' => true,
+                ),
                 // 'interviewer_initial' => array(
                 //     'required' => true,
                 // ),
@@ -181,9 +184,9 @@ if ($user->isLoggedIn()) {
                 // 'reviewer_date' => array(
                 //     'required' => true,
                 // ),
-                'enrolled' => array(
-                    'required' => true,
-                ),
+                // 'enrolled' => array(
+                //     'required' => true,
+                // ),
                 // 'reason' => array(
                 //     'required' => true,
                 // )
@@ -239,10 +242,10 @@ if ($user->isLoggedIn()) {
                         // 'reviewer_initial' => Input::get('reviewer_initial'),
                         // 'reviewer_date' => $rvwr_date,
                         'staff_id' => $user->data()->id,
-                        'enrolled' => Input::get('enrolled'),
+                        // 'enrolled' => Input::get('enrolled'),
+                        'status' => Input::get('status'),
                         'reason' => Input::get('reason'),
                         'other_reason' => Input::get('other_reason'),
-                        'status' => Input::get('status'),
                         'death_date' => $death_date,
                         'details' => Input::get('details'),
                         'end_study' => Input::get('end_study'),
@@ -2186,12 +2189,12 @@ if ($user->isLoggedIn()) {
                     <div class="row-md-12">
                         <div class="col-md-6">
                             <div class="form-row">
-                                <label for="duration">Enrolled:</label>
+                                <label for="duration">Status:</label>
                                 <div class="col-md-2"></div>
                                 <div class="col-md-10">
-                                    <select id="enrolled" name="enrolled" class="form-control" required>
+                                    <select id="status" name="status" class="form-control" required>
                                         <option value="">SELECT</option>
-                                        <?php foreach ($override->getData('yes_no_not_yet') as $lt) { ?>
+                                        <?php foreach ($override->getData('status') as $lt) { ?>
                                             <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
                                         <?php } ?>
                                     </select>
