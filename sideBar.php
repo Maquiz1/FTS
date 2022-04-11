@@ -103,7 +103,9 @@ if ($clntNo) {
                 </div>
             </li>
             </li>
-
+            <?php
+                                    if ($user->data()->power == 1) {
+                                    ?>
 
             <li class="list-group-item">
                 <div class="dropdown">
@@ -119,6 +121,8 @@ if ($clntNo) {
                     </ul>
                 </div>
             </li>
+
+          
 
 
             <li class="list-group-item">
@@ -154,9 +158,11 @@ if ($clntNo) {
             </li>
             </li>
 
+            <?php }  ?>
+
             <li class="list-group-item">
                 <div class="dropdown">
-                    <a href="info.php?id=4" class="list-group-item dropdown-toggle" data-toggle="dropdown"><span class="icon-calendar"></span>Total Vaccinated Participants<i class="icon-angle-right pull-right"></i><span class="label label-info pull-right"><?= $override->countActiveUser(); ?></span></a>
+                    <a href="info.php?id=4" class="list-group-item dropdown-toggle" data-toggle="dropdown"><span class="icon-calendar"></span>Vaccinated Participants<i class="icon-angle-right pull-right"></i><span class="label label-info pull-right"><?= $override->countActiveUser(); ?></span></a>
 
                     <ul class="dropdown-menu">
                         <?php foreach ($override->getData('study') as $study) { ?>
@@ -168,6 +174,10 @@ if ($clntNo) {
                     </ul>
                 </div>
             </li>
+
+            <?php
+                                    if ($user->data()->power == 1) {
+                                    ?>
 
             <li class="list-group-item">
                 <div class="dropdown">
@@ -184,9 +194,11 @@ if ($clntNo) {
                 </div>
             </li>
 
+            <?php }  ?>
+
             <li class="list-group-item">
                 <div class="dropdown">
-                    <a href="info.php?id=5" class="list-group-item dropdown-toggle" data-toggle="dropdown"><span class="icon-user"></span>Total Screened Patients<i class="icon-angle-right pull-right"></i><span class="label label-info pull-right"><?= $clntNo ?></span></a>
+                    <a href="info.php?id=5" class="list-group-item dropdown-toggle" data-toggle="dropdown"><span class="icon-user"></span>Screened Participants<i class="icon-angle-right pull-right"></i><span class="label label-info pull-right"><?= $clntNo ?></span></a>
 
                     <ul class="dropdown-menu">
                         <?php foreach ($override->getData('study') as $study) { ?>

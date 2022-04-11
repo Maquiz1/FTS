@@ -92,6 +92,12 @@ if ($user->isLoggedIn()) {
                 'initial' => array(
                     'required' => true,
                 ),
+                'sensitization_one' => array(
+                    'required' => true,
+                ),
+                'sensitization_two' => array(
+                    'required' => true,
+                ),
                 'sensitization_no' => array(
                     'required' => true,
                 ),
@@ -110,27 +116,27 @@ if ($user->isLoggedIn()) {
                 'dob' => array(
                     'required' => true,
                 ),
-                'year' => array(
-                    'required' => true,
-                ),
+                // 'year' => array(
+                //     'required' => true,
+                // ),
                 'gender' => array(
                     'required' => true,
                 ),
-                'pregnant' => array(
-                    'required' => true,
-                ),
-                'literate' => array(
-                    'required' => true,
-                ),
-                'education' => array(
-                    'required' => true,
-                ),
-                'marital' => array(
-                    'required' => true,
-                ),
-                'occupation' => array(
-                    'required' => true,
-                ),
+                // 'pregnant' => array(
+                //     'required' => true,
+                // ),
+                // 'literate' => array(
+                //     'required' => true,
+                // ),
+                // 'education' => array(
+                //     'required' => true,
+                // ),
+                // 'marital' => array(
+                //     'required' => true,
+                // ),
+                // 'occupation' => array(
+                //     'required' => true,
+                // ),
                 'phone1' => array(
                     'required' => true,
                     'unique' => 'details'
@@ -162,25 +168,25 @@ if ($user->isLoggedIn()) {
                 'location' => array(
                     'required' => true,
                 ),
-                'interviewer_initial' => array(
-                    'required' => true,
-                ),
-                'interviewer_date' => array(
-                    'required' => true,
-                ),
+                // 'interviewer_initial' => array(
+                //     'required' => true,
+                // ),
+                // 'interviewer_date' => array(
+                //     'required' => true,
+                // ),
 
-                'reviewer_initial' => array(
-                    'required' => true,
-                ),
-                'reviewer_date' => array(
-                    'required' => true,
-                ),
+                // 'reviewer_initial' => array(
+                //     'required' => true,
+                // ),
+                // 'reviewer_date' => array(
+                //     'required' => true,
+                // ),
                 'enrolled' => array(
                     'required' => true,
                 ),
-                'reason' => array(
-                    'required' => true,
-                )
+                // 'reason' => array(
+                //     'required' => true,
+                // )
                 // 'date_death' => array(
                 //     'required' => true,
                 // ),
@@ -200,21 +206,23 @@ if ($user->isLoggedIn()) {
                     $user->createRecord('details', array(
                         'project_name' => Input::get('project_id'),
                         'initial' => Input::get('initial'),
+                        'sensitization_one' => Input::get('sensitization_one'),
+                        'sensitization_two' => Input::get('sensitization_two'),
                         'sensitization_no' => Input::get('sensitization_no'),
                         'client_category' => Input::get('client_category'),
                         'fname' => Input::get('fname'),
                         'mname' => Input::get('mname'),
                         'lname' => Input::get('lname'),
                         'dob' => $dob_date,
-                        'year' => Input::get('year'),
-                        'month' => Input::get('month'),
+                        // 'year' => Input::get('year'),
+                        // 'month' => Input::get('month'),
                         'gender' => Input::get('gender'),
-                        'pregnant' => Input::get('pregnant'),
-                        'literate' => Input::get('literate'),
-                        'education' => Input::get('education'),
-                        'marital' => Input::get('marital'),
-                        'occupation' => Input::get('occupation'),
-                        'other_occupation' => Input::get('other_occupation'),
+                        // 'pregnant' => Input::get('pregnant'),
+                        // 'literate' => Input::get('literate'),
+                        // 'education' => Input::get('education'),
+                        // 'marital' => Input::get('marital'),
+                        // 'occupation' => Input::get('occupation'),
+                        // 'other_occupation' => Input::get('other_occupation'),
                         'phone1' => Input::get('phone1'),
                         'phone2' => Input::get('phone2'),
                         'attend_school' => Input::get('attend_school'),
@@ -226,10 +234,10 @@ if ($user->isLoggedIn()) {
                         'duration' => Input::get('duration'),
                         'willing_contact' => Input::get('willing_contact'),
                         'location' => Input::get('location'),
-                        'interviewer_initial' => Input::get('interviewer_initial'),
-                        'interviewer_date' => $intwr_date,
-                        'reviewer_initial' => Input::get('reviewer_initial'),
-                        'reviewer_date' => $rvwr_date,
+                        // 'interviewer_initial' => Input::get('interviewer_initial'),
+                        // 'interviewer_date' => $intwr_date,
+                        // 'reviewer_initial' => Input::get('reviewer_initial'),
+                        // 'reviewer_date' => $rvwr_date,
                         'staff_id' => $user->data()->id,
                         'enrolled' => Input::get('enrolled'),
                         'reason' => Input::get('reason'),
@@ -432,6 +440,9 @@ if ($user->isLoggedIn()) {
                 'ward_name' => array(
                     'required' => true,
                 ),
+                'region_id' => array(
+                    'required' => true,
+                ),
                 'district_id' => array(
                     'required' => true,
                 ),
@@ -444,6 +455,7 @@ if ($user->isLoggedIn()) {
                 try {
                     $user->createRecord('ward', array(
                         'name' => Input::get('ward_name'),
+                        'region_id' => Input::get('region_id'),
                         'district_id' => Input::get('district_id'),
                         'short_code' => Input::get('short_code'),
                         'status' => 1
@@ -1619,13 +1631,13 @@ if ($user->isLoggedIn()) {
                         <div class="form-row">
                             <div class="col-md-2">Name:</div>
                             <div class="col-md-10">
-                                <input type="text" name="ward_name" class="form-control" value="" />
+                                <input type="text" name="ward_name" id="ward_name" class="form-control" value="" />
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-md-2">Short Code:</div>
                             <div class="col-md-10">
-                                <input type="text" name="short_code" class="form-control" value="" />
+                                <input type="text" name="short_code" id="short_code" class="form-control" value="" />
                             </div>
                         </div>
                     </div>
@@ -1863,208 +1875,31 @@ if ($user->isLoggedIn()) {
                 <div class="modal-body clearfix">
                     <!-- <div class="controls"> -->
 
-                        <div class="form-row" id="st">
-                            <div>STUDY NAME:</div>
-                            <div class="col-md-10">
-                                <select class="form-control" id="project_id" name="project_id" required>
-                                    <option value="">SELECT STUDY</option>
-                                    <?php foreach ($override->getData('study') as $group) { ?>
-                                        <option value="<?= $group['name'] ?>"><?= $group['name'] ?></option>
-                                    <?php } ?>
-                                </select>
-                            </div>
-                        </div>
+                    <div class="row-md-12">
+                        <div class="col-md-4">
 
-                        <div class="row-md-12">
-                            <div class="col-md-6">
-                                <div class="form-row">
-                                    <div>INITIALS:</div>
-                                    <div class="col-md-10">
-                                        <input type="text" name="initial" class="form-control" value="" minlength="3" maxlength="3" required="" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-row">
-                                    <div>SENSITIZATION NUMBER</div>
-                                    <div class="col-md-10">
-                                        <input type="text" name="sensitization_no" class="form-control" pattern="\d*" value="" minlength="3" maxlength="3" required="" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-row" id="st">
-                            <div>Respondent is</div>
-                            <div class="col-md-10">
-                                <select class="form-control" id="client_category" name="client_category" required>
-                                    <option value="">SELECT</option>
-                                    <?php foreach ($override->getData('client_category') as $group) { ?>
-                                        <option value="<?= $group['name'] ?>"><?= $group['name'] ?></option>
-                                    <?php } ?>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="row-md-12">
-                            <div class="col-md-4">
-                                <div class="form-row">
-                                    <div>First Name:</div>
-                                    <div class="col-md-10">
-                                        <input type="text" name="fname" class="form-control" value="" required="" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-row">
-                                    <div>Midle Name:</div>
-                                    <div class="col-md-10">
-                                        <input type="text" name="mname" class="form-control" value="" required="" />
-                                    </div>
+                            <div class="form-row" id="st">
+                                <div>STUDY NAME:</div>
+                                <div class="col-md-10">
+                                    <select class="form-control" id="project_id" name="project_id" required>
+                                        <option value="">SELECT STUDY</option>
+                                        <?php foreach ($override->getData('study') as $group) { ?>
+                                            <option value="<?= $group['name'] ?>"><?= $group['name'] ?></option>
+                                        <?php } ?>
+                                    </select>
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
-                                <div class="form-row">
-                                    <div>Last name:</div>
-                                    <div class="col-md-10">
-                                        <input type="text" name="lname" class="form-control" value="" required="" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- DATE OF BIRTH  -->
-
-                        <div class="row-md-12">
-                            <div class="col-md-4">
-                                <div class="form-row">
-                                    <div><i class="fas fa-calendar input-prefix" tabindex="0"></i>DATE OF BIRTH:</div>
-                                    <div class="col-md-10">
-                                        <input type="date" class="form-control fas fa-calendar input-prefix" name="dob" id="dob" required="" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-row">
-                                    <div>YEARS:</div>
-                                    <div class="col-md-10">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" name="year" id="year" pattern="\d*" minlength="2" maxlength="2" required>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="form-row">
-                                    <div>MONTHS:</div>
-                                    <div class="col-md-10">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" name="month" id="month" pattern="\d*" minlength="2" maxlength="2" required>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- DATE OF BIRTH  -->
-
-                        <div class="row-md-12">
-                            <div class="col-md-4">
-                                <div class="form-row">
-                                    <div>GENDER:</div>
-                                    <div class="col-md-10">
-                                        <select id="gender" name="gender" class="form-control" required>
-                                            <option value="">SELECT GENDER</option>
-                                            <?php foreach ($override->getData('gender') as $gender) { ?>
-                                                <option value="<?= $gender['name'] ?>"><?= $gender['name'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
 
-                        <div class="row-md-4">
-                            <div class="col-md-4">
-                                <div class="form-row">
-                                    <div>Pregnant?:</div>
-                                    <div class="col-md-10">
-                                        <select id="pregnant" name="pregnant" class="form-control" required>
-                                            <option value="">SELECT</option>
-                                            <?php foreach ($override->getData('yes_no_na') as $preg) { ?>
-                                                <option value="<?= $preg['name'] ?>"><?= $preg['name'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row-md-4">
-                            <div class="col-md-4">
-                                <div class="form-row">
-                                    <div>Literate?:</div>
-                                    <div class="col-md-10">
-                                        <select id="literate" name="literate" class="form-control" required>
-                                            <option value="">SELECT</option>
-                                            <?php foreach ($override->getData('yes_no') as $lt) { ?>
-                                                <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="row-md-12">
-                            <!-- <div class="row-md-3"> -->
-                            <div class="col-md-4">
-                                <div class="form-row">
-                                    <div>Level of education</div>
-                                    <div class="col-md-10">
-                                        <select id="education" name="education" class="form-control" required>
-                                            <option value="">SELECT</option>
-                                            <?php foreach ($override->getData('education') as $lt) { ?>
-                                                <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- </div> -->
-
-                            <!-- <div class="row-md-4"> -->
-                            <div class="col-md-4">
-                                <div class="form-row">
-                                    <div>Marital Status</div>
-                                    <div class="col-md-10">
-                                        <select id="marital" name="marital" class="form-control" required>
-                                            <option value="">SELECT</option>
-                                            <?php foreach ($override->getData('marital_status') as $lt) { ?>
-                                                <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- </div> -->
-                        </div>
-
-
-                        <!-- <div class="row-md-12"> -->
-
-                        <!-- <div class="row-md-4"> -->
                         <div class="col-md-4">
                             <div class="form-row">
-                                <div>Occupation</div>
+                                <div>SENSITIZATION ONE</div>
                                 <div class="col-md-10">
-                                    <select id="occupation" name="occupation" class="form-control" required>
+                                    <select id="sensitization_one" name="sensitization_one" class="form-control" required>
                                         <option value="">SELECT</option>
-                                        <?php foreach ($override->getData('occupation') as $lt) { ?>
+                                        <?php foreach ($override->getData('yes_no_na') as $lt) { ?>
                                             <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
                                         <?php } ?>
                                     </select>
@@ -2073,270 +1908,323 @@ if ($user->isLoggedIn()) {
                         </div>
 
 
-                        <div class="col-md-12">
+
+                        <div class="col-md-4">
                             <div class="form-row">
-                                <label for="duration">Other Occupation:</label>
+                                <div>SENSITIZATION TWO</div>
+                                <div class="col-md-10">
+                                    <select id="sensitization_two" name="sensitization_two" class="form-control" required>
+                                        <option value="">SELECT</option>
+                                        <?php foreach ($override->getData('yes_no_na') as $lt) { ?>
+                                            <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row-md-12">
+                        <div class="col-md-4">
+                            <div class="form-row">
+                                <div>INITIALS:</div>
+                                <div class="col-md-10">
+                                    <input type="text" name="initial" class="form-control" value="" minlength="3" maxlength="3" required="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-row">
+                                <div>SENSITIZATION NUMBER</div>
+                                <div class="col-md-10">
+                                    <input type="text" name="sensitization_no" class="form-control" pattern="\d*" value="" minlength="3" maxlength="3" required="" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-row" id="st">
+                                <div>Respondent is</div>
+                                <div class="col-md-10">
+                                    <select class="form-control" id="client_category" name="client_category" required>
+                                        <option value="">SELECT</option>
+                                        <?php foreach ($override->getData('client_category') as $group) { ?>
+                                            <option value="<?= $group['name'] ?>"><?= $group['name'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row-md-12">
+                        <div class="col-md-4">
+                            <div class="form-row">
+                                <div>First Name:</div>
+                                <div class="col-md-10">
+                                    <input type="text" name="fname" class="form-control" value="" required="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-row">
+                                <div>Midle Name:</div>
+                                <div class="col-md-10">
+                                    <input type="text" name="mname" class="form-control" value="" required="" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-row">
+                                <div>Last name:</div>
+                                <div class="col-md-10">
+                                    <input type="text" name="lname" class="form-control" value="" required="" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DATE OF BIRTH  -->
+
+                    <div class="row-md-12">
+                        <div class="col-md-4">
+                            <div class="form-row">
+                                <div><i class="fas fa-calendar input-prefix" tabindex="0"></i>DATE OF BIRTH:</div>
+                                <div class="col-md-10">
+                                    <input type="date" class="form-control fas fa-calendar input-prefix" name="dob" id="dob" required="" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-row">
+                                <div>Child attending school?</div>
+                                <div class="col-md-10">
+                                    <select id="attend_school" name="attend_school" class="form-control" required>
+                                        <option value="">SELECT</option>
+                                        <?php foreach ($override->getData('yes_no_na') as $lt) { ?>
+                                            <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-row">
+                                <div>GENDER:</div>
+                                <div class="col-md-10">
+                                    <select id="gender" name="gender" class="form-control" required>
+                                        <option value="">SELECT GENDER</option>
+                                        <?php foreach ($override->getData('gender') as $gender) { ?>
+                                            <option value="<?= $gender['name'] ?>"><?= $gender['name'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- DATE OF BIRTH  -->
+
+
+                    <!-- POHONE  -->
+
+                    <div class="row-md-12">
+                        <div class="col-md-6">
+                            <div class="form-row">
+                                <div class="col-md-2">Phone:</div>
+                                <div class="col-md-10">
+                                    <input type="text" name="phone1" class="form-control" value="" pattern="\d*" minlength="10" maxlength="10" required="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-row">
+                                <div class="col-md-2">Phone2:</div>
+                                <div class="col-md-10">
+                                    <input type="text" name="phone2" class="form-control" value="" pattern="\d*" minlength="10" maxlength="10" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- POHONE  -->
+
+
+                    <!-- DEMOGRAPHIC  -->
+
+                    <div class="row-md-12">
+                        <div class="col-md-6">
+                            <div class="form-row">
+                                <div>REGION:</div>
+                                <div class="col-md-10">
+                                    <select id="region" name="region" class="form-control" required>
+                                        <option value="">SELECT</option>
+                                        <?php foreach ($override->getData('region') as $lt) { ?>
+                                            <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-row">
+                                <div>DISTRICT:</div>
+                                <div class="col-md-10">
+                                    <select id="district" name="district" class="form-control" required>
+                                        <option value="">SELECT</option>
+                                        <?php foreach ($override->getData('district') as $lt) { ?>
+                                            <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row-md-12">
+                        <div class="col-md-4">
+                            <div class="form-row">
+                                <div>WARD:</div>
+                                <div class="col-md-10">
+                                    <select id="ward" name="ward" class="form-control" required>
+                                        <option value="">SELECT</option>
+                                        <?php foreach ($override->getData('ward') as $lt) { ?>
+                                            <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-row">
+                                <div>VILLAGE:</div>
+                                <div class="col-md-10">
+                                    <select id="village" name="village" class="form-control">
+                                        <option value="">SELECT</option>
+                                        <?php foreach ($override->getData('village') as $lt) { ?>
+                                            <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-row">
+                                <div>Hamlet / Kitongoji:</div>
+                                <div class="col-md-10">
+                                    <select id="hamlet" name="hamlet" class="form-control" required>
+                                        <option value="">SELECT</option>
+                                        <?php foreach ($override->getData('hamlet') as $lt) { ?>
+                                            <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+                    <br>
+                    <br><br>
+                    <div class="row-md-12">
+                        <div class="col-md-6">
+                            <div class="form-row">
+                                <label for="duration">For Bagamoyo residents, please specify the intended duration of stay in Bagamoyo:</label>
                                 <div class="col-md-2"></div>
                                 <div class="col-md-10">
-                                    <textarea name="other_occupation" id="other_occupation" cols="40%" rows="2"></textarea>
+                                    <select id="duration" name="duration" class="form-control" required>
+                                        <option value="">SELECT</option>
+                                        <?php foreach ($override->getData('duration') as $lt) { ?>
+                                            <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
+                                        <?php } ?>
+                                    </select>
                                 </div>
                             </div>
                         </div>
 
-
-                        <!-- </div> -->
-
-
-                        <!-- POHONE  -->
-
-                        <div class="row-md-12">
-                            <div class="col-md-6">
-                                <div class="form-row">
-                                    <div class="col-md-2">Phone:</div>
-                                    <div class="col-md-10">
-                                        <input type="text" name="phone1" class="form-control" value="" pattern="\d*" minlength="10" maxlength="10" required="" />
-                                    </div>
+                        <div class="col-md-6">
+                            <div class="form-row">
+                                <label for="duration">Is the participant willing to be contacted for the next sensitization meeting?</label>
+                                <div class="col-md-2"></div>
+                                <div class="col-md-10">
+                                    <select id="willing_contact" name="willing_contact" class="form-control" required>
+                                        <option value="">SELECT</option>
+                                        <?php foreach ($override->getData('yes_no') as $lt) { ?>
+                                            <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
+                                        <?php } ?>
+                                    </select>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-row">
-                                    <div class="col-md-2">Phone2:</div>
-                                    <div class="col-md-10">
-                                        <input type="text" name="phone2" class="form-control" value="" pattern="\d*" minlength="10" maxlength="10" />
-                                    </div>
+                        </div>
+                    </div>
+
+                    <hr>
+                    <br>
+                    <br><br>
+                    <div class="form-row">
+                        <label for="duration">Briefly describe participant residential location in relation to the nearest famous neighborhoods:</label>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-10">
+                            <textarea name="location" id="location" cols="100%" rows="4" required></textarea>
+                        </div>
+                    </div>
+
+                    <!-- DEMOGRAPHIC  -->
+
+
+                    <div class="row-md-12">
+                        <div class="col-md-6">
+                            <div class="form-row">
+                                <label for="duration">Enrolled:</label>
+                                <div class="col-md-2"></div>
+                                <div class="col-md-10">
+                                    <select id="enrolled" name="enrolled" class="form-control" required>
+                                        <option value="">SELECT</option>
+                                        <?php foreach ($override->getData('yes_no_not_yet') as $lt) { ?>
+                                            <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
+                                        <?php } ?>
+                                    </select>
                                 </div>
                             </div>
                         </div>
 
-
-                        <!-- POHONE  -->
-
-                        <div class="row-md-12">
-                            <div class="col-md-12">
-                                <div class="form-row">
-                                    <div>Child attending school?</div>
-                                    <div class="col-md-10">
-                                        <select id="attend_school" name="attend_school" class="form-control" required>
-                                            <option value="">SELECT</option>
-                                            <?php foreach ($override->getData('yes_no_na') as $lt) { ?>
-                                                <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
+                        <div class="col-md-6">
+                            <div class="form-row">
+                                <label for="duration">Reason</label>
+                                <div class="col-md-2"></div>
+                                <div class="col-md-10">
+                                    <select id="reason" name="reason" class="form-control">
+                                        <option value="">SELECT</option>
+                                        <?php foreach ($override->getData('end_study_reason') as $lt) { ?>
+                                            <option value="<?= $lt['reason'] ?>"><?= $lt['reason'] ?></option>
+                                        <?php } ?>
+                                    </select>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-
-                        <!-- DEMOGRAPHIC  -->
-
-                        <div class="row-md-12">
-                            <div class="col-md-6">
-                                <div class="form-row">
-                                    <div>REGION:</div>
-                                    <div class="col-md-10">
-                                        <select id="region" name="region" class="form-control" required>
-                                            <option value="">SELECT</option>
-                                            <?php foreach ($override->getData('region') as $lt) { ?>
-                                                <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-row">
-                                    <div>DISTRICT:</div>
-                                    <div class="col-md-10">
-                                        <select id="district" name="district" class="form-control" required>
-                                            <option value="">SELECT</option>
-                                            <?php foreach ($override->getData('district') as $lt) { ?>
-                                                <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="row-md-12">
-                            <div class="col-md-4">
-                                <div class="form-row">
-                                    <div>WARD:</div>
-                                    <div class="col-md-10">
-                                        <select id="ward" name="ward" class="form-control" required>
-                                            <option value="">SELECT</option>
-                                            <?php foreach ($override->getData('ward') as $lt) { ?>
-                                                <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="form-row">
-                                    <div>VILLAGE:</div>
-                                    <div class="col-md-10">
-                                        <select id="village" name="village" class="form-control" required>
-                                            <option value="">SELECT</option>
-                                            <?php foreach ($override->getData('village') as $lt) { ?>
-                                                <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="form-row">
-                                    <div>Hamlet / Kitongoji:</div>
-                                    <div class="col-md-10">
-                                        <select id="hamlet" name="hamlet" class="form-control" required>
-                                            <option value="">SELECT</option>
-                                            <?php foreach ($override->getData('hamlet') as $lt) { ?>
-                                                <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <hr>
-                        <br>
-                        <br><br>
-                        <div class="row-md-12">
-                            <div class="col-md-6">
-                                <div class="form-row">
-                                    <label for="duration">For Bagamoyo residents, please specify the intended duration of stay in Bagamoyo:</label>
-                                    <div class="col-md-2"></div>
-                                    <div class="col-md-10">
-                                        <select id="duration" name="duration" class="form-control" required>
-                                            <option value="">SELECT</option>
-                                            <?php foreach ($override->getData('duration') as $lt) { ?>
-                                                <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-row">
-                                    <label for="duration">Is the participant willing to be contacted for the next sensitization meeting?</label>
-                                    <div class="col-md-2"></div>
-                                    <div class="col-md-10">
-                                        <select id="willing_contact" name="willing_contact" class="form-control" required>
-                                            <option value="">SELECT</option>
-                                            <?php foreach ($override->getData('yes_no') as $lt) { ?>
-                                                <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <hr>
-                        <br>
-                        <br><br>
+                    <div class="col-md-12">
                         <div class="form-row">
-                            <label for="duration">Briefly describe participant residential location in relation to the nearest famous neighborhoods:</label>
+                            <label for="duration">Other reason Details:</label>
                             <div class="col-md-2"></div>
                             <div class="col-md-10">
-                                <textarea name="location" id="location" cols="100%" rows="4" required></textarea>
+                                <textarea name="other_reason" id="other_reason" cols="40%" rows="2"></textarea>
                             </div>
                         </div>
-
-                        <!-- DEMOGRAPHIC  -->
-
-
-                        <div class="row-md-12">
-                            <div class="col-md-6">
-                                <div class="form-row">
-                                    <label for="duration">Enrolled:</label>
-                                    <div class="col-md-2"></div>
-                                    <div class="col-md-10">
-                                        <select id="enrolled" name="enrolled" class="form-control" required>
-                                            <option value="">SELECT</option>
-                                            <?php foreach ($override->getData('yes_no_not_yet') as $lt) { ?>
-                                                <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-row">
-                                    <label for="duration">Reason</label>
-                                    <div class="col-md-2"></div>
-                                    <div class="col-md-10">
-                                        <select id="reason" name="reason" class="form-control" required>
-                                            <option value="">SELECT</option>
-                                            <?php foreach ($override->getData('end_study_reason') as $lt) { ?>
-                                                <option value="<?= $lt['reason'] ?>"><?= $lt['reason'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-12">
-                            <div class="form-row">
-                                <label for="duration">Other reason Details:</label>
-                                <div class="col-md-2"></div>
-                                <div class="col-md-10">
-                                    <textarea name="other_reason" id="other_reason" cols="40%" rows="2"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- INITIALS  -->
-
-                        <div class="row-md-12">
-                            <div class="col-md-6">
-                                <div class="form-row">
-                                    <div>Interviewer Initials:</div>
-                                    <div class="col-md-10">
-                                        <input type="text" class="form-control" name="interviewer_initial" id="interviewer_initial" placeholder="Enter UInitial" minlength="3" maxlength="3" required>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-row">
-                                    <div><i class="fas fa-calendar input-prefix" tabindex="0"></i>Interviewer Date:</div>
-                                    <div class="col-md-10">
-                                        <input type="date" class="form-control fas fa-calendar input-prefix" name="interviewer_date" id="interviewer_date" required="" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row-md-12">
-                            <div class="col-md-6">
-                                <div class="form-row">
-                                    <div>Reviewer Initials:</div>
-                                    <div class="col-md-10">
-                                        <input type="text" class="form-control" name="reviewer_initial" id="reviewer_initial" placeholder="Enter UInitial" minlength="3" maxlength="3" required>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-row">
-                                    <div><i class="fas fa-calendar input-prefix" tabindex="0"></i>Reviewer Date:</div>
-                                    <div class="col-md-10">
-                                        <input type="date" class="form-control fas fa-calendar input-prefix" name="reviewer_date" id="reviewer_date" required="" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    <!-- </div> -->
+                    </div>
+                    <!-- INITIALS  -->
 
                 </div>
 

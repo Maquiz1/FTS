@@ -134,6 +134,44 @@ if ($user->isLoggedIn()) {
             } else {
                 $pageError = $validate->errors();
             }
+        } elseif (Input::get('reschedule_vaccine')) {
+            $validate = new validate();
+            $validate = $validate->check($_POST, array(
+                'visit_date' => array(
+                    'required' => true,
+                ),
+                'visit' => array(
+                    'required' => true,
+                ),
+                'project_name' => array(
+                    'required' => true,
+                ),
+                'group_name' => array(
+                    'required' => true,
+                ),
+            ));
+            if ($validate->passed()) {
+                try {
+                    if ((Input::get('project_name') == 'VAC080') and (Input::get('group_name') == 'Group 1A' || Input::get('group_name') == 'Group 2A')) {
+                        $user->updateScheduleNotDelayedVac080(Input::get('project_name'), Input::get('id'), Input::get('visit_date'), Input::get('visit'));
+                    } elseif ((Input::get('project_name') == 'VAC080') and (Input::get('group_name') == 'Group 1B' || Input::get('group_name') == 'Group 2B' || Input::get('group_name') == 'Group 2C' || Input::get('group_name') == 'Group 2D')) {
+                        $user->updateScheduleDelayedVac080(Input::get('project_name'), Input::get('id'), Input::get('visit_date'), Input::get('visit'));
+                    } elseif ((Input::get('project_name') == 'VAC082') and (Input::get('group_name') == 'Group 1A' || Input::get('group_name') == 'Group 1B' || Input::get('group_name') == 'Group 2A' || Input::get('group_name') == 'Group 2B' || Input::get('group_name') == 'Group 3A' || Input::get('group_name') == 'Group 3B')) {
+                        $user->updateScheduleNotDelayedVac082(Input::get('project_name'), Input::get('id'), Input::get('visit_date'), Input::get('visit'));
+                    } elseif ((Input::get('project_name') == 'VAC082') and (Input::get('group_name') == 'Group 3C' || Input::get('group_name') == 'Group 4A' || Input::get('group_name') == 'Group 4B' || Input::get('group_name') == 'Group 4C')) {
+                        $user->updateScheduleDelayedVac082(Input::get('project_name'), Input::get('id'), Input::get('visit_date'), Input::get('visit'));
+                    } elseif ((Input::get('project_name') == 'RAB002')) {
+                        $user->updateScheduleRAB002(Input::get('project_name'), Input::get('id'), Input::get('visit_date'), Input::get('visit'));
+                    } elseif ((Input::get('project_name') == 'EBL08')) {
+                        $user->updateScheduleEBL08(Input::get('project_name'), Input::get('id'), Input::get('visit_date'), Input::get('visit'));
+                    }
+                    $successMessage = 'Reschedule Successful';
+                } catch (Exception $e) {
+                    die($e->getMessage());
+                }
+            } else {
+                $pageError = $validate->errors();
+            }
         }
     }
 } else {
@@ -220,8 +258,8 @@ if ($user->isLoggedIn()) {
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <?php 
-                require 'topBar.php' 
+                <?php
+                require 'topBar.php'
                 ?>
             </div>
         </div>
@@ -292,15 +330,21 @@ if ($user->isLoggedIn()) {
                                     <th width="3%">SCHEDLUE TYPE</th>
                                     <th width="3%">VISIT TYPE</th>
                                     <th width="5%">VISIT STATUS</th>
-                                    <th width="5%">CLINICIAN STATUS</th>
-                                    <th width="5%">DATACLERK STATUS</th>
-                                    <th width="5%">DATAMANAGER STATUS</th>
+                                    <?php
+                                    if ($user->data()->power == 1) {
+                                    ?>
+                                        <th width="5%">CLINICIAN STATUS</th>
+                                        <th width="5%">DATACLERK STATUS</th>
+                                        <th width="5%">DATAMANAGER STATUS</th>
+                                        <th width="3%">PHONE NUMBER</th>
+                                        <th width="3%">reschedule</th>
+                                    <?php } ?>
                                     <?php
                                     if ($user->data()->position == 1 || $user->data()->position == 5 || $user->data()->position == 6 || $user->data()->position == 12) {
                                     ?>
-                                        <th width="3%">PHONE NUMBER</th>
-                                        <th width="3%">ACTION</th>
-                                        <th width="3%">RE-SCHEDULE</th>
+                                        <th width="3%">Action</th>
+                                        <th width="3%">Edit Visit</th>
+
 
                                     <?php } ?>
                                 </tr>
@@ -342,7 +386,22 @@ if ($user->isLoggedIn()) {
                                             </td>
 
 
-                                            <td><?= $data['visit_type'] ?></td>
+                                            <td>
+                                                <?php if ($data['visit_type'] == 'Clinic') { ?>
+                                                    <div class="btn-group btn-group-xs">
+                                                        <button class="btn btn-success">
+                                                            <?= $data['visit_type'] ?>
+                                                        </button>
+                                                    </div>
+
+                                                <?php } else { ?>
+                                                    <div class="btn-group btn-group-xs">
+                                                        <button class="btn btn-info">
+                                                            <?= $data['visit_type'] ?>
+                                                        </button>
+                                                    </div>
+                                                <?php }  ?>
+                                            </td>
                                             <td>
                                                 <div class="btn-group btn-group-xs">
                                                     <?php if ($data['status'] == 3) { ?>&nbsp;
@@ -354,46 +413,67 @@ if ($user->isLoggedIn()) {
                                                 <?php } ?>
                                                 </div>
                                             </td>
-                                            <td>
-                                                <div class="btn-group btn-group-xs">
-                                                    <?php if ($data['sn_cl_status'] == 0) { ?>&nbsp;
-                                                    <button class="btn btn-warning">Pending</button>
-                                                <?php } elseif ($data['sn_cl_status'] == 1) { ?>
-                                                    <button class="btn btn-success">Reviewed </button><button class="btn btn-info"><?= $data['initial2'] ?></button>
-                                                <?php } elseif ($data['sn_cl_status'] == 2) { ?>
-                                                    <button class="btn btn-danger">Missed</button><button class="btn btn-info"><?= $data['initial2'] ?></button>
-                                                <?php } ?>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="btn-group btn-group-xs">
-                                                    <?php if ($data['dc_status'] == 0) { ?>&nbsp;
-                                                    <button class="btn btn-warning">Pending</button>
-                                                <?php } elseif ($data['dc_status'] == 1) { ?>
-                                                    <button class="btn btn-success">Entered</button><button class="btn btn-info"><?= $data['initial3'] ?></button>
-                                                <?php } elseif ($data['dc_status'] == 2) { ?>
-                                                    <button class="btn btn-danger">Missed</button><button class="btn btn-info"><?= $data['initial3'] ?></button>
-                                                <?php } ?>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="btn-group btn-group-xs">
-                                                    <?php if ($data['dm_status'] == 0) { ?>&nbsp;
-                                                    <button class="btn btn-warning">Pending</button>
-                                                <?php } elseif ($data['dm_status'] == 1) { ?>
-                                                    <button class="btn btn-success">Reviewed</button><button class="btn btn-info"><?= $data['initial4'] ?></button>
-                                                <?php } elseif ($data['dm_status'] == 2) { ?>
-                                                    <button class="btn btn-danger">Missed</button><button class="btn btn-info"><?= $data['initial4'] ?></button>
-                                                <?php } ?>
-                                                </div>
-                                            </td>
+
+                                            <?php
+                                            if ($user->data()->power == 1) {
+                                            ?>
+                                                <td>
+                                                    <div class="btn-group btn-group-xs">
+                                                        <?php
+                                                        if ($data['sn_cl_status'] == 0) {
+                                                        ?>&nbsp;
+                                                        <button class="btn btn-warning">Pending</button>
+                                                    <?php
+                                                        } elseif ($data['sn_cl_status'] == 1) {
+                                                    ?>
+                                                        <button class="btn btn-success">Reviewed </button><button class="btn btn-info"><?= $data['initial2']
+                                                                                                                                        ?></button>
+                                                    <?php
+                                                        } elseif ($data['sn_cl_status'] == 2) {
+                                                    ?>
+                                                        <button class="btn btn-danger">Missed</button><button class="btn btn-info"><?= $data['initial2']
+                                                                                                                                    ?></button>
+                                                    <?php }
+                                                    ?>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="btn-group btn-group-xs">
+                                                        <?php if ($data['dc_status'] == 0) { ?>&nbsp;
+                                                        <button class="btn btn-warning">Pending</button>
+                                                    <?php } elseif ($data['dc_status'] == 1) { ?>
+                                                        <button class="btn btn-success">Entered</button><button class="btn btn-info"><?= $data['initial3'] ?></button>
+                                                    <?php } elseif ($data['dc_status'] == 2) { ?>
+                                                        <button class="btn btn-danger">Missed</button><button class="btn btn-info"><?= $data['initial3'] ?></button>
+                                                    <?php } ?>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="btn-group btn-group-xs">
+                                                        <?php if ($data['dm_status'] == 0) { ?>&nbsp;
+                                                        <button class="btn btn-warning">Pending</button>
+                                                    <?php } elseif ($data['dm_status'] == 1) { ?>
+                                                        <button class="btn btn-success">Reviewed</button><button class="btn btn-info"><?= $data['initial4'] ?></button>
+                                                    <?php } elseif ($data['dm_status'] == 2) { ?>
+                                                        <button class="btn btn-danger">Missed</button><button class="btn btn-info"><?= $data['initial4'] ?></button>
+                                                    <?php } ?>
+                                                    </div>
+                                                </td>
+                                                <td><?= $client['phone_number'] ?></td>
+
+                                                <td>
+
+                                                    <a href="#re_schedule_vaccine<?= $y ?>" data-toggle="modal" class="widget-icon" title="Re - Schedule Pre - vacc and Vaccination"><span class="icon-refresh"></span></a>
+                                                </td>
+
+                                            <?php }  ?>
 
                                             <?php
 
                                             if ($user->data()->position == 1 || $user->data()->position == 5 || $user->data()->position == 6 || $user->data()->position == 12) {
                                             ?>
 
-                                                <td><?= $client['phone_number'] ?></td>
+
                                                 <td>
                                                     <a href="#appnt<?= $x ?>" data-toggle="modal" class="widget-icon" title="Add Visit"><span class="icon-share"></span></a>
 
@@ -401,20 +481,92 @@ if ($user->isLoggedIn()) {
 
                                                 <td>
 
-                                                    <div><a href="#re_schedule_visit<?= $x ?>" data-toggle="modal" class="widget-icon" title="Re - Schedule Visit"><span class="icon-edit"></span></a></div>
+                                                    <div><a href="#edit_visit<?= $x ?>" data-toggle="modal" class="widget-icon" title="Edit Scheduled and Un-scheduled Visit"><span class="icon-edit"></span></a></div>
                                                 </td>
+
+
+
 
                                             <?php } ?>
 
 
-
-                                            <div class="modal" id="re_schedule_visit<?= $x ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal" id="re_schedule_vaccine<?= $y ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <form method="post">
                                                             <div class="modal-header">
                                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                                <h4 class="modal-title">Re - Schedule VISIT</h4>
+                                                                <h4 class="modal-title">RE - SCHEDULE VACCINE OR PRE - VAC</h4>
+                                                            </div>
+                                                            <div class="modal-body clearfix">
+                                                                <div class="controls">
+                                                                    <div class="form-row" id="st">
+                                                                        <div class="col-md-2">Project:</div>
+                                                                        <div class="col-md-10">
+                                                                            <select class="form-control" id="project_name" name="project_name" required>
+                                                                                <option value="<?= $group['project_id'] ?>"><?= $override->get('study', 'id', $group['project_id'])['id']['name'] ?></option>
+                                                                                <?php foreach ($override->getData('study') as $group) { ?>
+                                                                                    <option value="<?= $group['name'] ?>"><?= $group['name'] ?></option>
+                                                                                <?php } ?>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-row">
+                                                                        <div class="col-md-2">Visit:</div>
+                                                                        <div class="col-md-10">
+                                                                            <select class="form-control" id="c" name="visit" required>
+                                                                                <option value="">Select Visit</option>
+                                                                                <option value="1">V1</option>
+                                                                                <option value="2">V2</option>
+                                                                                <option value="3">V3</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-row" id="st">
+                                                                        <div class="col-md-2">Group:</div>
+                                                                        <div class="col-md-10">
+                                                                            <select class="form-control" id="group_name" name="group_name" required>
+                                                                                <option value="">Select Group</option>
+                                                                                <?php foreach ($override->getData('patient_group') as $group) { ?>
+                                                                                    <option value="<?= $group['name'] ?>"><?= $group['name'] ?></option>
+                                                                                <?php } ?>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-row">
+                                                                        <div class="col-md-2">VISIT DATE:</div>
+                                                                        <div class="col-md-10">
+                                                                            <div class="input-group">
+                                                                                <div class="input-group-addon"><span class="icon-calendar-empty"></span></div>
+                                                                                <input type="text" name="visit_date" class="datepicker form-control" value="" required />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <div class="pull-right col-md-3">
+                                                                    <input type="hidden" name="id" value="<?= $client['id'] ?>">
+                                                                    <input type="submit" name="reschedule_vaccine" value="Submit" class="btn btn-success btn-clean">
+                                                                </div>
+                                                                <div class="pull-right col-md-2">
+                                                                    <button type="button" class="btn btn-default btn-clean" data-dismiss="modal">Close</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="modal" id="edit_visit<?= $x ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <form method="post">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                <h4 class="modal-title">Edit Viit</h4>
                                                             </div>
                                                             <div class="modal-body clearfix">
                                                                 <div class="controls">
@@ -681,12 +833,12 @@ if ($user->isLoggedIn()) {
 
                 {
                     extend: 'csvHtml5',
-                    title: d + ' ' + 'VISITS', 
+                    title: d + ' ' + 'VISITS',
                     className: 'btn-primary'
                 },
                 {
                     extend: 'copyHtml5',
-                    title: d + ' ' + 'VISITS', 
+                    title: d + ' ' + 'VISITS',
                     className: 'btn-primary'
                 },
                 //     {

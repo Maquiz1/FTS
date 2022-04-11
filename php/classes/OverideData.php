@@ -395,6 +395,13 @@ class OverideData{
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+
+    public function getNews1($table){
+        $query = $this->_pdo->query("SELECT * FROM $table");
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
     public function getNewsOr($table,$where,$id,$where2,$id2,$where3,$id3){
         $query = $this->_pdo->query("SELECT * FROM $table WHERE $where = '$id' AND $where2 = '$id2' OR $where3 = '$id3'");
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
