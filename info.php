@@ -230,6 +230,118 @@ if ($user->isLoggedIn()) {
             } else {
                 $pageError = $validate->errors();
             }
+        }elseif (Input::get('edit_participant')) {
+            $validate = new validate();
+                $validate = $validate->check($_POST, array(
+                    'project_id' => array(
+                        'required' => true,
+                    ),
+                    'initial' => array(
+                        'required' => true,
+                    ),
+                    'sensitization_one' => array(
+                        'required' => true,
+                    ),
+                    'sensitization_two' => array(
+                        'required' => true,
+                    ),
+                    'sensitization_no' => array(
+                        'required' => true,
+                    ),
+                    'client_category' => array(
+                        'required' => true,
+                    ),
+                    'fname' => array(
+                        'required' => true,
+                    ),
+                    'mname' => array(
+                        'required' => true,
+                    ),
+                    'lname' => array(
+                        'required' => true,
+                    ),
+                    'dob' => array(
+                        'required' => true,
+                    ),
+                    'gender' => array(
+                        'required' => true,
+                    ),
+                    'phone1' => array(
+                        'required' => true,
+                        // 'unique' => 'details'
+                    ),
+                    'attend_school' => array(
+                        'required' => true,
+                    ),
+                    'region' => array(
+                        'required' => true,
+                    ),
+                    'district' => array(
+                        'required' => true,
+                    ),
+                    'ward' => array(
+                        'required' => true,
+                    ),
+                    'village' => array(
+                        'required' => true,
+                    ),
+                    'hamlet' => array(
+                        'required' => true,
+                    ),
+                    'duration' => array(
+                        'required' => true,
+                    ),
+                    'willing_contact' => array(
+                        'required' => true,
+                    ),
+                    'location' => array(
+                        'required' => true,
+                    ),
+                    'status' => array(
+                        'required' => true,
+                    )
+            ));
+            if ($validate->passed()) {
+                try {
+                    $dob_date = date('Y-m-d', strtotime(Input::get('dob')));
+                    $user->updateRecord('details', array(
+                        'project_name' => Input::get('project_id'),
+                        'initial' => Input::get('initial'),
+                        'sensitization_one' => Input::get('sensitization_one'),
+                        'sensitization_two' => Input::get('sensitization_two'),
+                        'sensitization_no' => Input::get('sensitization_no'),
+                        'client_category' => Input::get('client_category'),
+                        'fname' => Input::get('fname'),
+                        'mname' => Input::get('mname'),
+                        'lname' => Input::get('lname'),
+                        'dob' => $dob_date,
+                        'gender' => Input::get('gender'),
+                        'phone1' => Input::get('phone1'),
+                        'phone2' => Input::get('phone2'),
+                        'attend_school' => Input::get('attend_school'),
+                        'region' => Input::get('region'),
+                        'district' => Input::get('district'),
+                        'ward' => Input::get('ward'),
+                        'village' => Input::get('village'),
+                        'hamlet' => Input::get('hamlet'),
+                        'duration' => Input::get('duration'),
+                        'willing_contact' => Input::get('willing_contact'),
+                        'location' => Input::get('location'),
+                        'staff_id' => $user->data()->id,
+                        'status' => Input::get('status'),
+                        'reason' => Input::get('reason'),
+                        'other_reason' => Input::get('other_reason'),
+                        'death_date' => $death_date,
+                        'details' => Input::get('details'),
+                        'end_study' => Input::get('end_study'),
+                    ), Input::get('id'));
+                    $successMessage = 'Client Info Updated Successful';
+                } catch (Exception $e) {
+                    die($e->getMessage());
+                }
+            } else {
+                $pageError = $validate->errors();
+            }
         } elseif (Input::get('delete_site')) {
             try {
                 $user->updateRecord('site', array(
@@ -3568,158 +3680,388 @@ if ($user->isLoggedIn()) {
                                                 <td><?= $staff['dob'] ?></td>
                                                 <td><?= $staff['phone1'] ?></td>
                                                 <td><?= $staff['willing_contact'] ?></td>
-                                                <td><?= $staff['status'] ?></td>
-                                                <td></td>
                                                 <td>
-                                                    <div class="btn-group btn-group-xs"> <?php if ($staff['token'] || $staff['count'] >= 4) { ?><button class="btn btn-warning">INACTIVE</button> <?php } else { ?><button class="btn btn-success">ACTIVE</button><?php } ?></div>
+                                                    <div class="btn-group btn-group-xs"> <?php if ($staff['status'] == 'In Study'|| $staff['status'] >= 'Enrolled') { ?><button class="btn btn-success">Enrolled</button> <?php } else { ?><button class="btn btn-warning">Not Enrolled</button><?php } ?></div>
                                                 </td>
                                                 </td>
                                                 <td>
                                                     <?php if ($staff['access_level'] != 2 || $power == 1) { ?>
-                                                        <a href="#edit_staff<?= $y ?>" data-toggle="modal" class="widget-icon" title="Edit Staff Information"><span class="icon-pencil"></span></a>
-                                                        <a href="#reset_password<?= $y ?>" data-toggle="modal" class="widget-icon" title="Reset Password to Default"><span class="icon-refresh"></span></a>
-                                                        <a href="#delete_staff<?= $y ?>" data-toggle="modal" class="widget-icon" title="Delete Staff"><span class="icon-trash"></span></a>
+                                                        <a href="#edit_participant<?= $y ?>" data-toggle="modal" class="widget-icon" title="Edit Participant Information"><span class="icon-pencil"></span></a>
                                                     <?php } ?>
                                                 </td>
                                             </tr>
-                                            <div class="modal" id="edit_staff<?= $y ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+                                            <div class="modal" id="edit_participant<?= $y ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <form method="post">
                                                             <div class="modal-header">
                                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                                <h4 class="modal-title">EDIT STAFF</h4>
+                                                                <h4 class="modal-title">EDIT PARTICIPANT</h4>
                                                             </div>
+
                                                             <div class="modal-body clearfix">
-                                                                <div class="controls">
-                                                                    <div class="form-row">
-                                                                        <div class="col-md-2">First Name:</div>
-                                                                        <div class="col-md-10">
-                                                                            <input type="text" name="firstname" class="form-control" value="<?= $staff['firstname'] ?>" required="" />
+                                                                <!-- <div class="controls"> -->
+
+                                                                <div class="row-md-12">
+                                                                    <div class="col-md-4">
+
+                                                                        <div class="form-row" id="st">
+                                                                            <div>STUDY NAME:</div>
+                                                                            <div class="col-md-10">
+                                                                                <select class="form-control" id="project_id" name="project_id" required>
+                                                                                    <option value="<?= $staff['project_name']; ?>"><?= $staff['project_name']; ?></option>
+                                                                                    <?php foreach ($override->getData('study') as $group) { ?>
+                                                                                        <option value="<?= $group['name'] ?>"><?= $group['name'] ?></option>
+                                                                                    <?php } ?>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+
+
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-row">
+                                                                            <div>SENSITIZATION ONE</div>
+                                                                            <div class="col-md-10">
+                                                                                <select id="sensitization_one" name="sensitization_one" class="form-control" required>
+                                                                                    <option value="<?= $staff['sensitization_one']; ?>"><?= $staff['sensitization_one']; ?></option>
+                                                                                    <?php foreach ($override->getData('yes_no_na') as $lt) { ?>
+                                                                                        <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
+                                                                                    <?php } ?>
+                                                                                </select>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="form-row">
-                                                                        <div class="col-md-2">Last Name:</div>
-                                                                        <div class="col-md-10">
-                                                                            <input type="text" name="lastname" class="form-control" value="<?= $staff['lastname'] ?>" required="" />
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-row">
-                                                                        <div class="col-md-2">Country:</div>
-                                                                        <div class="col-md-10">
-                                                                            <select class="form-control" id="c" name="country_id" required="">
-                                                                                <option value="<?= $country[0]['id'] ?>"><?= $country[0]['name'] ?></option>
-                                                                                <?php if ($user->data()->access_level == 1 || $user->data()->access_level == 2) {
-                                                                                    $countries = $override->get('country', 'status', 1);
-                                                                                } elseif ($user->data()->access_level == 4) {
-                                                                                    $countries = $override->getNews('country', 'id', $user->data()->c_id, 'status', 1);
-                                                                                }
-                                                                                foreach ($countries as $country) { ?>
-                                                                                    <option value="<?= $country['id'] ?>"><?= $country['name'] ?></option>
-                                                                                <?php } ?>
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div id="w" style="display:none;" class="col-md-offset-5 col-md-1"><img src='img/owl/spinner-mini.gif' width="12" height="12" /><br>Loading..</div>
-                                                                    <div class="form-row" id="s_i">
-                                                                        <div class="col-md-2">Site:</div>
-                                                                        <div class="col-md-10">
-                                                                            <select class="form-control" id="site_i" name="site_id" required="">
-                                                                                <option value="<?= $site[0]['id'] ?>"><?= $site[0]['name'] ?></option>
-                                                                                <?php foreach ($override->get('site', 'status', 1) as $site) { ?>
-                                                                                    <option value="<?= $site['id'] ?>"><?= $site['name'] ?></option>
-                                                                                <?php } ?>
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-row">
-                                                                        <div class="col-md-2">Position:</div>
-                                                                        <div class="col-md-10">
-                                                                            <select class="form-control" name="position" required="">
-                                                                                <!-- you need to properly manage positions -->
-                                                                                <option value="<?= $position['id'] ?>"><?= $position['name'] ?></option>
-                                                                                <?php foreach ($override->getData('position') as $position) {
-                                                                                    if ($user->data()->access_level == 1 && $user->data()->power == 1) { ?>
-                                                                                        <option value="<?= $position['id'] ?>"><?= $position['name'] ?></option>
-                                                                                    <?php } elseif ($user->data()->access_level == 1 && $position['name'] != 'Principle Investigator') { ?>
-                                                                                        <option value="<?= $position['id'] ?>"><?= $position['name'] ?></option>
-                                                                                    <?php } elseif ($user->data()->access_level == 2 && $position['name'] != 'Coordinator' && $position['name'] != 'Principle Investigator') { ?>
-                                                                                        <option value="<?= $position['id'] ?>"><?= $position['name'] ?></option>
-                                                                                <?php }
-                                                                                } ?>
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-row">
-                                                                        <div class="col-md-2">Username:</div>
-                                                                        <div class="col-md-10">
-                                                                            <input type="text" name="username" class="form-control" value="<?= $staff['username'] ?>" required="" />
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-row">
-                                                                        <div class="col-md-2">Phone:</div>
-                                                                        <div class="col-md-10">
-                                                                            <input type="text" name="phone_number" class="form-control" value="<?= $staff['phone_number'] ?>" required="" />
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-row">
-                                                                        <div class="col-md-2">Email:</div>
-                                                                        <div class="col-md-10">
-                                                                            <input type="text" name="email_address" class="form-control" value="<?= $staff['email_address'] ?>" />
+
+
+
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-row">
+                                                                            <div>SENSITIZATION TWO</div>
+                                                                            <div class="col-md-10">
+                                                                                <select id="sensitization_two" name="sensitization_two" class="form-control" required>
+                                                                                    <option value="<?= $staff['sensitization_two']; ?>"><?= $staff['sensitization_two']; ?></option>
+                                                                                    <?php foreach ($override->getData('yes_no_na') as $lt) { ?>
+                                                                                        <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
+                                                                                    <?php } ?>
+                                                                                </select>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
+
+                                                                <div class="row-md-12">
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-row">
+                                                                            <div>INITIALS:</div>
+                                                                            <div class="col-md-10">
+                                                                                <input type="text" name="initial" class="form-control" value="<?= $staff['initial']; ?>" minlength="3" maxlength="3" required="" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-row">
+                                                                            <div>SENSITIZATION NUMBER</div>
+                                                                            <div class="col-md-10">
+                                                                                <input type="text" name="sensitization_no" class="form-control" pattern="\d*" value="<?= $staff['sensitization_no']; ?>" minlength="3" maxlength="3" required="" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-row" id="st">
+                                                                            <div>Respondent is</div>
+                                                                            <div class="col-md-10">
+                                                                                <select class="form-control" id="client_category" name="client_category" required>
+                                                                                    <option value="<?= $staff['client_category']; ?>"><?= $staff['client_category']; ?></option>
+                                                                                    <?php foreach ($override->getData('client_category') as $group) { ?>
+                                                                                        <option value="<?= $group['name'] ?>"><?= $group['name'] ?></option>
+                                                                                    <?php } ?>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+
+                                                                <div class="row-md-12">
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-row">
+                                                                            <div>First Name:</div>
+                                                                            <div class="col-md-10">
+                                                                                <input type="text" name="fname" class="form-control" value="<?= $staff['fname'] ?>" required="" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-row">
+                                                                            <div>Midle Name:</div>
+                                                                            <div class="col-md-10">
+                                                                                <input type="text" name="mname" class="form-control" value="<?= $staff['mname']; ?>" required="" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-row">
+                                                                            <div>Last name:</div>
+                                                                            <div class="col-md-10">
+                                                                                <input type="text" name="lname" class="form-control" value="<?= $staff['lname']; ?>" required="" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- DATE OF BIRTH  -->
+
+                                                                <div class="row-md-12">
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-row">
+                                                                            <div><i class="fas fa-calendar input-prefix" tabindex="0"></i>DATE OF BIRTH:</div>
+                                                                            <div class="col-md-10">
+                                                                                <input type="date" class="form-control fas fa-calendar input-prefix" value="<?= $staff['dob']; ?>" name="dob" id="dob" required="" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-row">
+                                                                            <div>Child attending school?</div>
+                                                                            <div class="col-md-10">
+                                                                                <select id="attend_school" name="attend_school" class="form-control" required>
+                                                                                    <option value="<?= $staff['attend_school']; ?>"><?= $staff['attend_school']; ?></option>
+                                                                                    <?php foreach ($override->getData('yes_no_na') as $lt) { ?>
+                                                                                        <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
+                                                                                    <?php } ?>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-row">
+                                                                            <div>GENDER:</div>
+                                                                            <div class="col-md-10">
+                                                                                <select id="gender" name="gender" class="form-control" required>
+                                                                                    <option value="<?= $staff['gender']; ?>"><?= $staff['gender']; ?></option>
+                                                                                    <?php foreach ($override->getData('gender') as $gender) { ?>
+                                                                                        <option value="<?= $gender['name'] ?>"><?= $gender['name'] ?></option>
+                                                                                    <?php } ?>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+
+                                                                <!-- DATE OF BIRTH  -->
+
+
+                                                                <!-- POHONE  -->
+
+                                                                <div class="row-md-12">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-row">
+                                                                            <div class="col-md-2">Phone:</div>
+                                                                            <div class="col-md-10">
+                                                                                <input type="text" name="phone1" class="form-control" value="<?= $staff['phone1']; ?>" pattern="\d*" minlength="10" maxlength="10" required="" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-row">
+                                                                            <div class="col-md-2">Phone2:</div>
+                                                                            <div class="col-md-10">
+                                                                                <input type="text" name="phone2" class="form-control" value="<?= $staff['phone2']; ?>" pattern="\d*" minlength="10" maxlength="10" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <!-- POHONE  -->
+
+
+                                                                <!-- DEMOGRAPHIC  -->
+
+                                                                <div class="row-md-12">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-row">
+                                                                            <div>REGION:</div>
+                                                                            <div class="col-md-10">
+                                                                                <select id="region" name="region" class="form-control" required>
+                                                                                    <option value="<?= $staff['region']; ?>"><?= $staff['region']; ?></option>
+                                                                                    <?php foreach ($override->getData('region') as $lt) { ?>
+                                                                                        <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
+                                                                                    <?php } ?>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-row">
+                                                                            <div>DISTRICT:</div>
+                                                                            <div class="col-md-10">
+                                                                                <select id="district" name="district" class="form-control" required>
+                                                                                    <option value="<?= $staff['district']; ?>"><?= $staff['district']; ?></option>
+                                                                                    <?php foreach ($override->getData('district') as $lt) { ?>
+                                                                                        <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
+                                                                                    <?php } ?>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <div class="row-md-12">
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-row">
+                                                                            <div>WARD:</div>
+                                                                            <div class="col-md-10">
+                                                                                <select id="ward" name="ward" class="form-control" required>
+                                                                                    <option value="<?= $staff['ward']; ?>"><?= $staff['ward']; ?></option>
+                                                                                    <?php foreach ($override->getData('ward') as $lt) { ?>
+                                                                                        <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
+                                                                                    <?php } ?>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-row">
+                                                                            <div>VILLAGE:</div>
+                                                                            <div class="col-md-10">
+                                                                                <select id="village" name="village" class="form-control">
+                                                                                    <option value="<?= $staff['village']; ?>"><?= $staff['village']; ?></option>
+                                                                                    <?php foreach ($override->getData('village') as $lt) { ?>
+                                                                                        <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
+                                                                                    <?php } ?>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-row">
+                                                                            <div>Hamlet / Kitongoji:</div>
+                                                                            <div class="col-md-10">
+                                                                                <select id="hamlet" name="hamlet" class="form-control" required>
+                                                                                    <option value="<?= $staff['hamlet']; ?>"><?= $staff['hamlet']; ?></option>
+                                                                                    <?php foreach ($override->getData('hamlet') as $lt) { ?>
+                                                                                        <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
+                                                                                    <?php } ?>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <hr>
+                                                                <br>
+                                                                <br><br>
+                                                                <div class="row-md-12">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-row">
+                                                                            <label for="duration">For Bagamoyo residents, please specify the intended duration of stay in Bagamoyo:</label>
+                                                                            <div class="col-md-2"></div>
+                                                                            <div class="col-md-10">
+                                                                                <select id="duration" name="duration" class="form-control" required>
+                                                                                    <option value="<?= $staff['duration']; ?>"><?= $staff['duration']; ?></option>
+                                                                                    <?php foreach ($override->getData('duration') as $lt) { ?>
+                                                                                        <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
+                                                                                    <?php } ?>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-row">
+                                                                            <label for="duration">Is the participant willing to be contacted for the next sensitization meeting?</label>
+                                                                            <div class="col-md-2"></div>
+                                                                            <div class="col-md-10">
+                                                                                <select id="willing_contact" name="willing_contact" class="form-control" required>
+                                                                                    <option value="<?= $staff['willing_contact']; ?>"><?= $staff['willing_contact']; ?></option>
+                                                                                    <?php foreach ($override->getData('yes_no') as $lt) { ?>
+                                                                                        <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
+                                                                                    <?php } ?>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <hr>
+                                                                <br>
+                                                                <br><br>
+                                                                <div class="form-row">
+                                                                    <label for="duration">Briefly describe participant residential location in relation to the nearest famous neighborhoods:</label>
+                                                                    <div class="col-md-2"></div>
+                                                                    <div class="col-md-10">
+                                                                        <textarea name="location" id="location" value="<?= $staff['location']; ?>" cols="100%" rows="4" required></textarea>
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- DEMOGRAPHIC  -->
+
+
+                                                                <div class="row-md-12">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-row">
+                                                                            <label for="duration">Status:</label>
+                                                                            <div class="col-md-2"></div>
+                                                                            <div class="col-md-10">
+                                                                                <select id="status" name="status" class="form-control" required>
+                                                                                    <option value="<?= $staff['status']; ?>"><?= $staff['status']; ?></option>
+                                                                                    <?php foreach ($override->getData('status') as $lt) { ?>
+                                                                                        <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
+                                                                                    <?php } ?>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-row">
+                                                                            <label for="duration">Reason</label>
+                                                                            <div class="col-md-2"></div>
+                                                                            <div class="col-md-10">
+                                                                                <select id="reason" name="reason" class="form-control">
+                                                                                    <option value="<?= $staff['reason']; ?>"><?= $staff['reason']; ?></option>
+                                                                                    <?php foreach ($override->getData('end_study_reason') as $lt) { ?>
+                                                                                        <option value="<?= $lt['reason'] ?>"><?= $lt['reason'] ?></option>
+                                                                                    <?php } ?>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-12">
+                                                                    <div class="form-row">
+                                                                        <label for="duration">Other reason Details:</label>
+                                                                        <div class="col-md-2"></div>
+                                                                        <div class="col-md-10">
+                                                                            <textarea name="other_reason" id="other_reason" value="<?= $staff['other_reason']; ?>" cols="40%" rows="2"></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- INITIALS  -->
+
                                                             </div>
+
                                                             <div class="modal-footer">
                                                                 <div class="pull-right col-md-3">
                                                                     <input type="hidden" name="id" value="<?= $staff['id'] ?>">
-                                                                    <input type="submit" name="edit_staff" value="Submit" class="btn btn-success btn-clean">
+                                                                    <input type="submit" name="edit_participant" value="Submit" class="btn btn-success btn-clean">
                                                                 </div>
                                                                 <div class="pull-right col-md-2">
-                                                                    <button type="button" class="btn btn-default btn-clean" data-dismiss="modal">Close</button>
-                                                                </div>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="modal modal-info" id="reset_password<?= $y ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <form method="post">
-                                                            <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                                <h4 class="modal-title">YOU SURE YOU WANT TO RESET PASSWORD FOR THIS STAFF ?</h4>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <div class="col-md-2 pull-right">
-                                                                    <input type="hidden" name="firstname" value="<?= $staff['firstname'] ?>">
-                                                                    <input type="hidden" name="email" value="<?= $staff['email_address'] ?>">
-                                                                    <input type="hidden" name="id" value="<?= $staff['id'] ?>">
-                                                                    <input type="submit" name="reset_password" value="RESET" class="btn btn-default btn-clean">
-                                                                </div>
-                                                                <div class="col-md-2 pull-right">
-                                                                    <button type="button" class="btn btn-default btn-clean" data-dismiss="modal">Close</button>
-                                                                </div>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="modal modal-danger" id="delete_staff<?= $y ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <form method="post">
-                                                            <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                                <h4 class="modal-title">YOU SURE YOU WANT TO DELETE THIS STAFF ?</h4>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <div class="col-md-2 pull-right">
-                                                                    <input type="hidden" name="id" value="<?= $staff['id'] ?>">
-                                                                    <input type="submit" name="delete_staff" value="DELETE" class="btn btn-default btn-clean">
-                                                                </div>
-                                                                <div class="col-md-2 pull-right">
                                                                     <button type="button" class="btn btn-default btn-clean" data-dismiss="modal">Close</button>
                                                                 </div>
                                                             </div>
