@@ -3529,10 +3529,9 @@ if ($user->isLoggedIn()) {
                                         <th width="10%">CATEGORY</th>
                                         <th width="10%">STUDY</th>
                                         <th width="10%">GENDER</th>
-                                        <th width="10%">AGE</th>
+                                        <th width="10%">DATE BIRTH</th>
                                         <th width="10%">PHONE</th>
                                         <th width="10%">NEXT CONTACT</th>
-                                        <th width="10%">Enrolled</th>
                                         <th width="10%">STATUS</th>
                                         <th width="25%">MANAGE</th>
                                     </tr>
@@ -3566,10 +3565,9 @@ if ($user->isLoggedIn()) {
                                                 <td><?= $staff['client_category'] ?></td>
                                                 <td><?= $staff['project_name'] ?></td>
                                                 <td><?= $staff['gender'] ?></td>
-                                                <td><?= $staff['year'] ?></td>
+                                                <td><?= $staff['dob'] ?></td>
                                                 <td><?= $staff['phone1'] ?></td>
                                                 <td><?= $staff['willing_contact'] ?></td>
-                                                <td><?= $staff['enrolled'] ?></td>
                                                 <td><?= $staff['status'] ?></td>
                                                 <td></td>
                                                 <td>
