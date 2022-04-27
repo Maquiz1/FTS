@@ -732,6 +732,21 @@ if ($user->isLoggedIn()) {
 }
 ?>
 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous"> -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+<!-- Datatable JS -->
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+<!-- Datatable CSS -->
+<!-- <link href='//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css' rel='stylesheet' type='text/css'> -->
+
+
+
 <nav class="navbar brb" role="navigation">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -1864,10 +1879,48 @@ if ($user->isLoggedIn()) {
 </div>
 
 
+<div id="add_voluntier1" class="modal fade" style="background-color: white;" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="fa fa-plus"></i>Product Details</h4>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form role="form" method="POST" action="" id="dispense_form">
+                    <input type="hidden" name="__token" value="">
+                    <div class="form-group">
+                        <label class="control-label">For Bagamoyo residents, please specify the intended duration of stay in Bagamoyo</label>
+                        <input type="text" name="dispense_name" id="dispense_name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Total Product Quantinty Available</label>
+                        <input type="text" name="total_quantity" id="total_quantity" class="form-control" required pattern="[+-]?([0-9]*[.])?[0-9]+" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Available For Dispense</label>
+                        <input type="text" name="dispense_quantity" id="dispense_quantity" class="form-control" required pattern="[+-]?([0-9]*[.])?[0-9]+" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Add Amount To Dispense</label>
+                        <input type="text" name="add_dispense" id="add_dispense" class="form-control" required pattern="[+-]?([0-9]*[.])?[0-9]+">
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" name="dispense_id" id="dispense_id" />
+                        <input type="hidden" name="dispense_btn_action" id="dispense_btn_action" />
+                        <input type="submit" name="dispense_action" id="dispense_action" class="btn btn-info" value="Update" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <!-- ADD VOLUNTIER  -->
 <!-- <div class="container">
     <div class="card mx-auto" style="width: 80rem;"> -->
-<div class="modal faed" id="add_voluntier" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="add_voluntier" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <form method="post">
@@ -2174,12 +2227,12 @@ if ($user->isLoggedIn()) {
 
                     <hr>
                     <br>
-                    <br><br>
-                    <div class="form-row">
-                        <label for="duration">Briefly describe participant residential location in relation to the nearest famous neighborhoods:</label>
-                        <div class="col-md-2"></div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div>Briefly describe participant residential location in relation to the nearest famous neighborhoods</div>
                         <div class="col-md-10">
-                            <textarea name="location" id="location" cols="100%" rows="4" required></textarea>
+                            <textarea name="location" id="location" class="form-control" cols="100%" rows="4" required></textarea>
                         </div>
                     </div>
 

@@ -3681,7 +3681,9 @@ if ($user->isLoggedIn()) {
                                                 <td><?= $staff['phone1'] ?></td>
                                                 <td><?= $staff['willing_contact'] ?></td>
                                                 <td>
-                                                    <div class="btn-group btn-group-xs"> <?php if ($staff['status'] == 'Enrolled') { ?><button class="btn btn-success">Enrolled</button> <?php } else { ?><button class="btn btn-warning">Not Enrolled</button><?php } ?></div>
+                                                    <div class="btn-group btn-group-xs">
+                                                        <?php if ($staff['status'] == 'Enrolled') { ?><button class="btn btn-success">Enrolled</button> <?php } elseif($staff['status'] == 'Not Enrolled') { ?><button class="btn btn-warning">Not Enrolled</button><?php }elseif($staff['status'] == 'On Screening') { ?><button class="btn btn-warning">On Screening</button><?php } ?>
+                                                    </div>
                                                 </td>
                                                 </td>
                                                 <td>
@@ -3690,7 +3692,8 @@ if ($user->isLoggedIn()) {
                                                     <?php } ?>
                                                 </td>
                                             </tr>
-                                            
+
+
 
                                             <!-- <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
@@ -3733,7 +3736,7 @@ if ($user->isLoggedIn()) {
                                             </div> -->
 
 
-                                            <div class="modal fade-in" id="edit_participant<?= $y ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal fade" id="edit_participant<?= $y ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <form method="post">
