@@ -3682,7 +3682,7 @@ if ($user->isLoggedIn()) {
                                                 <td><?= $staff['willing_contact'] ?></td>
                                                 <td>
                                                     <div class="btn-group btn-group-xs">
-                                                        <?php if ($staff['status'] == 'Enrolled') { ?><button class="btn btn-success">Enrolled</button> <?php } elseif($staff['status'] == 'Not Enrolled') { ?><button class="btn btn-warning">Not Enrolled</button><?php }elseif($staff['status'] == 'On Screening') { ?><button class="btn btn-warning">On Screening</button><?php } ?>
+                                                        <?php if ($staff['status'] == 'Enrolled') { ?><button class="btn btn-success">Enrolled</button> <?php } elseif ($staff['status'] == 'Not Enrolled') { ?><button class="btn btn-warning">Not Enrolled</button><?php } elseif ($staff['status'] == 'On Screening') { ?><button class="btn btn-info">On Screening</button><?php }else { ?><button class="btn btn-info">Not Enrolled</button><?php } ?>
                                                     </div>
                                                 </td>
                                                 </td>
