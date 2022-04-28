@@ -361,7 +361,10 @@ if ($user->isLoggedIn()) {
                                         }
                                 ?>
                                         <tr>
-                                            <td><?= $client['study_id']; ?></td>
+
+                                            <td>
+                                                <div class="btn-group btn-group-xs"><a href="info.php?id=6&cid=<?= $client['id']  ?>" class="btn btn-success btn-clean"><span class="icon-eye-open"></span> <?= $client['study_id'];  ?></a></div>
+                                            </td>
                                             <td><?= $override->get('study', 'id', $client['project_id'])[0]['study_code'] ?></td>
                                             <td><?= $override->get('patient_group', 'id', $client['pt_group'])[0]['name'] ?></td>
                                             <td><?= $data['visit_code'] ?></td>
