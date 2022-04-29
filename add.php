@@ -51,6 +51,11 @@ if ($user->isLoggedIn()) {
                         } elseif ((Input::get('study_name') == 'EBL08')) {
                             $user->generateScheduleEBL08(Input::get('study_name'), Input::get('client_id'), $date = date('Y-m-d', strtotime(Input::get('visit_date'))), 1, 'c');
                         }
+
+                        $user->updateRecord('details', array(
+                            'status' => 'Enrolled'
+                        ), Input::get('participant_id'));
+
                         $successMessage = 'Schedules Added Successful';
                     } else {
                         $errorMessage = 'Patient Schedules already exist';
@@ -188,15 +193,9 @@ if ($user->isLoggedIn()) {
                                             <div class="col-md-10">
                                                 <select name="client_id" id="client_id" class="select2" style="width: 100%;" tabindex="-1">
                                                     <option value="">SELECT CLIENT ID</option>
-                                                    <!-- <option value="">Select study ID</option> -->
-                                                    <?php foreach ($override->getData('clients') as $client) { ?>
-                                                        <option value="<?= $client['id'] ?>"><?= $client['study_id'] ?></option>
-                                                    <?php } ?>
-
                                                 </select>
                                             </div>
                                         </div>
-
 
                                         <div id="waitS1" style="display:none;" class="col-md-offset-5 col-md-1"><img src='img/owl/spinner-mini.gif' width="12" height="12" /><br>Loading..</div>
                                         <div class="form-row" id="s1">
@@ -221,6 +220,7 @@ if ($user->isLoggedIn()) {
                                 </div>
                                 <div class="modal-footer">
                                     <div class="pull-right col-md-3">
+                                        <input type="hidden" name="participant_id" id="participant_id" class="form-control" value="" />
                                         <input type="submit" name="add_visit" value="ADD" class="btn btn-success">
                                     </div>
                                 </div>
@@ -254,21 +254,42 @@ if ($user->isLoggedIn()) {
             });
         });
 
-        // $('#study_name').change(function(){
-        //     var getUid = $(this).val();
-        //     // $('#fl_wait').show();
-        //     $.ajax({
-        //         url:"process.php?cnt=study",
-        //         method:"GET",
-        //         data:{getUid:getUid},
-        //         success:function(data){
-        //             $('#client_id').html(data);
-        //             // $('#fl_wait').hide();
-        //             // console.log(data);
-        //         }
-        //     });
+        $('#study_name').change(function() {
+            var study_name = $(this).val();
+            // $('#fl_wait').show();
+            $.ajax({
+                url: "process.php?content=client_id",
+                method: "GET",
+                data: {
+                    study_name: study_name
+                },
+                success: function(data) {
+                    $('#client_id').html(data);
+                    // $('#fl_wait').hide();
+                    // console.log(data);
+                }
+            });
 
-        // });
+        });
+
+        $('#client_id').change(function() {
+            var client_id = $(this).val();
+            // $('#fl_wait').show();
+            $.ajax({
+                url: "process.php?content=participant_id",
+                method: "GET",
+                data: {
+                    client_id: client_id
+                },
+                dataType: "json",
+                success: function(data) {
+                    $('#participant_id').val(data.participant_id);
+                    // $('#fl_wait').hide();
+                    // console.log(data);
+                }
+            });
+
+        });
 
         if (window.history.replaceState) {
             window.history.replaceState(null, null, window.location.href);

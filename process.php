@@ -37,8 +37,57 @@ if ($_GET['content'] == 'visit') {
     $sts = $override->get('clients', 'project_id', $project_id) ?>
     <?php foreach ($sts as $st) { ?>
         <option value="<?= $st['study_id'] ?>"><?= $st['study_id'] ?></option>
+    <?php }
+} elseif ($_GET['content'] == 'full_name') {
+    if ($_GET['project_name']) {
+        $full_name = $override->get_full_name('details', 'project_name', $_GET['project_name']); ?>
+        <option value="">Select Name</option>
+        <?php foreach ($full_name as $name) { ?>
+            <option value="<?= $name['id'] ?>"><?= $name['fname'] . ' ' . $name['mname'] . ' ' . $name['lname'] ?></option>
 <?php }
+    }
+} elseif ($_GET['content'] == 'details') {
+    if ($_GET['full_name_id']) {
+        $output = array();
+        $detail = $override->get_full_name('details', 'id', $_GET['full_name_id']);
+        foreach ($detail as $name) {
+            $output['initial']     = $name['initial'];
+            $output['gender']      = $name['gender'];
+            $output['dob']      = $name['dob'];
+            $output['phone1']      = $name['phone1'];
+            $output['phone2']      = $name['phone2'];
+        }
+        echo json_encode($output);
+    }
+} elseif ($_GET['content'] == 'project_id') {
+    if ($_GET['project_name']) {
+        $output = array();
+        $project_id = $override->get_full_name('study', 'name', $_GET['project_name']);
+        foreach ($project_id as $name) {
+            $output['project_id']     = $name['id'];
+        }
+        echo json_encode($output);
+    }
+}elseif ($_GET['content'] == 'client_id') {
+    if ($_GET['study_name']) {
+        $full_name = $override->get_full_name('clients', 'project_name', $_GET['study_name']); ?>
+        <option value="">Client ID</option>
+        <?php foreach ($full_name as $name) { ?>
+            <option value="<?= $name['id'] ?>"><?= $name['study_id'] ?></option>
+<?php }
+    }
+}elseif ($_GET['content'] == 'participant_id') {
+    if ($_GET['client_id']) {
+        $output = array();
+        $project_id = $override->get_full_name('clients', 'id', $_GET['client_id']);
+        foreach ($project_id as $name) {
+            $output['participant_id']     = $name['participant_id'];
+        }
+        echo json_encode($output);
+    }
 } ?>
+
+
 
 
 

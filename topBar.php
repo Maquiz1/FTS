@@ -15,21 +15,15 @@ if ($user->isLoggedIn()) {
         if (Input::get('add_client')) {
             $validate = new validate();
             $validate = $validate->check($_POST, array(
-                'fname' => array(
-                    'required' => true,
-                ),
-                'mname' => array(
-                    'required' => true,
-                ),
-                'lname' => array(
+                'full_name' => array(
                     'required' => true,
                 ),
                 'study_id' => array(
                     'required' => true,
                     'unique' => 'clients',
-                    'min' => 6,
+                    'min' => 4,
                 ),
-                'initials' => array(
+                'pt_initials' => array(
                     'required' => true,
                     'max' => 3,
                 ),
@@ -42,28 +36,26 @@ if ($user->isLoggedIn()) {
                 'group' => array(
                     'required' => true,
                 ),
-                'project_id' => array(
+                'project_name' => array(
                     'required' => true,
                 ),
-                // 'dob' => array(
-                //     'required' => true,
-                // ),
                 'gender' => array(
                     'required' => true,
                 ),
+                'dob' => array(
+                    'required' => true,
+                )
             ));
             if ($validate->passed()) {
                 $s_date = date('Y-m-d', strtotime(Input::get('screening_date')));
                 try {
                     $user->createRecord('clients', array(
                         'study_id' => Input::get('study_id'),
-                        'fname' => Input::get('fname'),
-                        'mname' => Input::get('mname'),
-                        'lname' => Input::get('lname'),
+                        'participant_id' => Input::get('full_name'),
                         'gender' => Input::get('gender'),
                         'dob' => Input::get('dob'),
                         'status' => 1,
-                        'initials' => Input::get('initials'),
+                        'initials' => Input::get('pt_initials'),
                         'phone_number' => Input::get('phone_number'),
                         'phone_number2' => Input::get('phone_number2'),
                         'screening_date' => $s_date,
@@ -71,9 +63,14 @@ if ($user->isLoggedIn()) {
                         'reason' => '',
                         'details' => '',
                         'visit_cat' => 0,
+                        'project_name' => Input::get('project_name'),
                         'project_id' => Input::get('project_id'),
                         'staff_id' => $user->data()->id
                     ));
+
+                    $user->updateRecord('details', array(
+                        'status' => 'On Screening'
+                    ), Input::get('full_name'));
 
                     $successMessage = 'Client Added Successful';
                 } catch (Exception $e) {
@@ -772,11 +769,11 @@ if ($user->isLoggedIn()) {
             ?>
 
                 <li class="">
-                    <a href="#add_client" data-toggle="modal" data-backdrop="static" data-keyboard="false"><span class="icon-plus-sign"></span> Add New Client</a>
+                    <a href="#add_client" data-toggle="modal" data-backdrop="static" data-keyboard="false"><span class="icon-plus-sign"></span> Add Screening</a>
                 </li>
                 <li class="">
                     <!--<a href="#add_visit" data-toggle="modal" data-backdrop="static" data-keyboard="false" ><span class="icon-bookmark"></span> Add Visit</a>-->
-                    <a href="add.php"><span class="icon-bookmark"></span> Add Scheduled Visits</a>
+                    <a href="add.php"><span class="icon-bookmark"></span> Add Vaccine</a>
 
                 </li>
                 <li class="">
@@ -880,69 +877,14 @@ if ($user->isLoggedIn()) {
             <form method="post">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">ADD NEW CLIENT</h4>
+                    <h4 class="modal-title">ADD SCREENING</h4>
                 </div>
                 <div class="modal-body clearfix">
                     <div class="controls">
                         <div class="form-row">
                             <div class="col-md-2">CLIENT ID:</div>
                             <div class="col-md-10">
-                                <input type="text" name="study_id" class="form-control" value="" required="" />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-md-2">First Name:</div>
-                            <div class="col-md-10">
-                                <input type="text" name="fname" class="form-control" value="" required="" />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-md-2">Midle Name:</div>
-                            <div class="col-md-10">
-                                <input type="text" name="mname" class="form-control" value="" required="" />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-md-2">Last name:</div>
-                            <div class="col-md-10">
-                                <input type="text" name="lname" class="form-control" value="" required="" />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-md-2">INITIALS:</div>
-                            <div class="col-md-10">
-                                <input type="text" name="initials" class="form-control" value="" required="" />
-                            </div>
-                        </div>
-                        <!-- <div class="form-row">
-                            <div class="col-md-2">DATE OF BIRTH:</div>
-                            <div class="col-md-10">
-                                <div class="input-group">
-                                    <div class="input-group-addon"><span class="icon-calendar-empty"></span></div>
-                                    <input type="text" name="dob" class="datepicker form-control" value="" />
-                                </div>
-                            </div>
-                        </div> -->
-                        <div class="form-row">
-                            <div class="col-md-2">GENDER:</div>
-                            <div class="col-md-10">
-                                <select class="form-control" id="gender" name="gender" required>
-                                    <option value="">SELECT GENDER</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-md-2">Phone:</div>
-                            <div class="col-md-10">
-                                <input type="text" name="phone_number" class="form-control" value="" required="" />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-md-2">Phone2:</div>
-                            <div class="col-md-10">
-                                <input type="text" name="phone_number2" class="form-control" value="" />
+                                <input type="text" name="study_id" id="study_id" class="form-control" value="" required="" />
                             </div>
                         </div>
                         <div class="form-row">
@@ -957,14 +899,15 @@ if ($user->isLoggedIn()) {
                         <div class="form-row" id="st">
                             <div class="col-md-2">STUDY NAME:</div>
                             <div class="col-md-10">
-                                <select class="form-control" id="project_id" name="project_id" required>
+                                <select class="form-control" id="project_name" name="project_name" required>
                                     <option value="">SELECT STUDY</option>
                                     <?php foreach ($override->getData('study') as $group) { ?>
-                                        <option value="<?= $group['id'] ?>"><?= $group['name'] ?></option>
+                                        <option value="<?= $group['name'] ?>"><?= $group['name'] ?></option>
                                     <?php } ?>
                                 </select>
                             </div>
                         </div>
+
                         <div class="form-row" id="st">
                             <div class="col-md-2">Group:</div>
                             <div class="col-md-10">
@@ -976,20 +919,61 @@ if ($user->isLoggedIn()) {
                                 </select>
                             </div>
                         </div>
+
+                        <div class="form-row">
+                            <div class="col-md-2">Full Name:</div>
+                            <div class="col-md-10">
+                                <select class="form-control" id="full_name" name="full_name" required>
+                                    <option value="">Select Name</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-2">CLIENT INITIALS:</div>
+                            <div class="col-md-10">
+                                <input type="text" name="pt_initials" id="pt_initials" class="form-control" value="" required="" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-2">GENDER:</div>
+                            <div class="col-md-10">
+                                <input type="text" name="gender" id="gender" class="form-control" value="" required="" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-2">BIRTH:</div>
+                            <div class="col-md-10">
+                                <input type="text" name="dob" id="dob" class="form-control" value="" required="" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-2">PHONE1:</div>
+                            <div class="col-md-10">
+                                <input type="text" name="phone_number" id="phone_number" class="form-control" value="" required="" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-2">PHONE2:</div>
+                            <div class="col-md-10">
+                                <input type="text" name="phone_number2" id="phone_number2" class="form-control" value="" />
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="pull-right col-md-3">
-                        <input type="submit" name="add_client" value="ADD" class="btn btn-success btn-clean">
+
+                    <div class="modal-footer">
+                        <div class="pull-right col-md-3">
+                            <input type="hidden" name="project_id" id="project_id" class="form-control" value="" />
+                            <input type="submit" name="add_client" value="ADD" class="btn btn-success btn-clean">
+                        </div>
+                        <div class="pull-right col-md-2">
+                            <button type="button" class="btn btn-default btn-clean" data-dismiss="modal">Close</button>
+                        </div>
                     </div>
-                    <div class="pull-right col-md-2">
-                        <button type="button" class="btn btn-default btn-clean" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
             </form>
         </div>
     </div>
 </div>
+
 
 
 <div class="modal" id="add_visit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -2373,6 +2357,68 @@ if ($user->isLoggedIn()) {
                 dataType: "text",
                 success: function(data) {
                     $('#district_id').html(data);
+                    $('#rg').show();
+                    $('#waitdst').hide();
+                }
+            });
+        });
+
+        $('#project_name').change(function() {
+            var project_name = $(this).val();
+            $('#rg').hide();
+            $('#waitdst').show();
+            $.ajax({
+                url: "process.php?content=full_name",
+                method: "GET",
+                data: {
+                    project_name: project_name
+                },
+                dataType: "text",
+                success: function(data) {
+                    $('#full_name').html(data);
+                    $('#rg').show();
+                    $('#waitdst').hide();
+                }
+            });
+        });
+
+        $('#project_name').change(function() {
+            var project_name = $(this).val();
+            $('#rg').hide();
+            $('#waitdst').show();
+            $.ajax({
+                url: "process.php?content=project_id",
+                method: "GET",
+                data: {
+                    project_name: project_name
+                },
+                dataType: "json",
+                success: function(data) {
+                    $('#project_id').val(data.project_id);
+                    $('#rg').show();
+                    $('#waitdst').hide();
+                }
+            });
+        });
+
+
+        $('#full_name').change(function() {
+            var full_name_id = $(this).val();
+            $('#rg').hide();
+            $('#waitdst').show();
+            $.ajax({
+                url: "process.php?content=details",
+                method: "GET",
+                data: {
+                    full_name_id: full_name_id
+                },
+                dataType: "json",
+                success: function(data) {
+                    $('#pt_initials').val(data.initial);
+                    $('#gender').val(data.gender);
+                    $('#dob').val(data.dob);
+                    $('#phone_number').val(data.phone1);
+                    $('#phone_number2').val(data.phone2);
                     $('#rg').show();
                     $('#waitdst').hide();
                 }

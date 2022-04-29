@@ -344,6 +344,11 @@ class OverideData{
         $num = $query->rowCount();
         return $num;
     }
+    public function get_full_name($table,$where,$study){
+        $query = $this->_pdo->query("SELECT * FROM $table WHERE $where = '$study'");
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
 
     public function getAsc($table,$where,$id,$order){
         $query = $this->_pdo->query("SELECT * FROM $table WHERE $where = '$id' ORDER BY $order ASC");
