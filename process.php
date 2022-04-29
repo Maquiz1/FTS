@@ -53,7 +53,7 @@ if ($_GET['content'] == 'visit') {
         foreach ($detail as $name) {
             $output['initial']     = $name['initial'];
             $output['gender']      = $name['gender'];
-            $output['dob']      = $name['dob'];
+            $output['dob']         = $name['dob'];
             $output['phone1']      = $name['phone1'];
             $output['phone2']      = $name['phone2'];
         }

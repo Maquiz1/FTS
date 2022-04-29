@@ -39,10 +39,10 @@ if ($user->isLoggedIn()) {
                 'project_name' => array(
                     'required' => true,
                 ),
-                'gender' => array(
+                'screening_gender' => array(
                     'required' => true,
                 ),
-                'dob' => array(
+                'screening_dob' => array(
                     'required' => true,
                 )
             ));
@@ -52,8 +52,8 @@ if ($user->isLoggedIn()) {
                     $user->createRecord('clients', array(
                         'study_id' => Input::get('study_id'),
                         'participant_id' => Input::get('full_name'),
-                        'gender' => Input::get('gender'),
-                        'dob' => Input::get('dob'),
+                        'gender' => Input::get('screening_gender'),
+                        'dob' => Input::get('screening_dob'),
                         'status' => 1,
                         'initials' => Input::get('pt_initials'),
                         'phone_number' => Input::get('phone_number'),
@@ -1316,13 +1316,13 @@ if ($user->isLoggedIn()) {
                         <div class="form-row">
                             <div class="col-md-2">GENDER:</div>
                             <div class="col-md-10">
-                                <input type="text" name="gender" id="gender" class="form-control" value="" required="" />
+                                <input type="text" name="screening_gender" id="screening_gender" class="form-control" value="" required="" />
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col-md-2">BIRTH:</div>
                             <div class="col-md-10">
-                                <input type="text" name="dob" id="dob" class="form-control" value="" required="" />
+                                <input type="text" name="screening_dob" id="screening_dob" class="form-control" value="" required="" />
                             </div>
                         </div>
                         <div class="form-row">
@@ -2401,8 +2401,8 @@ if ($user->isLoggedIn()) {
                 dataType: "json",
                 success: function(data) {
                     $('#pt_initials').val(data.initial);
-                    $('#gender').val(data.gender);
-                    $('#dob').val(data.dob);
+                    $('#screening_gender').val(data.gender);
+                    $('#screening_dob').val(data.dob);
                     $('#phone_number').val(data.phone1);
                     $('#phone_number2').val(data.phone2);
                     $('#rg').show();
