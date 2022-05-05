@@ -53,13 +53,16 @@ if ($user->isLoggedIn()) {
                     $user->createRecord('clients', array(
                         'project_id' => Input::get('project_name_id'),
                         'project_name' => Input::get('project_name'),
-                        'study_id' => Input::get('study_id'),  
+                        'study_id' => Input::get('study_id'),
+                        'fname' => Input::get('fname'),
+                        'mname' => Input::get('mname'),
+                        'lname' => Input::get('lname'),
                         'initials' => Input::get('pt_initials'),
                         'phone_number' => Input::get('phone_number'),
-                        'phone_number2' => Input::get('phone_number2'), 
-                        'status' => 1,  
-                        'staff_id' => $user->data()->id, 
-                        'screening_date' => $s_date,                 
+                        'phone_number2' => Input::get('phone_number2'),
+                        'status' => 1,
+                        'staff_id' => $user->data()->id,
+                        'screening_date' => $s_date,
                         'pt_group' => Input::get('group'),
                         'dob' => $s_dob,
                         'gender' => Input::get('screening_gender'),
@@ -1342,6 +1345,9 @@ if ($user->isLoggedIn()) {
 
                     <div class="modal-footer">
                         <div class="pull-right col-md-3">
+                            <input type="hidden" name="fname" id="fname" class="form-control" value="" />
+                            <input type="hidden" name="mname" id="mname" class="form-control" value="" />
+                            <input type="hidden" name="lname" id="lname" class="form-control" value="" />
                             <input type="hidden" name="project_name_id" id="project_name_id" class="form-control" value="" />
                             <input type="submit" name="add_client" value="ADD" class="btn btn-success btn-clean">
                         </div>
@@ -2405,6 +2411,9 @@ if ($user->isLoggedIn()) {
                     $('#screening_dob').val(data.dob);
                     $('#phone_number').val(data.phone1);
                     $('#phone_number2').val(data.phone2);
+                    $('#fname').val(data.fname);
+                    $('#mname').val(data.mname);
+                    $('#lname').val(data.lname);
                     $('#rg').show();
                     $('#waitdst').hide();
                 }

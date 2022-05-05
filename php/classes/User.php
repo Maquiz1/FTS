@@ -534,6 +534,7 @@ class User
 
     function updateScheduleNotDelayedVac080($study_name, $pid, $date, $day, $study_group)
     {
+        $this->updateRecord('clients', array('pt_group' => $study_group), $pid);
         if ($day == 1) {
             $visit = 'V' . $day;
             $this->deleteRecord('visit', 'client_id', $pid);
@@ -765,6 +766,7 @@ class User
 
     function updateScheduleDelayedVac080($study_name, $pid, $date, $day, $study_group)
     {
+        $this->updateRecord('clients', array('pt_group' => $study_group), $pid);
         if ($day == 1) {
             $visit = 'V' . $day;
             $this->deleteRecord('visit', 'client_id', $pid);
@@ -987,6 +989,7 @@ class User
 
     function updateScheduleNotDelayedVac082($study_name, $pid, $date, $day, $study_group)
     {
+        $this->updateRecord('clients', array('pt_group' => $study_group), $pid);
         if ($day == 1) {
             $visit = 'V' . $day;
             $this->deleteRecord('visit', 'client_id', $pid);
@@ -1224,6 +1227,7 @@ class User
 
     function updateScheduleDelayedVac082($study_name, $pid, $date, $day, $study_group)
     {
+        $this->updateRecord('clients', array('pt_group' => $study_group), $pid);
         if ($day == 1) {
             $visit = 'V' . $day;
             $this->deleteRecord('visit', 'client_id', $pid);
@@ -1381,6 +1385,7 @@ class User
 
     function updateScheduleRAB002($study_name, $pid, $date, $day, $study_group)
     {
+        $this->updateRecord('clients', array('pt_group' => $study_group), $pid);
         if ($day == 1) {
             // $visit = 'V' . $day;
             $this->deleteRecord('visit', 'client_id', $pid);
@@ -1512,6 +1517,7 @@ class User
 
     function updateScheduleEBL08($study_name, $pid, $date, $day, $study_group)
     {
+        $this->updateRecord('clients', array('pt_group' => $study_group), $pid);
         if ($day == 1) {
             // $visit = 'V' . $day;
             $this->deleteRecord('visit', 'client_id', $pid);

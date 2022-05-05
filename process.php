@@ -56,6 +56,9 @@ if ($_GET['content'] == 'visit') {
             $output['dob']         = $name['dob'];
             $output['phone1']      = $name['phone1'];
             $output['phone2']      = $name['phone2'];
+            $output['fname']       = $name['fname'];
+            $output['mname']       = $name['mname'];
+            $output['lname']       = $name['lname'];
         }
         echo json_encode($output);
     }
@@ -88,7 +91,7 @@ if ($_GET['content'] == 'visit') {
 }elseif ($_GET['content'] == 'participant_group_id') {
     if ($_GET['patient_group_name']) {
         $output = array();
-        $project_id = $override->get_full_name('study', 'name', $_GET['patient_group_name']);
+        $project_id = $override->get_full_name('patient_group', 'name', $_GET['patient_group_name']);
         foreach ($project_id as $name) {
             $output['participant_group_id']     = $name['id'];
         }

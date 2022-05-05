@@ -554,17 +554,17 @@ if ($user->isLoggedIn()) {
             if ($validate->passed()) {
                 try {
                     if ((Input::get('project_name') == 'VAC080') and (Input::get('group_name') == 'Group 1A' || Input::get('group_name') == 'Group 2A')) {
-                        $user->updateScheduleNotDelayedVac080(Input::get('project_name'), Input::get('id'), Input::get('visit_date'), Input::get('visit'));
+                        $user->updateScheduleNotDelayedVac080(Input::get('project_name'), Input::get('id'), Input::get('visit_date'), Input::get('visit'), Input::get('participant_group'));
                     } elseif ((Input::get('project_name') == 'VAC080') and (Input::get('group_name') == 'Group 1B' || Input::get('group_name') == 'Group 2B' || Input::get('group_name') == 'Group 2C' || Input::get('group_name') == 'Group 2D')) {
-                        $user->updateScheduleDelayedVac080(Input::get('project_name'), Input::get('id'), Input::get('visit_date'), Input::get('visit'));
+                        $user->updateScheduleDelayedVac080(Input::get('project_name'), Input::get('id'), Input::get('visit_date'), Input::get('visit'), Input::get('participant_group'));
                     } elseif ((Input::get('project_name') == 'VAC082') and (Input::get('group_name') == 'Group 1A' || Input::get('group_name') == 'Group 1B' || Input::get('group_name') == 'Group 2A' || Input::get('group_name') == 'Group 2B' || Input::get('group_name') == 'Group 3A' || Input::get('group_name') == 'Group 3B')) {
-                        $user->updateScheduleNotDelayedVac082(Input::get('project_name'), Input::get('id'), Input::get('visit_date'), Input::get('visit'));
+                        $user->updateScheduleNotDelayedVac082(Input::get('project_name'), Input::get('id'), Input::get('visit_date'), Input::get('visit'), Input::get('participant_group'));
                     } elseif ((Input::get('project_name') == 'VAC082') and (Input::get('group_name') == 'Group 3C' || Input::get('group_name') == 'Group 4A' || Input::get('group_name') == 'Group 4B' || Input::get('group_name') == 'Group 4C')) {
-                        $user->updateScheduleDelayedVac082(Input::get('project_name'), Input::get('id'), Input::get('visit_date'), Input::get('visit'));
+                        $user->updateScheduleDelayedVac082(Input::get('project_name'), Input::get('id'), Input::get('visit_date'), Input::get('visit'), Input::get('participant_group'));
                     } elseif ((Input::get('project_name') == 'RAB002')) {
-                        $user->updateScheduleRAB002(Input::get('project_name'), Input::get('id'), Input::get('visit_date'), Input::get('visit'));
+                        $user->updateScheduleRAB002(Input::get('project_name'), Input::get('id'), Input::get('visit_date'), Input::get('visit'), Input::get('participant_group'));
                     } elseif ((Input::get('project_name') == 'EBL08')) {
-                        $user->updateScheduleEBL08(Input::get('project_name'), Input::get('id'), Input::get('visit_date'), Input::get('visit'));
+                        $user->updateScheduleEBL08(Input::get('project_name'), Input::get('id'), Input::get('visit_date'), Input::get('visit'), Input::get('participant_group'));
                     }
                     $successMessage = 'Visit Edited Successful';
                 } catch (Exception $e) {
@@ -1139,6 +1139,7 @@ if ($user->isLoggedIn()) {
                                                                 <div class="modal-footer">
                                                                     <div class="pull-right col-md-3">
                                                                         <input type="hidden" name="id" value="<?= $client['id'] ?>">
+                                                                        <!-- <input type="hidden" name="participant_group" id="participant_group" class="form-control" value="" /> -->
                                                                         <input type="submit" name="reschedule_vaccine" value="Submit" class="btn btn-success btn-clean">
                                                                     </div>
                                                                     <div class="pull-right col-md-2">
@@ -1903,6 +1904,7 @@ if ($user->isLoggedIn()) {
                                                         <div class="modal-footer">
                                                             <div class="pull-right col-md-3">
                                                                 <input type="hidden" name="id" value="<?= $client['id'] ?>">
+                                                                <input type="hidden" name="participant_group" id="participant_group" class="form-control" value="" />
                                                                 <input type="submit" name="reschedule_vaccine" value="Submit" class="btn btn-success btn-clean">
                                                             </div>
                                                             <div class="pull-right col-md-2">
@@ -3682,7 +3684,7 @@ if ($user->isLoggedIn()) {
                                                 <td><?= $staff['willing_contact'] ?></td>
                                                 <td>
                                                     <div class="btn-group btn-group-xs">
-                                                        <?php if ($staff['status'] == 'Enrolled') { ?><button class="btn btn-success">Enrolled</button> <?php } elseif ($staff['status'] == 'Not Enrolled') { ?><button class="btn btn-warning">Not Enrolled</button><?php } elseif ($staff['status'] == 'On Screening') { ?><button class="btn btn-info">On Screening</button><?php }else { ?><button class="btn btn-warning">Not Enrolled</button><?php } ?>
+                                                        <?php if ($staff['status'] == 'Enrolled') { ?><button class="btn btn-success">Enrolled</button> <?php } elseif ($staff['status'] == 'Not Enrolled') { ?><button class="btn btn-warning">Not Enrolled</button><?php } elseif ($staff['status'] == 'On Screening') { ?><button class="btn btn-info">On Screening</button><?php } else { ?><button class="btn btn-warning">Not Enrolled</button><?php } ?>
                                                     </div>
                                                 </td>
                                                 </td>
@@ -4327,7 +4329,29 @@ if ($user->isLoggedIn()) {
                 "pageLength": 100
             });
 
+
+
             // $(".dataTables_empty").text("There is No Any Visit Today.").css('color', '#FF0000');
+
+
+            $('#group_name').change(function() {
+                var patient_group_name = $(this).val();
+                // $('#fl_wait').show();
+                $.ajax({
+                    url: "process.php?content=participant_group_id",
+                    method: "GET",
+                    data: {
+                        patient_group_name: patient_group_name
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                        // console.log(data.participant_group_id);
+                        $('#participant_group').val(data.participant_group_id);
+                    }
+                });
+
+            });
+
         });
     </script>
 
