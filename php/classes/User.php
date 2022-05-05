@@ -338,8 +338,9 @@ class User
         }
     }
 
-    function generateScheduleNotDelayedVac080($study_name, $pid, $date, $v_point, $status)
+    function generateScheduleNotDelayedVac080($study_name, $pid, $date, $v_point, $status, $study_group)
     {
+        $this->updateRecord('clients', array('pt_group' => $study_group), $pid);
         $x = $v_point;
         $arr = array();
         $y = 0;
@@ -531,12 +532,12 @@ class User
         }
     }
 
-    function updateScheduleNotDelayedVac080($study_name, $pid, $date, $day)
+    function updateScheduleNotDelayedVac080($study_name, $pid, $date, $day, $study_group)
     {
         if ($day == 1) {
             $visit = 'V' . $day;
             $this->deleteRecord('visit', 'client_id', $pid);
-            $this->generateScheduleNotDelayedVac080($study_name, $pid, $date, $day, 'c');
+            $this->generateScheduleNotDelayedVac080($study_name, $pid, $date, $day, 'c', $study_group);
         } elseif ($day == 2) {
             $visit = 'V2';
             $v_p = 14;
@@ -547,20 +548,21 @@ class User
             foreach ($this->_override->getNews('visit', 'client_id', $pid, 'visit_group', $visit) as $vst) {
                 $this->deleteRecord('visit', 'id', $vst['id']);
             }
-            $this->generateScheduleNotDelayedVac080($study_name, $pid, $date, $v_p, 'u');
+            $this->generateScheduleNotDelayedVac080($study_name, $pid, $date, $v_p, 'u', $study_group);
         } elseif ($day == 3) {
             $visit = 'V3';
             $v_p = 42;
             foreach ($this->_override->getNews('visit', 'client_id', $pid, 'visit_group', $visit) as $vst) {
                 $this->deleteRecord('visit', 'id', $vst['id']);
             }
-            $this->generateScheduleNotDelayedVac080($study_name, $pid, $date, $v_p, 'u');
+            $this->generateScheduleNotDelayedVac080($study_name, $pid, $date, $v_p, 'u', $study_group);
         }
     }
 
 
-    function generateScheduleDelayedVac080($study_name, $pid, $date, $v_point, $status)
+    function generateScheduleDelayedVac080($study_name, $pid, $date, $v_point, $status, $study_group)
     {
+        $this->updateRecord('clients', array('pt_group' => $study_group), $pid);
         $x = $v_point;
         $arr = array();
         $y = 0;
@@ -761,12 +763,12 @@ class User
         }
     }
 
-    function updateScheduleDelayedVac080($study_name, $pid, $date, $day)
+    function updateScheduleDelayedVac080($study_name, $pid, $date, $day, $study_group)
     {
         if ($day == 1) {
             $visit = 'V' . $day;
             $this->deleteRecord('visit', 'client_id', $pid);
-            $this->generateScheduleDelayedVac080($study_name, $pid, $date, $day, 'c');
+            $this->generateScheduleDelayedVac080($study_name, $pid, $date, $day, 'c', $study_group);
         } elseif ($day == 2) {
             $visit = 'V2';
             $v_p = 14;
@@ -777,20 +779,21 @@ class User
             foreach ($this->_override->getNews('visit', 'client_id', $pid, 'visit_group', $visit) as $vst) {
                 $this->deleteRecord('visit', 'id', $vst['id']);
             }
-            $this->generateScheduleDelayedVac080($study_name, $pid, $date, $v_p, 'u');
+            $this->generateScheduleDelayedVac080($study_name, $pid, $date, $v_p, 'u', $study_group);
         } elseif ($day == 3) {
             $visit = 'V3';
             $v_p = 56;
             foreach ($this->_override->getNews('visit', 'client_id', $pid, 'visit_group', $visit) as $vst) {
                 $this->deleteRecord('visit', 'id', $vst['id']);
             }
-            $this->generateScheduleDelayedVac080($study_name, $pid, $date, $v_p, 'u');
+            $this->generateScheduleDelayedVac080($study_name, $pid, $date, $v_p, 'u', $study_group);
         }
     }
 
 
-    function generateScheduleNotDelayedVac082($study_name, $pid, $date, $v_point, $status)
+    function generateScheduleNotDelayedVac082($study_name, $pid, $date, $v_point, $status, $study_group)
     {
+        $this->updateRecord('clients', array('pt_group' => $study_group), $pid);
         $x = $v_point;
         $arr = array();
         $y = 0;
@@ -982,12 +985,12 @@ class User
         }
     }
 
-    function updateScheduleNotDelayedVac082($study_name, $pid, $date, $day)
+    function updateScheduleNotDelayedVac082($study_name, $pid, $date, $day, $study_group)
     {
         if ($day == 1) {
             $visit = 'V' . $day;
             $this->deleteRecord('visit', 'client_id', $pid);
-            $this->generateScheduleNotDelayedVac082($study_name, $pid, $date, $day, 'c');
+            $this->generateScheduleNotDelayedVac082($study_name, $pid, $date, $day, 'c', $study_group);
         } elseif ($day == 2) {
             $visit = 'V2';
             $v_p = 14;
@@ -998,19 +1001,21 @@ class User
             foreach ($this->_override->getNews('visit', 'client_id', $pid, 'visit_group', $visit) as $vst) {
                 $this->deleteRecord('visit', 'id', $vst['id']);
             }
-            $this->generateScheduleNotDelayedVac082($study_name, $pid, $date, $v_p, 'u');
+            $this->generateScheduleNotDelayedVac082($study_name, $pid, $date, $v_p, 'u', $study_group);
         } elseif ($day == 3) {
             $visit = 'V3';
             $v_p = 42;
             foreach ($this->_override->getNews('visit', 'client_id', $pid, 'visit_group', $visit) as $vst) {
                 $this->deleteRecord('visit', 'id', $vst['id']);
             }
-            $this->generateScheduleNotDelayedVac082($study_name, $pid, $date, $v_p, 'u');
+            $this->generateScheduleNotDelayedVac082($study_name, $pid, $date, $v_p, 'u', $study_group);
         }
     }
 
-    function generateScheduleDelayedVac082($study_name, $pid, $date, $v_point, $status)
+    function generateScheduleDelayedVac082($study_name, $pid, $date, $v_point, $status, $study_group)
+
     {
+        $this->updateRecord('clients', array('pt_group' => $study_group), $pid);
         $x = $v_point;
         $arr = array();
         $y = 0;
@@ -1217,12 +1222,12 @@ class User
         return $date / 86400;
     }
 
-    function updateScheduleDelayedVac082($study_name, $pid, $date, $day)
+    function updateScheduleDelayedVac082($study_name, $pid, $date, $day, $study_group)
     {
         if ($day == 1) {
             $visit = 'V' . $day;
             $this->deleteRecord('visit', 'client_id', $pid);
-            $this->generateScheduleDelayedVac082($study_name, $pid, $date, $day, 'c');
+            $this->generateScheduleDelayedVac082($study_name, $pid, $date, $day, 'c', $study_group);
         } elseif ($day == 2) {
             $visit = 'V2';
             $v_p = 14;
@@ -1233,20 +1238,21 @@ class User
             foreach ($this->_override->getNews('visit', 'client_id', $pid, 'visit_group', $visit) as $vst) {
                 $this->deleteRecord('visit', 'id', $vst['id']);
             }
-            $this->generateScheduleDelayedVac082($study_name, $pid, $date, $v_p, 'u');
+            $this->generateScheduleDelayedVac082($study_name, $pid, $date, $v_p, 'u', $study_group);
         } elseif ($day == 3) {
             $visit = 'V3';
             $v_p = 56;
             foreach ($this->_override->getNews('visit', 'client_id', $pid, 'visit_group', $visit) as $vst) {
                 $this->deleteRecord('visit', 'id', $vst['id']);
             }
-            $this->generateScheduleDelayedVac082($study_name, $pid, $date, $v_p, 'u');
+            $this->generateScheduleDelayedVac082($study_name, $pid, $date, $v_p, 'u', $study_group);
         }
     }
 
 
-    function generateScheduleRAB002($study_name, $pid, $date, $v_point, $status)
+    function generateScheduleRAB002($study_name, $pid, $date, $v_point, $status, $study_group)
     {
+        $this->updateRecord('clients', array('pt_group' => $study_group), $pid);
         $x = $v_point;
         $arr = array();
         $y = 0;
@@ -1373,12 +1379,12 @@ class User
         }
     }
 
-    function updateScheduleRAB002($study_name, $pid, $date, $day)
+    function updateScheduleRAB002($study_name, $pid, $date, $day, $study_group)
     {
         if ($day == 1) {
             // $visit = 'V' . $day;
             $this->deleteRecord('visit', 'client_id', $pid);
-            $this->generateScheduleRAB002($study_name, $pid, $date, $day, 'c');
+            $this->generateScheduleRAB002($study_name, $pid, $date, $day, 'c', $study_group);
         }
         // elseif ($day == 2) {
         //     $visit = 'V2';
@@ -1402,8 +1408,9 @@ class User
     }
 
 
-    function generateScheduleEBL08($study_name, $pid, $date, $v_point, $status)
+    function generateScheduleEBL08($study_name, $pid, $date, $v_point, $status, $study_group)
     {
+        $this->updateRecord('clients', array('pt_group' => $study_group), $pid);
         $x = $v_point;
         $arr = array();
         $y = 0;
@@ -1503,12 +1510,12 @@ class User
         }
     }
 
-    function updateScheduleEBL08($study_name, $pid, $date, $day)
+    function updateScheduleEBL08($study_name, $pid, $date, $day, $study_group)
     {
         if ($day == 1) {
             // $visit = 'V' . $day;
             $this->deleteRecord('visit', 'client_id', $pid);
-            $this->generateScheduleEBL08($study_name, $pid, $date, $day, 'c');
+            $this->generateScheduleEBL08($study_name, $pid, $date, $day, 'c', $study_group);
         }
         // elseif ($day == 2) {
         //     $visit = 'V2';

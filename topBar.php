@@ -48,24 +48,25 @@ if ($user->isLoggedIn()) {
             ));
             if ($validate->passed()) {
                 $s_date = date('Y-m-d', strtotime(Input::get('screening_date')));
+                $s_dob = date('Y-m-d', strtotime(Input::get('screening_dob')));
                 try {
                     $user->createRecord('clients', array(
-                        'study_id' => Input::get('study_id'),
-                        'participant_id' => Input::get('full_name'),
-                        'gender' => Input::get('screening_gender'),
-                        'dob' => Input::get('screening_dob'),
-                        'status' => 1,
+                        'project_id' => Input::get('project_name_id'),
+                        'project_name' => Input::get('project_name'),
+                        'study_id' => Input::get('study_id'),  
                         'initials' => Input::get('pt_initials'),
                         'phone_number' => Input::get('phone_number'),
-                        'phone_number2' => Input::get('phone_number2'),
-                        'screening_date' => $s_date,
+                        'phone_number2' => Input::get('phone_number2'), 
+                        'status' => 1,  
+                        'staff_id' => $user->data()->id, 
+                        'screening_date' => $s_date,                 
                         'pt_group' => Input::get('group'),
+                        'dob' => $s_dob,
+                        'gender' => Input::get('screening_gender'),
                         'reason' => '',
                         'details' => '',
                         'visit_cat' => 0,
-                        'project_name' => Input::get('project_name'),
-                        'project_id' => Input::get('project_id'),
-                        'staff_id' => $user->data()->id
+                        'participant_id' => Input::get('full_name')
                     ));
 
                     $user->updateRecord('details', array(
@@ -1341,7 +1342,7 @@ if ($user->isLoggedIn()) {
 
                     <div class="modal-footer">
                         <div class="pull-right col-md-3">
-                            <input type="hidden" name="project_id" id="project_id" class="form-control" value="" />
+                            <input type="hidden" name="project_name_id" id="project_name_id" class="form-control" value="" />
                             <input type="submit" name="add_client" value="ADD" class="btn btn-success btn-clean">
                         </div>
                         <div class="pull-right col-md-2">
@@ -1352,7 +1353,6 @@ if ($user->isLoggedIn()) {
         </div>
     </div>
 </div>
-
 
 
 <div class="modal" id="add_visit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -2384,7 +2384,7 @@ if ($user->isLoggedIn()) {
                 },
                 dataType: "json",
                 success: function(data) {
-                    $('#project_id').val(data.project_id);
+                    $('#project_name_id').val(data.project_id);
                 }
             });
         });
@@ -2410,6 +2410,24 @@ if ($user->isLoggedIn()) {
                 }
             });
         });
+
+
+        // $('#client_id').change(function() {
+        //     var client_id = $(this).val();
+        //     $.ajax({
+        //         url: "process.php?content=participant_id",
+        //         method: "GET",
+        //         data: {
+        //             client_id: client_id
+        //         },
+        //         dataType: "json",
+        //         success: function(data) {
+        //             $('#pt_initials').val(data.participant_id);
+        //             $('#rg').show();
+        //             $('#waitdst').hide();
+        //         }
+        //     });
+        // });
 
 
         // $('#searchSchedule').DataTable({

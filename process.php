@@ -85,6 +85,15 @@ if ($_GET['content'] == 'visit') {
         }
         echo json_encode($output);
     }
+}elseif ($_GET['content'] == 'participant_group_id') {
+    if ($_GET['patient_group_name']) {
+        $output = array();
+        $project_id = $override->get_full_name('study', 'name', $_GET['patient_group_name']);
+        foreach ($project_id as $name) {
+            $output['participant_group_id']     = $name['id'];
+        }
+        echo json_encode($output);
+    }
 } ?>
 
 
