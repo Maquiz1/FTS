@@ -50,6 +50,8 @@ if ($user->isLoggedIn()) {
                             $user->generateScheduleRAB002(Input::get('study_name'), Input::get('client_id'), $date = date('Y-m-d', strtotime(Input::get('visit_date'))), 1, 'c', Input::get('participant_group'));
                         } elseif ((Input::get('study_name') == 'EBL08')) {
                             $user->generateScheduleEBL08(Input::get('study_name'), Input::get('client_id'), $date = date('Y-m-d', strtotime(Input::get('visit_date'))), 1, 'c', Input::get('participant_group'));
+                        }elseif ((Input::get('study_name') == 'HELP-OFZ')) {
+                            $user->generateScheduleHELP(Input::get('study_name'), Input::get('client_id'), $date = date('Y-m-d', strtotime(Input::get('visit_date'))), 1, 'c', Input::get('participant_group'));
                         }
 
                         $user->updateRecord('details', array(
@@ -189,10 +191,10 @@ if ($user->isLoggedIn()) {
                                         </div>
 
                                         <div class="form-row">
-                                            <div class="col-md-2">CLIENT ID</div>
+                                            <div class="col-md-2">SUBJECT ID</div>
                                             <div class="col-md-10">
                                                 <select name="client_id" id="client_id" class="select2" style="width: 100%;" tabindex="-1">
-                                                    <option value="">SELECT CLIENT ID</option>
+                                                    <option value="">SELECT SUBJECT ID</option>
                                                 </select>
                                             </div>
                                         </div>

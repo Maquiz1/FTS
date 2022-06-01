@@ -83,182 +83,6 @@ if ($user->isLoggedIn()) {
             } else {
                 $pageError = $validate->errors();
             }
-        }
-        if (Input::get('register_voluntier')) {
-            $validate = new validate();
-            $validate = $validate->check($_POST, array(
-                'project_id' => array(
-                    'required' => true,
-                ),
-                'initial' => array(
-                    'required' => true,
-                ),
-                'sensitization_one' => array(
-                    'required' => true,
-                ),
-                'sensitization_two' => array(
-                    'required' => true,
-                ),
-                'sensitization_no' => array(
-                    'required' => true,
-                ),
-                'client_category' => array(
-                    'required' => true,
-                ),
-                'fname' => array(
-                    'required' => true,
-                ),
-                'mname' => array(
-                    'required' => true,
-                ),
-                'lname' => array(
-                    'required' => true,
-                ),
-                'dob' => array(
-                    'required' => true,
-                ),
-                // 'year' => array(
-                //     'required' => true,
-                // ),
-                'gender' => array(
-                    'required' => true,
-                ),
-                // 'pregnant' => array(
-                //     'required' => true,
-                // ),
-                // 'literate' => array(
-                //     'required' => true,
-                // ),
-                // 'education' => array(
-                //     'required' => true,
-                // ),
-                // 'marital' => array(
-                //     'required' => true,
-                // ),
-                // 'occupation' => array(
-                //     'required' => true,
-                // ),
-                'phone1' => array(
-                    'required' => true,
-                    'unique' => 'details'
-                ),
-                'attend_school' => array(
-                    'required' => true,
-                ),
-                'region' => array(
-                    'required' => true,
-                ),
-                'district' => array(
-                    'required' => true,
-                ),
-                'ward' => array(
-                    'required' => true,
-                ),
-                'village' => array(
-                    'required' => true,
-                ),
-                'hamlet' => array(
-                    'required' => true,
-                ),
-                'duration' => array(
-                    'required' => true,
-                ),
-                'willing_contact' => array(
-                    'required' => true,
-                ),
-                'location' => array(
-                    'required' => true,
-                ),
-                'status' => array(
-                    'required' => true,
-                ),
-                // 'interviewer_initial' => array(
-                //     'required' => true,
-                // ),
-                // 'interviewer_date' => array(
-                //     'required' => true,
-                // ),
-
-                // 'reviewer_initial' => array(
-                //     'required' => true,
-                // ),
-                // 'reviewer_date' => array(
-                //     'required' => true,
-                // ),
-                // 'enrolled' => array(
-                //     'required' => true,
-                // ),
-                // 'reason' => array(
-                //     'required' => true,
-                // )
-                // 'date_death' => array(
-                //     'required' => true,
-                // ),
-                // 'details' => array(
-                //     'required' => true,
-                // )
-                // 'end_study' => array(
-                //     'required' => true,
-                // )
-            ));
-            if ($validate->passed()) {
-                $dob_date = date('Y-m-d', strtotime(Input::get('dob')));
-                $intwr_date = date('Y-m-d', strtotime(Input::get('interviewer_date')));
-                $rvwr_date = date('Y-m-d', strtotime(Input::get('reviewer_date')));
-                $death_date = date('Y-m-d', strtotime(Input::get('death_date')));
-                try {
-                    $user->createRecord('details', array(
-                        'project_name' => Input::get('project_id'),
-                        'initial' => Input::get('initial'),
-                        'sensitization_one' => Input::get('sensitization_one'),
-                        'sensitization_two' => Input::get('sensitization_two'),
-                        'sensitization_no' => Input::get('sensitization_no'),
-                        'client_category' => Input::get('client_category'),
-                        'fname' => Input::get('fname'),
-                        'mname' => Input::get('mname'),
-                        'lname' => Input::get('lname'),
-                        'dob' => $dob_date,
-                        // 'year' => Input::get('year'),
-                        // 'month' => Input::get('month'),
-                        'gender' => Input::get('gender'),
-                        // 'pregnant' => Input::get('pregnant'),
-                        // 'literate' => Input::get('literate'),
-                        // 'education' => Input::get('education'),
-                        // 'marital' => Input::get('marital'),
-                        // 'occupation' => Input::get('occupation'),
-                        // 'other_occupation' => Input::get('other_occupation'),
-                        'phone1' => Input::get('phone1'),
-                        'phone2' => Input::get('phone2'),
-                        'attend_school' => Input::get('attend_school'),
-                        'region' => Input::get('region'),
-                        'district' => Input::get('district'),
-                        'ward' => Input::get('ward'),
-                        'village' => Input::get('village'),
-                        'hamlet' => Input::get('hamlet'),
-                        'duration' => Input::get('duration'),
-                        'willing_contact' => Input::get('willing_contact'),
-                        'location' => Input::get('location'),
-                        // 'interviewer_initial' => Input::get('interviewer_initial'),
-                        // 'interviewer_date' => $intwr_date,
-                        // 'reviewer_initial' => Input::get('reviewer_initial'),
-                        // 'reviewer_date' => $rvwr_date,
-                        'staff_id' => $user->data()->id,
-                        // 'enrolled' => Input::get('enrolled'),
-                        'status' => Input::get('status'),
-                        'reason' => Input::get('reason'),
-                        'other_reason' => Input::get('other_reason'),
-                        'death_date' => $death_date,
-                        'details' => Input::get('details'),
-                        'end_study' => Input::get('end_study'),
-                    ));
-
-                    $successMessage = 'Client Registered Successful';
-                } catch (Exception $e) {
-                    die($e->getMessage());
-                }
-            } else {
-                $pageError = $validate->errors();
-            }
         } elseif (Input::get('add_staff')) {
             $validate = new validate();
             $validate = $validate->check($_POST, array(
@@ -602,10 +426,7 @@ if ($user->isLoggedIn()) {
             $validate = $validate->check($_POST, array(
                 'name' => array(
                     'required' => true,
-                ),
-                // 'name_english' => array(
-                // 'required' => true,
-                // ),
+                )
             ));
             if ($validate->passed()) {
                 try {
@@ -658,10 +479,7 @@ if ($user->isLoggedIn()) {
                 ),
                 'to_date' => array(
                     'required' => true,
-                ),
-                // 'project_id' => array(
-                //     'required' => true,
-                // ),
+                )
             ));
             if ($validate->passed()) {
                 try {
@@ -735,16 +553,9 @@ if ($user->isLoggedIn()) {
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous"> -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-
-<!-- Datatable JS -->
 <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-
-<!-- Datatable CSS -->
-<!-- <link href='//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css' rel='stylesheet' type='text/css'> -->
 
 
 
@@ -768,27 +579,41 @@ if ($user->isLoggedIn()) {
                 </a>
             </li>
 
-            <?php
-            if ($user->data()->position == 1 || $user->data()->position == 5 || $user->data()->position == 6 || $user->data()->position == 12) {
-            ?>
-
-                <li class="">
-                    <a href="#add_client" data-toggle="modal" data-backdrop="static" data-keyboard="false"><span class="icon-plus-sign"></span> Add Screening</a>
-                </li>
-                <li class="">
-                    <!--<a href="#add_visit" data-toggle="modal" data-backdrop="static" data-keyboard="false" ><span class="icon-bookmark"></span> Add Visit</a>-->
-                    <a href="add.php"><span class="icon-bookmark"></span> Add Vaccine</a>
-
-                </li>
-                <li class="">
-                    <!--<a href="#add_visit" data-toggle="modal" data-backdrop="static" data-keyboard="false" ><span class="icon-bookmark"></span> Add Visit</a>-->
-
-                    <a href="add_unschedule.php"><span class="icon-bookmark"></span> Add Un - Scheduled Visit</a>
-                </li>
-
-            <?php } ?>
             <li class="dropdown active">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-file-alt"></span> STUDY </a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-group"></span>&nbsp;&nbsp; VOLUNTIER</a>
+                <ul class="dropdown-menu">
+                    <li><a href="register.php"><span class="icon-bookmark"></span>&nbsp;&nbsp;REGISTER</a></li>                    
+                </ul>
+            </li>
+
+            <li class="dropdown active">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-group"></span>&nbsp;&nbsp; VISIT CONFIRMATION</a>
+                <ul class="dropdown-menu">
+                    <?php
+                    if ($user->data()->position == 1 || $user->data()->position == 5 || $user->data()->position == 6 || $user->data()->position == 12) {
+                    ?>
+
+                        <li class="">
+                            <a href="#add_client" data-toggle="modal" data-backdrop="static" data-keyboard="false"><span class="icon-plus-sign"></span> &nbsp;&nbsp;Add Screening</a>
+                        </li>
+                        <li class="">
+                            <!--<a href="#add_visit" data-toggle="modal" data-backdrop="static" data-keyboard="false" ><span class="icon-bookmark"></span> Add Visit</a>-->
+                            <a href="add.php"><span class="icon-bookmark"></span>&nbsp;&nbsp; Add Enrollment</a>
+
+                        </li>
+                        <li class="">
+                            <!--<a href="#add_visit" data-toggle="modal" data-backdrop="static" data-keyboard="false" ><span class="icon-bookmark"></span> Add Visit</a>-->
+
+                            <a href="add_unschedule.php"><span class="icon-bookmark"></span>&nbsp;&nbsp; Add Un - Scheduled Visit</a>
+                        </li>
+
+                    <?php } ?>
+                </ul>
+            </li>
+
+
+            <li class="dropdown active">
+                <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-file-alt"></span> STUDY </a> -->
                 <ul class="dropdown-menu">
                     <?php foreach ($override->getData('study') as $study) { ?>
 
@@ -799,15 +624,14 @@ if ($user->isLoggedIn()) {
                     <?php } ?>
                 </ul>
             </li>
-            <li class="">
-                <a href="#searchSchedule" data-toggle="modal"><span class="icon-search"></span> Search Schedule </a>
-            </li>
-            <li class="">
-                <a href="profile.php">
-                    <span class="icon-user"></span> Profile
-                </a>
-            </li>
+            <!-- <li class=""> -->
+            <!--<a href="#add_visit" data-toggle="modal" data-backdrop="static" data-keyboard="false" ><span class="icon-bookmark"></span> Add Visit</a>-->
+            <!-- <a href="info.php?id=15"><span class="icon-bookmark"></span> Enter Days</a> -->
 
+            <!-- </li> -->
+            <li class="">
+                <a href="#searchSchedule" data-toggle="modal"><span class="icon-search"></span>&nbsp;&nbsp; Search Schedule </a>
+            </li>
             <?php
             if ($user->data()->position == 1 || $user->data()->position == 5 || $user->data()->position == 6 || $user->data()->position == 12) {
             ?>
@@ -815,48 +639,61 @@ if ($user->isLoggedIn()) {
 
                 <?php if ($user->data()->access_level == 1 || $user->data()->access_level == 2 || $user->data()->access_level == 3) { ?>
                     <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-group"></span> STAFF</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-gear"></span>&nbsp;&nbsp; MANAGEMENT</a>
                         <ul class="dropdown-menu">
-                            <li><a href="#add_staff" data-toggle="modal" data-backdrop="static" data-keyboard="false">ADD STAFF</a></li>
-                            <li><a href="info.php?id=8">MANAGE STAFF</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-gear"></span> MANAGEMENT</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#add_country" data-toggle="modal" data-backdrop="static" data-keyboard="false">ADD COUNTRY</a></li>
-                            <li><a href="#add_region" data-toggle="modal" data-backdrop="static" data-keyboard="false">ADD REGION</a></li>
-                            <li><a href="#add_district" data-toggle="modal" data-backdrop="static" data-keyboard="false">ADD DISTRICT</a></li>
-                            <li><a href="#add_ward" data-toggle="modal" data-backdrop="static" data-keyboard="false">ADD WARD</a></li>
+                            <li><a href="#add_staff" data-toggle="modal" data-backdrop="static" data-keyboard="false"><span class="icon-user"></span>&nbsp;&nbsp;ADD STAFF</a></li>
+                            <li><a href="info.php?id=8"><span class="icon-gear"></span>&nbsp;&nbsp; MANAGE STAFF</a></li>
+                            <li><a href="info.php?id=14"><span class="icon-gear"></span>&nbsp;&nbsp;MANAGE VOLUNTIER</a></li>
+                            <li class="">
+                                <a href="profile.php">
+                                    <span class="icon-user"></span>&nbsp;&nbsp; Profile
+                                </a>
+                            </li>
+
+                            <!-- <li class=""> -->
+                            <!-- Button trigger modal -->
+                            <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add_country">
+                                    ADD COUNTRY
+                                </button>
+                            </li> -->
+                            <!-- <li><a href="#add_country" data-toggle="modal" data-backdrop="static" data-keyboard="false">ADD COUNTRY</a></li> -->
+
+                            <!-- <li><a href="#add_region" data-toggle="modal" data-backdrop="static" data-keyboard="false">ADD REGION</a></li> -->
+                            <!-- <li class=""> -->
+                            <!-- Button trigger modal -->
+                            <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dd_region">
+                                    ADD REGION
+                                </button>
+                            </li> -->
+                            <!-- <li><a href="#add_district" data-toggle="modal" data-backdrop="static" data-keyboard="false">ADD DISTRICT</a></li> -->
+                            <!-- <li class=""> -->
+                            <!-- Button trigger modal -->
+                            <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add_district">
+                                    ADD DISTRICT
+                                </button>
+                            </li> -->
+                            <!-- <li><a href="#add_ward" data-toggle="modal" data-backdrop="static" data-keyboard="false">ADD WARD</a></li>
                             <li><a href="#add_village" data-toggle="modal" data-backdrop="static" data-keyboard="false">ADD VILLAGE</a></li>
                             <li><a href="#add_occupation" data-toggle="modal" data-backdrop="static" data-keyboard="false">ADD Occupation</a></li>
-                            <li><a href="#add_hamlet" data-toggle="modal" data-backdrop="static" data-keyboard="false">ADD HAMLET</a></li>
-                            <li><a href="#add_site" data-toggle="modal" data-backdrop="static" data-keyboard="false">ADD SITE</a></li>
-                            <li><a href="#add_gender" data-toggle="modal" data-backdrop="static" data-keyboard="false">ADD GENDER</a></li>
-                            <li><a href="#add_images" data-toggle="modal" data-backdrop="static" data-keyboard="false">ADD LOGO</a></li>
+                            <li><a href="#add_hamlet" data-toggle="modal" data-backdrop="static" data-keyboard="false">ADD HAMLET</a></li> -->
+                            <!-- <li><a href="#add_site" data-toggle="modal" data-backdrop="static" data-keyboard="false">ADD SITE</a></li> -->
+                            <!-- <li><a href="#add_gender" data-toggle="modal" data-backdrop="static" data-keyboard="false">ADD GENDER</a></li> -->
+                            <!-- <li><a href="#add_images" data-toggle="modal" data-backdrop="static" data-keyboard="false">ADD LOGO</a></li>
                             <li><a href="#add_project" data-toggle="modal" data-backdrop="static" data-keyboard="false">ADD STUDY</a></li>
                             <li><a href="#add_pt_group" data-toggle="modal" data-backdrop="static" data-keyboard="false">ADD PATIENT GROUP</a></li>
-                            <li><a href="#end_study_reason" data-toggle="modal" data-backdrop="static" data-keyboard="false">END OF STUDY REASON</a></li>
-                            <li><a href="info.php?id=9">MANAGE SITE / COUNTRIES / END STUDY / GROUPS / STUDY</a></li>
+                            <li><a href="#end_study_reason" data-toggle="modal" data-backdrop="static" data-keyboard="false">END OF STUDY REASON</a></li> -->
+                            <li><a href="info.php?id=9">&nbsp;&nbsp;MANAGE SITE / COUNTRIES / END STUDY / GROUPS / STUDY</a></li>
                         </ul>
                     </li>
                 <?php } elseif ($user->data()->access_level == 4) { ?>
                     <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-group"></span> STAFF</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-user"></span> &nbsp;&nbsp;STAFF</a>
                         <ul class="dropdown-menu">
-                            <li><a href="#add_staff" data-toggle="modal" data-backdrop="static" data-keyboard="false">ADD STAFF</a></li>
-                            <li><a href="info.php?id=1">MANAGE STAFF</a></li>
+                            <li><a href="#add_staff" data-toggle="modal" data-backdrop="static" data-keyboard="false"><span class="icon-user"></span>&nbsp;&nbsp;ADD STAFF</a></li>
+                            <li><a href="info.php?id=1"><span class="icon-gear"></span>&nbsp;&nbsp;MANAGE STAFF</a></li>
                         </ul>
                     </li>
                 <?php } ?>
-
-                <li class="dropdown active">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-group"></span> VOLUNTIER</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#registerVoluntier" data-toggle="modal" data-backdrop="static" data-keyboard="false">REGISTER</a></li>
-                        <li><a href="info.php?id=14">MANAGE VOLUNTIER</a></li>
-                    </ul>
-                </li>
         </ul>
 
     <?php } ?>
@@ -875,386 +712,69 @@ if ($user->isLoggedIn()) {
 </nav>
 
 
-<!-- ADD VOLUNTIER  -->
-<div class="modal fade" id="registerVoluntier" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+
+<!-- ADD COUNTRY -->
+<div class="modal fade" id="add_country" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="post">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">ADD NEW VOLUNTIER</h4>
-                </div>
-                <div class="modal-body clearfix">
-                    <!-- <div class="controls"> -->
-
-                    <div class="row-md-12">
-                        <div class="col-md-4">
-
-                            <div class="form-row" id="st">
-                                <div>STUDY NAME:</div>
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">ADD COUNTRY</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post">
+                    <div class="modal-body clearfix">
+                        <div class="controls">
+                            <div class="form-row">
+                                <div class="col-md-2">Name:</div>
                                 <div class="col-md-10">
-                                    <select class="form-control" id="project_id" name="project_id" required>
-                                        <option value="">SELECT STUDY</option>
-                                        <?php foreach ($override->getData('study') as $group) { ?>
-                                            <option value="<?= $group['name'] ?>"><?= $group['name'] ?></option>
-                                        <?php } ?>
-                                    </select>
+                                    <input type="text" name="country_name" class="form-control" value="" />
                                 </div>
                             </div>
-
-                        </div>
-
-
-                        <div class="col-md-4">
                             <div class="form-row">
-                                <div>SENSITIZATION ONE</div>
+                                <div class="col-md-2">Short Code:</div>
                                 <div class="col-md-10">
-                                    <select id="sensitization_one" name="sensitization_one" class="form-control" required>
-                                        <option value="">SELECT</option>
-                                        <?php foreach ($override->getData('yes_no_na') as $lt) { ?>
-                                            <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-                        <div class="col-md-4">
-                            <div class="form-row">
-                                <div>SENSITIZATION TWO</div>
-                                <div class="col-md-10">
-                                    <select id="sensitization_two" name="sensitization_two" class="form-control" required>
-                                        <option value="">SELECT</option>
-                                        <?php foreach ($override->getData('yes_no_na') as $lt) { ?>
-                                            <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
-                                        <?php } ?>
-                                    </select>
+                                    <input type="text" name="short_code" class="form-control" value="" />
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="row-md-12">
-                        <div class="col-md-4">
-                            <div class="form-row">
-                                <div>INITIALS:</div>
-                                <div class="col-md-10">
-                                    <input type="text" name="initial" class="form-control" value="" minlength="3" maxlength="3" required="" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-row">
-                                <div>SENSITIZATION NUMBER</div>
-                                <div class="col-md-10">
-                                    <input type="text" name="sensitization_no" class="form-control" pattern="\d*" value="" minlength="3" maxlength="3" required="" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="form-row" id="st">
-                                <div>Respondent is</div>
-                                <div class="col-md-10">
-                                    <select class="form-control" id="client_category" name="client_category" required>
-                                        <option value="">SELECT</option>
-                                        <?php foreach ($override->getData('client_category') as $group) { ?>
-                                            <option value="<?= $group['name'] ?>"><?= $group['name'] ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" name="add_country" value="ADD" class="btn btn-success btn-clean">
                     </div>
-
-
-
-                    <div class="row-md-12">
-                        <div class="col-md-4">
-                            <div class="form-row">
-                                <div>First Name:</div>
-                                <div class="col-md-10">
-                                    <input type="text" name="fname" class="form-control" value="" required="" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-row">
-                                <div>Midle Name:</div>
-                                <div class="col-md-10">
-                                    <input type="text" name="mname" class="form-control" value="" required="" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="form-row">
-                                <div>Last name:</div>
-                                <div class="col-md-10">
-                                    <input type="text" name="lname" class="form-control" value="" required="" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- DATE OF BIRTH  -->
-
-                    <div class="row-md-12">
-                        <div class="col-md-4">
-                            <div class="form-row">
-                                <div><i class="fas fa-calendar input-prefix" tabindex="0"></i>DATE OF BIRTH:</div>
-                                <div class="col-md-10">
-                                    <input type="date" class="form-control fas fa-calendar input-prefix" name="dob" id="dob" required="" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="form-row">
-                                <div>Child attending school?</div>
-                                <div class="col-md-10">
-                                    <select id="attend_school" name="attend_school" class="form-control" required>
-                                        <option value="">SELECT</option>
-                                        <?php foreach ($override->getData('yes_no_na') as $lt) { ?>
-                                            <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="form-row">
-                                <div>GENDER:</div>
-                                <div class="col-md-10">
-                                    <select id="gender" name="gender" class="form-control" required>
-                                        <option value="">SELECT GENDER</option>
-                                        <?php foreach ($override->getData('gender') as $gender) { ?>
-                                            <option value="<?= $gender['name'] ?>"><?= $gender['name'] ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <!-- DATE OF BIRTH  -->
-
-
-                    <!-- POHONE  -->
-
-                    <div class="row-md-12">
-                        <div class="col-md-6">
-                            <div class="form-row">
-                                <div class="col-md-2">Phone:</div>
-                                <div class="col-md-10">
-                                    <input type="text" name="phone1" class="form-control" value="" pattern="\d*" minlength="10" maxlength="10" required="" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-row">
-                                <div class="col-md-2">Phone2:</div>
-                                <div class="col-md-10">
-                                    <input type="text" name="phone2" class="form-control" value="" pattern="\d*" minlength="10" maxlength="10" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- POHONE  -->
-
-
-                    <!-- DEMOGRAPHIC  -->
-
-                    <div class="row-md-12">
-                        <div class="col-md-6">
-                            <div class="form-row">
-                                <div>REGION:</div>
-                                <div class="col-md-10">
-                                    <select id="region" name="region" class="form-control" required>
-                                        <option value="">SELECT</option>
-                                        <?php foreach ($override->getData('region') as $lt) { ?>
-                                            <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-row">
-                                <div>DISTRICT:</div>
-                                <div class="col-md-10">
-                                    <select id="district" name="district" class="form-control" required>
-                                        <option value="">SELECT</option>
-                                        <?php foreach ($override->getData('district') as $lt) { ?>
-                                            <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="row-md-12">
-                        <div class="col-md-4">
-                            <div class="form-row">
-                                <div>WARD:</div>
-                                <div class="col-md-10">
-                                    <select id="ward" name="ward" class="form-control" required>
-                                        <option value="">SELECT</option>
-                                        <?php foreach ($override->getData('ward') as $lt) { ?>
-                                            <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="form-row">
-                                <div>VILLAGE:</div>
-                                <div class="col-md-10">
-                                    <select id="village" name="village" class="form-control">
-                                        <option value="">SELECT</option>
-                                        <?php foreach ($override->getData('village') as $lt) { ?>
-                                            <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="form-row">
-                                <div>Hamlet / Kitongoji:</div>
-                                <div class="col-md-10">
-                                    <select id="hamlet" name="hamlet" class="form-control" required>
-                                        <option value="">SELECT</option>
-                                        <?php foreach ($override->getData('hamlet') as $lt) { ?>
-                                            <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <hr>
-                    <br>
-                    <br><br>
-                    <div class="row-md-12">
-                        <div class="col-md-6">
-                            <div class="form-row">
-                                <label for="duration">For Bagamoyo residents, please specify the intended duration of stay in Bagamoyo:</label>
-                                <div class="col-md-2"></div>
-                                <div class="col-md-10">
-                                    <select id="duration" name="duration" class="form-control" required>
-                                        <option value="">SELECT</option>
-                                        <?php foreach ($override->getData('duration') as $lt) { ?>
-                                            <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-row">
-                                <label for="duration">Is the participant willing to be contacted for the next sensitization meeting?</label>
-                                <div class="col-md-2"></div>
-                                <div class="col-md-10">
-                                    <select id="willing_contact" name="willing_contact" class="form-control" required>
-                                        <option value="">SELECT</option>
-                                        <?php foreach ($override->getData('yes_no') as $lt) { ?>
-                                            <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <hr>
-                    <br>
-                    <br />
-                    <br />
-                    <div class="form-group">
-                        <div>Briefly describe participant residential location in relation to the nearest famous neighborhoods</div>
-                        <div class="col-md-10">
-                            <textarea name="location" id="location" class="form-control" cols="100%" rows="4" required></textarea>
-                        </div>
-                    </div>
-
-                    <!-- DEMOGRAPHIC  -->
-
-
-                    <div class="row-md-12">
-                        <div class="col-md-6">
-                            <div class="form-row">
-                                <label for="duration">Status:</label>
-                                <div class="col-md-2"></div>
-                                <div class="col-md-10">
-                                    <select id="status" name="status" class="form-control" required>
-                                        <option value="">SELECT</option>
-                                        <?php foreach ($override->getData('status') as $lt) { ?>
-                                            <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-row">
-                                <label for="duration">Reason</label>
-                                <div class="col-md-2"></div>
-                                <div class="col-md-10">
-                                    <select id="reason" name="reason" class="form-control">
-                                        <option value="">SELECT</option>
-                                        <?php foreach ($override->getData('end_study_reason') as $lt) { ?>
-                                            <option value="<?= $lt['reason'] ?>"><?= $lt['reason'] ?></option>
-                                        <?php } ?>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12">
-                        <div class="form-row">
-                            <label for="duration">Other reason Details:</label>
-                            <div class="col-md-2"></div>
-                            <div class="col-md-10">
-                                <textarea name="other_reason" id="other_reason" cols="40%" rows="2"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- INITIALS  -->
-
-                </div>
-
-                <!-- INITIALS  -->
-                <div class="modal-footer">
-                    <div class="pull-right col-md-3">
-                        <input type="submit" name="register_voluntier" value="ADD" class="btn btn-success btn-clean">
-                    </div>
-                    <div class="pull-right col-md-2">
-                        <button type="button" class="btn btn-default btn-clean" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 </div>
 
-<div class="modal" id="add_client" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+
+<div class="modal fade" id="add_region" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Understood</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="add_client" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <form method="post">
@@ -1526,42 +1046,7 @@ if ($user->isLoggedIn()) {
         </div>
     </div>
 </div>
-<div class="modal" id="add_country" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form method="post">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">ADD COUNTRY</h4>
-                </div>
-                <div class="modal-body clearfix">
-                    <div class="controls">
-                        <div class="form-row">
-                            <div class="col-md-2">Name:</div>
-                            <div class="col-md-10">
-                                <input type="text" name="country_name" class="form-control" value="" />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-md-2">Short Code:</div>
-                            <div class="col-md-10">
-                                <input type="text" name="short_code" class="form-control" value="" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="pull-right col-md-3">
-                        <input type="submit" name="add_country" value="ADD" class="btn btn-success btn-clean">
-                    </div>
-                    <div class="pull-right col-md-2">
-                        <button type="button" class="btn btn-default btn-clean" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+
 <div class="modal" id="add_site" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -1889,7 +1374,30 @@ if ($user->isLoggedIn()) {
         </div>
     </div>
 </div>
-<div class="modal" id="add_region" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+
+<div class="modal fade" id="add_region" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Understood</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="Wadd_region8" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <form method="post">
@@ -2286,27 +1794,6 @@ if ($user->isLoggedIn()) {
 </div>
 
 
-
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
-
-
-<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous"> -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> -->
-
-<!-- Datatable JS -->
-<!-- <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script> -->
-
-<!-- Datatable CSS -->
-<!-- <link href='//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css' rel='stylesheet' type='text/css'> -->
-
-
-<!-- <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js"></script> -->
-
 <script>
     $(document).ready(function() {
         $('#study_id').change(function() {
@@ -2419,106 +1906,6 @@ if ($user->isLoggedIn()) {
                 }
             });
         });
-
-
-        // $('#client_id').change(function() {
-        //     var client_id = $(this).val();
-        //     $.ajax({
-        //         url: "process.php?content=participant_id",
-        //         method: "GET",
-        //         data: {
-        //             client_id: client_id
-        //         },
-        //         dataType: "json",
-        //         success: function(data) {
-        //             $('#pt_initials').val(data.participant_id);
-        //             $('#rg').show();
-        //             $('#waitdst').hide();
-        //         }
-        //     });
-        // });
-
-
-        // $('#searchSchedule').DataTable({
-        //     dom: 'Bfrtip',
-        //     buttons: [{
-
-        //             extend: 'excelHtml5',
-        //             title: 'VISITS',
-        //             className: 'btn-primary'
-        //         },
-        //         {
-        //             extend: 'pdfHtml5',
-        //             title: 'VISITS',
-        //             className: 'btn-primary'
-
-        //         },
-        //         {
-        //             extend: 'csvHtml5',
-        //             title: 'VISITS',
-        //             className: 'btn-primary'
-        //         },
-        //         {
-        //             extend: 'copyHtml5',
-        //             title: 'VISITS',
-        //             className: 'btn-primary'
-        //         },
-        //         //     {
-        //         //         extend: 'print',
-        //         //         // name: 'printButton'
-        //         //         title: 'VISITS'
-        //         //     }
-        //     ],
-
-        //     fields: [
-        //     //     {
-        //     //     label: 'First name:',
-        //     //     name: 'first_name'
-        //     // }, {
-        //     //     label: 'Last name:',
-        //     //     name: 'last_name'
-        //     // }, {
-        //     //     label: 'Updated date:',
-        //     //     name: 'updated_date',
-        //     //     type: 'date',
-        //     //     def: function() {
-        //     //         return new Date();
-        //     //     },
-        //     //     dateFormat: $.datepicker.ISO_8601
-        //     // }, 
-        //     {
-        //         label: 'From:',
-        //         name: 'from_date',
-        //         type: 'date',
-        //         def: function() {
-        //             return new Date();
-        //         },
-        //         dateFormat: $.datepicker.ISO_8601
-        //     }]
-
-
-        // });
-
-
-        // $("#search_schedule").on("submit", function() {
-        //     $('#project_id').change(function() {
-        //         var getUid = $(this).val();
-        //         // $('#fl_wait').show();
-        //         $.ajax({
-        //             url: "process.php?cnt=study",
-        //             method: "GET",
-        //             data: {
-        //                 getUid: getUid
-        //             },
-        //             success: function(data) {
-        //                 // $('#client_id').html(data);
-        //                 // $('#fl_wait').hide();
-        //                 // console.log(data);
-        //             }
-        //         });
-
-        //     });
-        // });
 
         if (window.history.replaceState) {
             window.history.replaceState(null, null, window.location.href);

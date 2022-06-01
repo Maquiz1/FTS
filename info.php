@@ -565,6 +565,8 @@ if ($user->isLoggedIn()) {
                         $user->updateScheduleRAB002(Input::get('project_name'), Input::get('id'), Input::get('visit_date'), Input::get('visit'), Input::get('participant_group'));
                     } elseif ((Input::get('project_name') == 'EBL08')) {
                         $user->updateScheduleEBL08(Input::get('project_name'), Input::get('id'), Input::get('visit_date'), Input::get('visit'), Input::get('participant_group'));
+                    } elseif ((Input::get('project_name') == 'HELP-OFZ')) {
+                        $user->updateScheduleHELP(Input::get('project_name'), Input::get('id'), Input::get('visit_date'), Input::get('visit'), Input::get('participant_group'));
                     }
                     $successMessage = 'Visit Edited Successful';
                 } catch (Exception $e) {
@@ -4120,6 +4122,33 @@ if ($user->isLoggedIn()) {
                                         }
                                         $y++;
                                     } ?>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                <?php }elseif ($_GET['id'] == 15) { ?>
+                    <div class="block">
+                        <div class="header">
+                            <h2>LIST OF SCHEDULES</h2>
+                        </div>
+                        <div class="content">
+                            <table id="allVisit" cellpadding="0" cellspacing="0" width="100%" class="table table-bordered table-striped sortable">
+                                <thead>
+                                    <tr>
+                                        <th>DATE</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php                                   
+                                        $site = $override->get('visit', 'visit_date', $number);
+                                    foreach ($site as $dif) {
+                                            $position = $override->get('position', 'id', $staff['position'])[0] ?>
+                                            <tr>
+                                                <td><?= $x ?></td>
+                                                <td><?= $dif['visit_date']; ?></td>                                                                                           
+                                            </tr>                                     
+                                  <?php  } ?>
                                 </tbody>
                             </table>
 
