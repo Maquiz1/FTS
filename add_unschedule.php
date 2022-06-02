@@ -79,6 +79,7 @@ if ($user->isLoggedIn()) {
     Redirect::to('index.php');
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -184,7 +185,7 @@ if ($user->isLoggedIn()) {
                                         <div class="form-row" id="st">
                                             <div class="col-md-2">Group:</div>
                                             <div class="col-md-10">
-                                                <select class="form-control" id="group"  name="group" required>
+                                                <select class="form-control" id="group" name="group" required>
                                                     <option value="">Select Group</option>
                                                     <?php foreach ($override->getData('patient_group') as $group) { ?>
                                                         <option value="<?= $group['name'] ?>"><?= $group['name'] ?></option>
@@ -209,7 +210,7 @@ if ($user->isLoggedIn()) {
                                         <div class="form-row" id="st">
                                             <div class="col-md-2">SCHEDULE TYPE</div>
                                             <div class="col-md-10">
-                                                <select class="form-control" id="schedule_type"  name="schedule_type" style="width: 100%;" tabindex="-1">
+                                                <select class="form-control" id="schedule_type" name="schedule_type" style="width: 100%;" tabindex="-1">
                                                     <option value="">Select Schedule</option>
                                                     <option value="UnScheduled">UnScheduled</option>
                                                 </select>
@@ -237,7 +238,6 @@ if ($user->isLoggedIn()) {
                                                 </select>
                                             </div>
                                         </div>
-
                                         <div class="form-row" id="s1">
                                             <div class="col-md-2">VISIT DAY:</div>
                                             <div class="col-md-10">
@@ -256,7 +256,6 @@ if ($user->isLoggedIn()) {
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                                 <div class="modal-footer">

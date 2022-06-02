@@ -351,7 +351,7 @@ if ($user->isLoggedIn()) {
                         </div>
 
                         <div role="tabpanel" class="tab-pane" id="contact">
-                            <h3 class="">NAME AND CONTACT</h3>
+                            <h3 class="">SUBJECT NAME</h3>
                             <div class="row-md-12">
                                 <div class="col-md-12">
                                     <div class="form-row">
@@ -384,7 +384,7 @@ if ($user->isLoggedIn()) {
                             <!-- DATE OF BIRTH  -->
 
                             <div class="row-md-12">
-                                <div class="col-md-4">
+                                <div class="col-md-12">
                                     <div class="form-row">
                                         <div><i class="fas fa-calendar input-prefix" tabindex="0"></i>DATE OF BIRTH:</div>
                                         <div class="col-md-10">
@@ -428,26 +428,6 @@ if ($user->isLoggedIn()) {
 
                             <!-- POHONE  -->
 
-                            <div class="row-md-12">
-                                <div class="col-md-12">
-                                    <div class="form-row">
-                                        <div>Phone:</div>
-                                        <div>
-                                            <input type="text" name="phone1" class="form-control" value="" pattern="\d*" minlength="10" maxlength="10" required="" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-12">
-                                <div class="form-row">
-                                    <div>Phone2:</div>
-                                    <div>
-                                        <input type="text" name="phone2" class="form-control" value="" pattern="\d*" minlength="10" maxlength="10" />
-                                    </div>
-                                </div>
-                            </div>
-
                             <br>
                             <br>
                             <div class="back-cont mt-4">
@@ -461,7 +441,30 @@ if ($user->isLoggedIn()) {
                         </div>
 
                         <div role="tabpanel" class="tab-pane" id="demographic">
-                            <h3 class="">DEMOGRAPHIC INFORMATION</h3>
+                            <h3 class="">DEMOGRAPHIC & CONTACT INFORMATION</h3>
+
+                            <div class="row-md-12">
+                                <div class="col-md-10">
+                                    <div class="form-row">
+                                        <div>Phone:</div>
+                                        <div>
+                                            <input type="text" name="phone1" class="form-control" value="" pattern="\d*" minlength="10" maxlength="10" required="" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="col-md-10">
+                                    <div class="form-row">
+                                        <div>Phone2:</div>
+                                        <div>
+                                            <input type="text" name="phone2" class="form-control" value="" pattern="\d*" minlength="10" maxlength="10" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="row-md-12">
                                 <div class="col-md-12">
                                     <div class="form-row">
@@ -556,7 +559,7 @@ if ($user->isLoggedIn()) {
                                 <div class="col-md-12">
                                     <div class="form-row">
                                         <label for="duration">For Bagamoyo residents, please specify the intended duration of stay in Bagamoyo:</label>
-                                        <div class="col-md-12">
+                                        <div class="col-md-10">
                                             <select id="duration" name="duration" class="form-control" required>
                                                 <option value="">SELECT</option>
                                                 <?php foreach ($override->getData('duration') as $lt) { ?>
@@ -567,29 +570,29 @@ if ($user->isLoggedIn()) {
                                     </div>
                                 </div>
 
-                                
+
                             </div>
 
                             <div class="col-md-12">
-                                    <div class="form-row">
-                                        <label for="duration">Is the participant willing to be contacted for the next sensitization meeting?</label>
-                                        <div class="col-md-12">
-                                            <select id="willing_contact" name="willing_contact" class="form-control" required>
-                                                <option value="">SELECT</option>
-                                                <?php foreach ($override->getData('yes_no') as $lt) { ?>
-                                                    <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
-                                                <?php } ?>
-                                            </select>
-                                        </div>
+                                <div class="form-row">
+                                    <label for="duration">Is the participant willing to be contacted for the next sensitization meeting?</label>
+                                    <div class="col-md-10">
+                                        <select id="willing_contact" name="willing_contact" class="form-control" required>
+                                            <option value="">SELECT</option>
+                                            <?php foreach ($override->getData('yes_no') as $lt) { ?>
+                                                <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
+                                            <?php } ?>
+                                        </select>
                                     </div>
                                 </div>
+                            </div>
 
 
                             <div class="col-md-12">
                                 <div class="form-row">
                                     <label for="duration">Briefly describe participant residential location in relation to the nearest famous neighborhoods:</label>
-                                    <div class="col-md-12">
-                                        <textarea name="location" id="location" class="form-control" cols="100%" rows="5" required></textarea>
+                                    <div class="col-md-10">
+                                        <textarea name="location" id="location" class="form-control" cols="40%" rows="3" required></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -598,7 +601,6 @@ if ($user->isLoggedIn()) {
                             <div class="col-md-12">
                                 <div class="form-row">
                                     <label for="duration">Status:</label>
-                                    <div class="col-md-2"></div>
                                     <div class="col-md-10">
                                         <select id="status" name="status" class="form-control" required>
                                             <option value="">SELECT</option>
@@ -613,7 +615,7 @@ if ($user->isLoggedIn()) {
                             <div class="col-md-12">
                                 <div class="form-row">
                                     <label for="duration">Reason</label>
-                                    <div class="col-md-12">
+                                    <div class="col-md-10">
                                         <select id="reason" name="reason" class="form-control">
                                             <option value="">SELECT</option>
                                             <?php foreach ($override->getData('end_study_reason') as $lt) { ?>
@@ -629,8 +631,8 @@ if ($user->isLoggedIn()) {
                             <div class="col-md-12">
                                 <div class="form-row">
                                     <label for="duration">Other reason Details:</label>
-                                    <div class="col-md-12">
-                                        <textarea name="other_reason" id="other_reason" cols="40%" rows="5"></textarea>
+                                    <div class="col-md-10">
+                                        <textarea name="other_reason" id="other_reason" cols="40%" rows="3"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -667,7 +669,7 @@ if ($user->isLoggedIn()) {
 </body>
 
 
-<!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.3/themes/base/jquery-ui.css" /> -->
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.3/themes/base/jquery-ui.css" />
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/ui/1.8.3/jquery-ui.js"></script>
 <!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
