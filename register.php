@@ -683,7 +683,7 @@ if ($user->isLoggedIn()) {
 
 
 <script type="text/javascript">
-    $(document).ready(function() {
+    // $(document).ready(function() {
         var currentTab = 0;
         $(function() {
             $("#tabs").tabs({
@@ -717,7 +717,7 @@ if ($user->isLoggedIn()) {
                 $("#btnNext").show();
             }
         });
-    });
+    // });
 
     if (window.history.replaceState) {
         window.history.replaceState(null, null, window.location.href);

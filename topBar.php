@@ -582,7 +582,7 @@ if ($user->isLoggedIn()) {
             <li class="dropdown active">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-group"></span>&nbsp;&nbsp; VOLUNTIER</a>
                 <ul class="dropdown-menu">
-                    <li><a href="register.php"><span class="icon-bookmark"></span>&nbsp;&nbsp;REGISTER</a></li>                    
+                    <li><a href="register.php"><span class="icon-bookmark"></span>&nbsp;&nbsp;REGISTER</a></li>
                 </ul>
             </li>
 
@@ -629,18 +629,14 @@ if ($user->isLoggedIn()) {
             <!-- <a href="info.php?id=15"><span class="icon-bookmark"></span> Enter Days</a> -->
 
             <!-- </li> -->
-            <li class="">
-                <a href="#searchSchedule" data-toggle="modal"><span class="icon-search"></span>&nbsp;&nbsp; Search Schedule </a>
-            </li>
             <?php
             if ($user->data()->position == 1 || $user->data()->position == 5 || $user->data()->position == 6 || $user->data()->position == 12) {
             ?>
-
-
                 <?php if ($user->data()->access_level == 1 || $user->data()->access_level == 2 || $user->data()->access_level == 3) { ?>
                     <li class="dropdown active">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-gear"></span>&nbsp;&nbsp; MANAGEMENT</a>
                         <ul class="dropdown-menu">
+                            <li><a href="search.php?id=searchSchedule"><span class="icon-search"></span>&nbsp;&nbsp; Search Schedule</a></li>
                             <li><a href="#add_staff" data-toggle="modal" data-backdrop="static" data-keyboard="false"><span class="icon-user"></span>&nbsp;&nbsp;ADD STAFF</a></li>
                             <li><a href="info.php?id=8"><span class="icon-gear"></span>&nbsp;&nbsp; MANAGE STAFF</a></li>
                             <li><a href="info.php?id=14"><span class="icon-gear"></span>&nbsp;&nbsp;MANAGE VOLUNTIER</a></li>
