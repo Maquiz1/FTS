@@ -428,7 +428,7 @@ if ($user->isLoggedIn()) {
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>SENSITIZATION NUMBER:</label>
-                                                            <input type="text" name="sensitization_no" class="sensitization_no" pattern="\d*" minlength="3" maxlength="3" required="" />
+                                                            <input type="text" class="form-control" name="sensitization_no" class="sensitization_no" pattern="\d*" minlength="3" maxlength="3" required="" />
                                                         </div>
                                                     </div>
 
