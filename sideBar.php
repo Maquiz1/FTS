@@ -53,6 +53,8 @@ if ($clntNo) {
     $apnt = ($ap / $clntNo) * 100;
 }
 ?>
+
+
 <div class="block block-drop-shadow">
     <div class="user bg-default bg-light-rtl">
         <div class="info">
@@ -86,11 +88,13 @@ if ($clntNo) {
                 </div>
             </li> -->
 
-
-
             <li class="list-group-item">
                 <div class="dropdown">
-                <a href="info.php?id=1" class="list-group-item dropdown-toggle" data-toggle="dropdown"><span class="icon-text-height"></span>Today Visits<i class="icon-angle-right pull-right"></i><span class="label label-success pull-right"><?= $tv ?></span></a>
+                <a href="info.php?id=1" class="list-group-item dropdown-toggle" data-toggle="dropdown"><span class="icon-text-height"></span>Today Visits<i class="icon-angle-right pull-right"></i><span class="label label-success pull-right">
+                    <?php
+                 echo $tv 
+                 ?>
+                 </span></a>
 
                 <ul class="dropdown-menu">
                         <?php foreach ($override->getData('study') as $study) { ?>
@@ -194,7 +198,7 @@ if ($clntNo) {
                 </div>
             </li>
 
-            <?php }  ?>
+            <?php } ?>
 
             <li class="list-group-item">
                 <div class="dropdown">

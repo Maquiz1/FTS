@@ -41,7 +41,7 @@ if(!$user->isLoggedIn()) {
                                 ), $user->data()->id);
                             } catch (Exception $e) {}
 
-                            Redirect::to('dashboard.php');
+                            Redirect::to('dashboard1.php');
                         }
                         else {
                             $usr=$override->get('staff','username',Input::get('username'));

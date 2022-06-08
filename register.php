@@ -156,42 +156,14 @@ if ($user->isLoggedIn()) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-
     <!-- <link href="css/stylesheets.css" rel="stylesheet" type="text/css"> -->
 
-    <link href="css/stylesheets.css" rel="stylesheet" type="text/css">
-
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous"> --> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous"> 
 
 
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.3/themes/base/jquery-ui.css" />
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/ui/1.8.3/jquery-ui.js"></script>
-
-    <script type='text/javascript' src='js/plugins/jquery/jquery.min.js'></script>
-    <script type='text/javascript' src='js/plugins/jquery/jquery-ui.min.js'></script>
-    <script type='text/javascript' src='js/plugins/jquery/jquery-migrate.min.js'></script>
-    <script type='text/javascript' src='js/plugins/jquery/globalize.js'></script>
-    <script type='text/javascript' src='js/plugins/bootstrap/bootstrap.min.js'></script>
-
-    <script type='text/javascript' src='js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js'></script>
-    <script type='text/javascript' src='js/plugins/uniform/jquery.uniform.min.js'></script>
-
-    <script type='text/javascript' src='js/plugins/knob/jquery.knob.js'></script>
-    <script type='text/javascript' src='js/plugins/sparkline/jquery.sparkline.min.js'></script>
-    <script type='text/javascript' src='js/plugins/flot/jquery.flot.js'></script>
-    <script type='text/javascript' src='js/plugins/flot/jquery.flot.resize.js'></script>
-
-    <script type='text/javascript' src='js/plugins/uniform/jquery.uniform.min.js'></script>
-    <script type='text/javascript' src='js/plugins/datatables/jquery.dataTables.min.js'></script>
-    <script type='text/javascript' src='js/plugins/select2/select2.min.js'></script>
-    <script type='text/javascript' src='js/plugins/tagsinput/jquery.tagsinput.min.js'></script>
-    <script type='text/javascript' src='js/plugins/jquery/jquery-ui-timepicker-addon.js'></script>
-    <script type='text/javascript' src='js/plugins/bootstrap/bootstrap-file-input.js'></script>
-
-    <script type='text/javascript' src='js/plugins.js'></script>
-    <script type='text/javascript' src='js/actions.js'></script>
-    <script type='text/javascript' src='js/settings.js'></script>
 
     <style>
         .tabs-wrap {
@@ -208,7 +180,7 @@ if ($user->isLoggedIn()) {
             position: relative;
             margin-left: 605px;
             padding-top: 500px;
-            /* padding-bottom: 300px; */
+            padding-bottom: 300px;
         }
     </style>
 
@@ -224,10 +196,12 @@ if ($user->isLoggedIn()) {
             </div>
         </div>
         <div class="row">
-            <div class="col-md-2">
-                <?php require 'sideBar.php' ?>
-            </div>
-            <div class="col-md-10">
+            <!-- <div class="col-md-2"> -->
+                <?php 
+                // require 'sideBar.php' 
+                ?>
+            <!-- </div> -->
+            <div class="col-md-12">
                 <?php if ($errorMessage) { ?>
                     <div class="block">
                         <div class="alert alert-danger">
@@ -392,7 +366,6 @@ if ($user->isLoggedIn()) {
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
 
                             <div class="col-md-12">
@@ -669,11 +642,11 @@ if ($user->isLoggedIn()) {
 </body>
 
 
-<!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.3/themes/base/jquery-ui.css" />
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.3/themes/base/jquery-ui.css" />
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/ui/1.8.3/jquery-ui.js"></script> -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script> --> -->
+<script type="text/javascript" src="http://code.jquery.com/ui/1.8.3/jquery-ui.js"></script> 
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script> 
 
 
 

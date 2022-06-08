@@ -1590,7 +1590,7 @@ if ($user->isLoggedIn()) {
                 <?php } elseif ($_GET['id'] == 4) { ?>
                     <div class="block">
                         <div class="header">
-                            <h2>TOTAL VACCINATED PARTICIPANTS</h2>
+                            <h2>TOTAL ENROLLED PARTICIPANTS</h2>
                         </div>
                         <div class="content">
                             <table id="allVisit" cellpadding="0" cellspacing="0" width="100%" class="table table-bordered table-striped sortable">
@@ -1613,53 +1613,102 @@ if ($user->isLoggedIn()) {
                                     <?php
                                     if (isset($_GET['study'])) {
                                         $study =  $_GET['study'];
-                                    }
 
-                                    $x = 1;
-                                    $no = 0;
-                                    $data = $override->getRepeatAll('visit', 'client_id', 'id', 'project_id', $study);
+                                        $x = 1;
+                                        $no = 0;
+                                        $data = $override->getRepeatAll('visit', 'client_id', 'id', 'project_id', $study);
 
-                                    foreach ($data as $value) {
-                                        $client = $override->get('clients', 'id', $value['client_id']);
-                                        $group = $override->get('patient_group', 'id', $client[0]['pt_group'])[0]['name'];
+                                        foreach ($data as $value) {
+                                            $client = $override->get('clients', 'id', $value['client_id']);
+                                            $group = $override->get('patient_group', 'id', $client[0]['pt_group'])[0]['name'];
                                     ?>
 
-                                        <tr>
-                                            <td><?= $x ?></td>
-                                            <td>
-                                                <?= $client[0]['study_id'] ?>
-                                            </td>
-                                            <td>
-                                                <?php if ($client[0]['status'] == 0) { ?>
-                                                    <div class="btn-group btn-group-xs">
-                                                        <button class="btn btn-danger"><span class="icon-ok-sign"></span> End Study </button>
-                                                    </div>
-                                                <?php } else { ?>
-                                                    <div class="btn-group btn-group-xs">
-                                                        <button class="btn btn-success"><span class="icon-ok-sign"></span> Active </button>
-                                                    </div>
+                                            <tr>
+                                                <td><?= $x ?></td>
+                                                <td>
+                                                    <?= $client[0]['study_id'] ?>
+                                                </td>
+                                                <td>
+                                                    <?php if ($client[0]['status'] == 0) { ?>
+                                                        <div class="btn-group btn-group-xs">
+                                                            <button class="btn btn-danger"><span class="icon-ok-sign"></span> End Study </button>
+                                                        </div>
+                                                    <?php } else { ?>
+                                                        <div class="btn-group btn-group-xs">
+                                                            <button class="btn btn-success"><span class="icon-ok-sign"></span> Active </button>
+                                                        </div>
+                                                    <?php } ?>
+                                                </td>
+                                                <td><?= $group ?></td>
+
+                                                <?php
+                                                if ($user->data()->position == 1 || $user->data()->position == 5 || $user->data()->position == 6 || $user->data()->position == 12) {
+                                                ?>
+
                                                 <?php } ?>
-                                            </td>
-                                            <td><?= $group ?></td>
+                                                <td>
+                                                    <div class="btn-group btn-group-xs"><a href="info.php?id=6&cid=<?= $value['client_id'] ?>" class="btn btn-info btn-clean"><span class="icon-eye-open"></span> View All Visits</a></div>
+                                                </td>
 
-                                            <?php
-                                            if ($user->data()->position == 1 || $user->data()->position == 5 || $user->data()->position == 6 || $user->data()->position == 12) {
-                                            ?>
+                                                <?php
+                                                if ($user->data()->position == 1 || $user->data()->position == 5 || $user->data()->position == 6 || $user->data()->position == 12) {
+                                                ?>
+                                                    <td><?= $client[0]['phone_number'] ?></td>
 
-                                            <?php } ?>
-                                            <td>
-                                                <div class="btn-group btn-group-xs"><a href="info.php?id=6&cid=<?= $value['client_id'] ?>" class="btn btn-info btn-clean"><span class="icon-eye-open"></span> View All Visits</a></div>
-                                            </td>
+                                                <?php } ?>
+                                            </tr>
+                                        <?php $x++;
+                                        }
+                                    } else {
 
-                                            <?php
-                                            if ($user->data()->position == 1 || $user->data()->position == 5 || $user->data()->position == 6 || $user->data()->position == 12) {
-                                            ?>
-                                                <td><?= $client[0]['phone_number'] ?></td>
 
-                                            <?php } ?>
-                                        </tr>
+                                        $x = 1;
+                                        $no = 0;
+                                        $data = $override->getRepeatAll1('visit', 'client_id', 'id');
+
+                                        foreach ($data as $value) {
+                                            $client = $override->get('clients', 'id', $value['client_id']);
+                                            $group = $override->get('patient_group', 'id', $client[0]['pt_group'])[0]['name'];
+                                        ?>
+
+                                            <tr>
+                                                <td><?= $x ?></td>
+                                                <td>
+                                                    <?= $client[0]['study_id'] ?>
+                                                </td>
+                                                <td>
+                                                    <?php if ($client[0]['status'] == 0) { ?>
+                                                        <div class="btn-group btn-group-xs">
+                                                            <button class="btn btn-danger"><span class="icon-ok-sign"></span> End Study </button>
+                                                        </div>
+                                                    <?php } else { ?>
+                                                        <div class="btn-group btn-group-xs">
+                                                            <button class="btn btn-success"><span class="icon-ok-sign"></span> Active </button>
+                                                        </div>
+                                                    <?php } ?>
+                                                </td>
+                                                <td><?= $group ?></td>
+
+                                                <?php
+                                                if ($user->data()->position == 1 || $user->data()->position == 5 || $user->data()->position == 6 || $user->data()->position == 12) {
+                                                ?>
+
+                                                <?php } ?>
+                                                <td>
+                                                    <div class="btn-group btn-group-xs"><a href="info.php?id=6&cid=<?= $value['client_id'] ?>" class="btn btn-info btn-clean"><span class="icon-eye-open"></span> View All Visits</a></div>
+                                                </td>
+
+                                                <?php
+                                                if ($user->data()->position == 1 || $user->data()->position == 5 || $user->data()->position == 6 || $user->data()->position == 12) {
+                                                ?>
+                                                    <td><?= $client[0]['phone_number'] ?></td>
+
+                                                <?php } ?>
+                                            </tr>
                                     <?php $x++;
+                                        }
                                     } ?>
+
                                 </tbody>
                             </table>
                         </div>
@@ -1695,279 +1744,337 @@ if ($user->isLoggedIn()) {
                                     <?php
                                     if (isset($_GET['study'])) {
                                         $study =  $_GET['study'];
-                                    }
 
-                                    $y = 1;
-                                    foreach ($override->getDataOrderByAsc('clients', 'study_id', 'project_id', $study) as $client) {
-                                        $lastVisit = $override->getlastRow('visit', 'client_id', $client['id'], 'id') ?>
-                                        <tr>
-                                            <td><?= $client['study_id'] ?></td>
-                                            <td><?= $client['initials'] ?></td>
-                                            <td>
-                                                <?php
-                                                if ($client['status'] == 1) {
-                                                ?><div class="btn-group btn-group-xs"><button class="btn btn-success">Active</button></div><?php
-                                                                                                                                        } else {
-                                                                                                                                            ?>
 
-                                                    <div class="btn-group btn-group-xs"><button class="btn btn-danger">End Study</button></div>
-
-                                                <?php
-                                                                                                                                        }
-                                                ?>
-                                            </td>
-                                            <td><?= $override->get('study', 'id', $client['project_id'])[0]['study_code'] ?></td>
-                                            <td><?= $override->get('patient_group', 'id', $client['pt_group'])[0]['name'] ?></td>
-                                            <td><?php if ($lastVisit) {
-                                                    echo $lastVisit[0]['visit_date'];
-                                                } else {
-                                                    echo '';
-                                                } ?></td>
-
-                                            <?php
-                                            if ($user->data()->position == 1 || $user->data()->position == 5 || $user->data()->position == 6 || $user->data()->position == 12) {
-                                            ?>
-
-                                                <td><?= $client['phone_number'] ?></td>
-                                                <td><?= $client['phone_number2'] ?></td>
+                                        $y = 1;
+                                        foreach ($override->getDataOrderByAsc('clients', 'study_id', 'project_id', $study) as $client) {
+                                            $lastVisit = $override->getlastRow('visit', 'client_id', $client['id'], 'id') ?>
+                                            <tr>
+                                                <td><?= $client['study_id'] ?></td>
+                                                <td><?= $client['initials'] ?></td>
                                                 <td>
-                                                    <a href="#edit_client<?= $y ?>" data-toggle="modal" class="widget-icon" title="Edit Client Information"><span class="icon-pencil"></span></a>
-                                                    <a href="#reasons<?= $y ?>" data-toggle="modal" class="widget-icon" title="End Study"><span class="icon-warning-sign"></span></a>
-                                                    <a href="#edit_schedule<?= $y ?>" data-toggle="modal" class="widget-icon" title="Edit Schedule"><span class="icon-refresh"></span></a>
-                                                    <a href="#delete_client<?= $y ?>" data-toggle="modal" class="widget-icon" title="Delete Staff"><span class="icon-trash"></span></a>
-                                                    <a href="info.php?id=11&pid=<?= $client['id'] ?>" class="widget-icon" title="list schedule"><span class="icon-list"></span></a>
-                                                    <a href="#delete_client_schedule<?= $y ?>" data-toggle="modal" class="widget-icon" title="Delete Patient Schedules"><span class="icon-remove"></span></a>
-                                                </td>
+                                                    <?php
+                                                    if ($client['status'] == 1) {
+                                                    ?><div class="btn-group btn-group-xs"><button class="btn btn-success">Active</button></div><?php
+                                                                                                                                            } else {
+                                                                                                                                                ?>
 
-                                            <?php } ?>
-                                        </tr>
-                                        <div class="modal" id="edit_client<?= $y ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <form method="post">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                            <h4 class="modal-title">EDIT CLIENT</h4>
-                                                        </div>
-                                                        <div class="modal-body clearfix">
-                                                            <div class="controls">
-                                                                <div class="form-row">
-                                                                    <div class="col-md-2">CLIENT ID:</div>
-                                                                    <div class="col-md-10">
-                                                                        <input type="text" name="study_id" class="form-control" value="<?= $client['study_id'] ?>" required="" />
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-row">
-                                                                    <div class="col-md-2">STUDY NAME:</div>
-                                                                    <div class="col-md-10">
-                                                                        <input type="number" name="project_id" class="form-control" value="<?= $override->get('study', 'id', $client['project_id']) ?>" required="" />
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-row">
-                                                                    <div class="col-md-2">INITIALS:</div>
-                                                                    <div class="col-md-10">
-                                                                        <input type="text" name="initials" class="form-control" value="<?= $client['initials'] ?>" required="" />
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-row">
-                                                                    <div class="col-md-2">Phone:</div>
-                                                                    <div class="col-md-10">
-                                                                        <input type="text" name="phone_number" class="form-control" value="<?= $client['phone_number'] ?>" required="" />
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-row">
-                                                                    <div class="col-md-2">Phone2:</div>
-                                                                    <div class="col-md-10">
-                                                                        <input type="text" name="phone_number2" class="form-control" value="<?= $client['phone_number2'] ?>" />
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-row" id="st">
-                                                                    <div class="col-md-2">Project:</div>
-                                                                    <div class="col-md-10">
-                                                                        <select class="form-control" id="project_id" name="project_id" required>
-                                                                            <option value="<?= $group['project_id'] ?>"><?= $override->get('study', 'id', $group['project_id'])['id']['name'] ?></option>
-                                                                            <?php foreach ($override->getData('study') as $group) { ?>
-                                                                                <option value="<?= $group['id'] ?>"><?= $group['name'] ?></option>
-                                                                            <?php } ?>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <div class="pull-right col-md-3">
-                                                                <input type="hidden" name="id" class="form-control" value="<?= $client['id'] ?>" required="" />
-                                                                <input type="submit" name="edit_client" value="SUBMIT" class="btn btn-success btn-clean">
-                                                            </div>
-                                                            <div class="pull-right col-md-2">
-                                                                <button type="button" class="btn btn-default btn-clean" data-dismiss="modal">Close</button>
-                                                            </div>
-                                                        </div>
-                                                    </form>
+                                                        <div class="btn-group btn-group-xs"><button class="btn btn-danger">End Study</button></div>
+
+                                                    <?php
+                                                                                                                                            }
+                                                    ?>
+                                                </td>
+                                                <td><?= $override->get('study', 'id', $client['project_id'])[0]['study_code'] ?></td>
+                                                <td><?= $override->get('patient_group', 'id', $client['pt_group'])[0]['name'] ?></td>
+                                                <td><?php if ($lastVisit) {
+                                                        echo $lastVisit[0]['visit_date'];
+                                                    } else {
+                                                        echo '';
+                                                    } ?></td>
+
+                                                <?php
+                                                if ($user->data()->position == 1 || $user->data()->position == 5 || $user->data()->position == 6 || $user->data()->position == 12) {
+                                                ?>
+
+                                                    <td><?= $client['phone_number'] ?></td>
+                                                    <td><?= $client['phone_number2'] ?></td>
+                                                    <td>
+                                                        <a href="#edit_client<?= $y ?>" data-toggle="modal" class="widget-icon" title="Edit Client Information"><span class="icon-pencil"></span></a>
+                                                        <a href="#reasons<?= $y ?>" data-toggle="modal" class="widget-icon" title="End Study"><span class="icon-warning-sign"></span></a>
+                                                        <a href="#edit_schedule<?= $y ?>" data-toggle="modal" class="widget-icon" title="Edit Schedule"><span class="icon-refresh"></span></a>
+                                                        <a href="#delete_client<?= $y ?>" data-toggle="modal" class="widget-icon" title="Delete Staff"><span class="icon-trash"></span></a>
+                                                        <a href="info.php?id=11&pid=<?= $client['id'] ?>" class="widget-icon" title="list schedule"><span class="icon-list"></span></a>
+                                                        <a href="#delete_client_schedule<?= $y ?>" data-toggle="modal" class="widget-icon" title="Delete Patient Schedules"><span class="icon-remove"></span></a>
+                                                    </td>
+
+                                                <?php }
+                                                $y++;
+                                            }
+                                        } else {
+
+
+
+                                            $y = 1;
+                                            foreach ($override->getDataOrderByAsc1('clients', 'study_id') as $client) {
+                                                $lastVisit = $override->getlastRow('visit', 'client_id', $client['id'], 'id') ?>
+                                            <tr>
+                                                <td><?= $client['study_id'] ?></td>
+                                                <td><?= $client['initials'] ?></td>
+                                                <td>
+                                                    <?php
+                                                    if ($client['status'] == 1) {
+                                                    ?><div class="btn-group btn-group-xs"><button class="btn btn-success">Active</button></div><?php
+                                                                                                                                            } else {
+                                                                                                                                                ?>
+
+                                                        <div class="btn-group btn-group-xs"><button class="btn btn-danger">End Study</button></div>
+
+                                                    <?php
+                                                                                                                                            }
+                                                    ?>
+                                                </td>
+                                                <td><?= $override->get('study', 'id', $client['project_id'])[0]['study_code'] ?></td>
+                                                <td><?= $override->get('patient_group', 'id', $client['pt_group'])[0]['name'] ?></td>
+                                                <td><?php if ($lastVisit) {
+                                                        echo $lastVisit[0]['visit_date'];
+                                                    } else {
+                                                        echo '';
+                                                    } ?></td>
+
+                                                <?php
+                                                if ($user->data()->position == 1 || $user->data()->position == 5 || $user->data()->position == 6 || $user->data()->position == 12) {
+                                                ?>
+
+                                                    <td><?= $client['phone_number'] ?></td>
+                                                    <td><?= $client['phone_number2'] ?></td>
+                                                    <td>
+                                                        <a href="#edit_client<?= $y ?>" data-toggle="modal" class="widget-icon" title="Edit Client Information"><span class="icon-pencil"></span></a>
+                                                        <a href="#reasons<?= $y ?>" data-toggle="modal" class="widget-icon" title="End Study"><span class="icon-warning-sign"></span></a>
+                                                        <a href="#edit_schedule<?= $y ?>" data-toggle="modal" class="widget-icon" title="Edit Schedule"><span class="icon-refresh"></span></a>
+                                                        <a href="#delete_client<?= $y ?>" data-toggle="modal" class="widget-icon" title="Delete Staff"><span class="icon-trash"></span></a>
+                                                        <a href="info.php?id=11&pid=<?= $client['id'] ?>" class="widget-icon" title="list schedule"><span class="icon-list"></span></a>
+                                                        <a href="#delete_client_schedule<?= $y ?>" data-toggle="modal" class="widget-icon" title="Delete Patient Schedules"><span class="icon-remove"></span></a>
+                                                    </td>
+
+                                            </tr>
+
+
+
+                                <?php }
+                                                $y++;
+                                            }
+                                        }
+                                ?>
+
+
+
+                                <div class="modal" id="edit_client<?= $y ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form method="post">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <h4 class="modal-title">EDIT CLIENT</h4>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal" id="reasons<?= $y ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <form method="post">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                            <h4 class="modal-title">END OF STUDY</h4>
-                                                        </div>
-                                                        <div class="modal-body clearfix">
-                                                            <div class="controls">
-                                                                <div class="form-row">
-                                                                    <div class="col-md-2">Reason:</div>
-                                                                    <div class="col-md-10">
-                                                                        <select class="form-control" id="c" name="reason" required="">
-                                                                            <option value="">Select reason for study termination</option>
-                                                                            <?php foreach ($override->getData('end_study_reason') as $end_study) { ?>
-                                                                                <option value="<?= $end_study['reason'] ?>"><?= $end_study['reason'] ?></option>
-                                                                            <?php } ?>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-row">
-                                                                    <div class="col-md-2">Details:</div>
-                                                                    <div class="col-md-10">
-                                                                        <textarea name="details" class="form-control" rows="4"></textarea>
-                                                                    </div>
-                                                                </div>
+                                                <div class="modal-body clearfix">
+                                                    <div class="controls">
+                                                        <div class="form-row">
+                                                            <div class="col-md-2">CLIENT ID:</div>
+                                                            <div class="col-md-10">
+                                                                <input type="text" name="study_id" class="form-control" value="<?= $client['study_id'] ?>" required="" />
                                                             </div>
                                                         </div>
-                                                        <div class="modal-footer">
-                                                            <div class="pull-right col-md-3">
-                                                                <input type="hidden" name="id" value="<?= $client['id'] ?>">
-                                                                <input type="submit" name="add_end_study" value="Submit" class="btn btn-success btn-clean">
-                                                            </div>
-                                                            <div class="pull-right col-md-2">
-                                                                <button type="button" class="btn btn-default btn-clean" data-dismiss="modal">Close</button>
+                                                        <div class="form-row">
+                                                            <div class="col-md-2">STUDY NAME:</div>
+                                                            <div class="col-md-10">
+                                                                <input type="number" name="project_id" class="form-control" value="<?= $override->get('study', 'id', $client['project_id']) ?>" required="" />
                                                             </div>
                                                         </div>
-                                                    </form>
+                                                        <div class="form-row">
+                                                            <div class="col-md-2">INITIALS:</div>
+                                                            <div class="col-md-10">
+                                                                <input type="text" name="initials" class="form-control" value="<?= $client['initials'] ?>" required="" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col-md-2">Phone:</div>
+                                                            <div class="col-md-10">
+                                                                <input type="text" name="phone_number" class="form-control" value="<?= $client['phone_number'] ?>" required="" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col-md-2">Phone2:</div>
+                                                            <div class="col-md-10">
+                                                                <input type="text" name="phone_number2" class="form-control" value="<?= $client['phone_number2'] ?>" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row" id="st">
+                                                            <div class="col-md-2">Project:</div>
+                                                            <div class="col-md-10">
+                                                                <select class="form-control" id="project_id" name="project_id" required>
+                                                                    <option value="<?= $group['project_id'] ?>"><?= $override->get('study', 'id', $group['project_id'])['id']['name'] ?></option>
+                                                                    <?php foreach ($override->getData('study') as $group) { ?>
+                                                                        <option value="<?= $group['id'] ?>"><?= $group['name'] ?></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal" id="edit_schedule<?= $y ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <form method="post">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                            <h4 class="modal-title">EDIT SCHEDULE</h4>
-                                                        </div>
-                                                        <div class="modal-body clearfix">
-                                                            <div class="controls">
-                                                                <div class="form-row" id="st">
-                                                                    <div class="col-md-2">Project:</div>
-                                                                    <div class="col-md-10">
-                                                                        <select class="form-control" id="project_name" name="project_name" required>
-                                                                            <option value="<?= $group['project_id'] ?>"><?= $override->get('study', 'id', $group['project_id'])['id']['name'] ?></option>
-                                                                            <?php foreach ($override->getData('study') as $group) { ?>
-                                                                                <option value="<?= $group['name'] ?>"><?= $group['name'] ?></option>
-                                                                            <?php } ?>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-row">
-                                                                    <div class="col-md-2">Visit:</div>
-                                                                    <div class="col-md-10">
-                                                                        <select class="form-control" id="c" name="visit" required>
-                                                                            <option value="">Select Visit</option>
-                                                                            <option value="1">V1</option>
-                                                                            <option value="2">V2</option>
-                                                                            <option value="3">V3</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-row" id="st">
-                                                                    <div class="col-md-2">Group:</div>
-                                                                    <div class="col-md-10">
-                                                                        <select class="form-control" id="group_name" name="group_name" required>
-                                                                            <option value="">Select Group</option>
-                                                                            <?php foreach ($override->getData('patient_group') as $group) { ?>
-                                                                                <option value="<?= $group['name'] ?>"><?= $group['name'] ?></option>
-                                                                            <?php } ?>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-row">
-                                                                    <div class="col-md-2">VISIT DATE:</div>
-                                                                    <div class="col-md-10">
-                                                                        <div class="input-group">
-                                                                            <div class="input-group-addon"><span class="icon-calendar-empty"></span></div>
-                                                                            <input type="text" name="visit_date" class="datepicker form-control" value="" required />
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <div class="pull-right col-md-3">
-                                                                <input type="hidden" name="id" value="<?= $client['id'] ?>">
-                                                                <input type="hidden" name="participant_group" id="participant_group" class="form-control" value="" />
-                                                                <input type="submit" name="reschedule_vaccine" value="Submit" class="btn btn-success btn-clean">
-                                                            </div>
-                                                            <div class="pull-right col-md-2">
-                                                                <button type="button" class="btn btn-default btn-clean" data-dismiss="modal">Close</button>
-                                                            </div>
-                                                        </div>
-                                                    </form>
+                                                <div class="modal-footer">
+                                                    <div class="pull-right col-md-3">
+                                                        <input type="hidden" name="id" class="form-control" value="<?= $client['id'] ?>" required="" />
+                                                        <input type="submit" name="edit_client" value="SUBMIT" class="btn btn-success btn-clean">
+                                                    </div>
+                                                    <div class="pull-right col-md-2">
+                                                        <button type="button" class="btn btn-default btn-clean" data-dismiss="modal">Close</button>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            </form>
                                         </div>
-                                        <div class="modal modal-danger" id="delete_client<?= $y ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <form method="post">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                            <h4 class="modal-title">YOU SURE YOU WANT TO DELETE THIS PATIENT ?</h4>
-                                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal" id="reasons<?= $y ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form method="post">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <h4 class="modal-title">END OF STUDY</h4>
+                                                </div>
+                                                <div class="modal-body clearfix">
+                                                    <div class="controls">
                                                         <div class="form-row">
                                                             <div class="col-md-2">Reason:</div>
                                                             <div class="col-md-10">
-                                                                <textarea rows="4" name="reason" class="form-control" value="<?= $client['study_id'] ?>" required=""></textarea>
+                                                                <select class="form-control" id="c" name="reason" required="">
+                                                                    <option value="">Select reason for study termination</option>
+                                                                    <?php foreach ($override->getData('end_study_reason') as $end_study) { ?>
+                                                                        <option value="<?= $end_study['reason'] ?>"><?= $end_study['reason'] ?></option>
+                                                                    <?php } ?>
+                                                                </select>
                                                             </div>
                                                         </div>
+                                                        <div class="form-row">
+                                                            <div class="col-md-2">Details:</div>
+                                                            <div class="col-md-10">
+                                                                <textarea name="details" class="form-control" rows="4"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <div class="pull-right col-md-3">
+                                                        <input type="hidden" name="id" value="<?= $client['id'] ?>">
+                                                        <input type="submit" name="add_end_study" value="Submit" class="btn btn-success btn-clean">
+                                                    </div>
+                                                    <div class="pull-right col-md-2">
+                                                        <button type="button" class="btn btn-default btn-clean" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal" id="edit_schedule<?= $y ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form method="post">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <h4 class="modal-title">EDIT SCHEDULE</h4>
+                                                </div>
+                                                <div class="modal-body clearfix">
+                                                    <div class="controls">
+                                                        <div class="form-row" id="st">
+                                                            <div class="col-md-2">Project:</div>
+                                                            <div class="col-md-10">
+                                                                <select class="form-control" id="project_name" name="project_name" required>
+                                                                    <option value="<?= $group['project_id'] ?>"><?= $override->get('study', 'id', $group['project_id'])['id']['name'] ?></option>
+                                                                    <?php foreach ($override->getData('study') as $group) { ?>
+                                                                        <option value="<?= $group['name'] ?>"><?= $group['name'] ?></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col-md-2">Visit:</div>
+                                                            <div class="col-md-10">
+                                                                <select class="form-control" id="c" name="visit" required>
+                                                                    <option value="">Select Visit</option>
+                                                                    <option value="1">V1</option>
+                                                                    <option value="2">V2</option>
+                                                                    <option value="3">V3</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row" id="st">
+                                                            <div class="col-md-2">Group:</div>
+                                                            <div class="col-md-10">
+                                                                <select class="form-control" id="group_name" name="group_name" required>
+                                                                    <option value="">Select Group</option>
+                                                                    <?php foreach ($override->getData('patient_group') as $group) { ?>
+                                                                        <option value="<?= $group['name'] ?>"><?= $group['name'] ?></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="col-md-2">VISIT DATE:</div>
+                                                            <div class="col-md-10">
+                                                                <div class="input-group">
+                                                                    <div class="input-group-addon"><span class="icon-calendar-empty"></span></div>
+                                                                    <input type="text" name="visit_date" class="datepicker form-control" value="" required />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <div class="pull-right col-md-3">
+                                                        <input type="hidden" name="id" value="<?= $client['id'] ?>">
+                                                        <input type="hidden" name="participant_group" id="participant_group" class="form-control" value="" />
+                                                        <input type="submit" name="reschedule_vaccine" value="Submit" class="btn btn-success btn-clean">
+                                                    </div>
+                                                    <div class="pull-right col-md-2">
+                                                        <button type="button" class="btn btn-default btn-clean" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal modal-danger" id="delete_client<?= $y ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form method="post">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <h4 class="modal-title">YOU SURE YOU WANT TO DELETE THIS PATIENT ?</h4>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="col-md-2">Reason:</div>
+                                                    <div class="col-md-10">
+                                                        <textarea rows="4" name="reason" class="form-control" value="<?= $client['study_id'] ?>" required=""></textarea>
+                                                    </div>
+                                                </div>
 
-                                                        <div class="modal-footer">
-                                                            <div class="col-md-2 pull-right">
-                                                                <input type="hidden" name="id" value="<?= $client['id'] ?>">
-                                                                <input type="submit" name="delete_client" value="END" class="btn btn-default btn-clean">
-                                                            </div>
-                                                            <div class="col-md-2 pull-right">
-                                                                <button type="button" class="btn btn-default btn-clean" data-dismiss="modal">Close</button>
-                                                            </div>
-                                                        </div>
-                                                    </form>
+                                                <div class="modal-footer">
+                                                    <div class="col-md-2 pull-right">
+                                                        <input type="hidden" name="id" value="<?= $client['id'] ?>">
+                                                        <input type="submit" name="delete_client" value="END" class="btn btn-default btn-clean">
+                                                    </div>
+                                                    <div class="col-md-2 pull-right">
+                                                        <button type="button" class="btn btn-default btn-clean" data-dismiss="modal">Close</button>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            </form>
                                         </div>
-                                        <div class="modal modal-danger" id="delete_client_schedule<?= $y ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <form method="post">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                            <h4 class="modal-title">YOU SURE YOU WANT TO DELETE THIS PATIENT SCHEDULES?</h4>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <div class="col-md-2 pull-right">
-                                                                <input type="hidden" name="id" value="<?= $client['id'] ?>">
-                                                                <input type="submit" name="delete_client_schedule" value="DELETE" class="btn btn-default btn-clean">
-                                                            </div>
-                                                            <div class="col-md-2 pull-right">
-                                                                <button type="button" class="btn btn-default btn-clean" data-dismiss="modal">Close</button>
-                                                            </div>
-                                                        </div>
-                                                    </form>
+                                    </div>
+                                </div>
+                                <div class="modal modal-danger" id="delete_client_schedule<?= $y ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form method="post">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <h4 class="modal-title">YOU SURE YOU WANT TO DELETE THIS PATIENT SCHEDULES?</h4>
                                                 </div>
-                                            </div>
+                                                <div class="modal-footer">
+                                                    <div class="col-md-2 pull-right">
+                                                        <input type="hidden" name="id" value="<?= $client['id'] ?>">
+                                                        <input type="submit" name="delete_client_schedule" value="DELETE" class="btn btn-default btn-clean">
+                                                    </div>
+                                                    <div class="col-md-2 pull-right">
+                                                        <button type="button" class="btn btn-default btn-clean" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+                                            </form>
                                         </div>
-                                    <?php $y++;
-                                    } ?>
+                                    </div>
+                                </div>
+
                                 </tbody>
                             </table>
                         </div>
@@ -3132,40 +3239,73 @@ if ($user->isLoggedIn()) {
 
                                     if (isset($_GET['study'])) {
                                         $study =  $_GET['study'];
-                                    }
 
+                                        $x = 1;
 
+                                        foreach ($override->getDataOrderByA('clients', 'status', 0, 'study_id', 'project_id', $study) as $data) {
+                                            $lastVisit = $override->getlastRow('visit', 'client_id', $data['id'], 'id');
+                                            if ($lastVisit) {
+                                                $lVisit = $lastVisit[0]['visit_date'];
+                                            } else {
+                                                $lVisit = '';
+                                            } ?>
+                                            <tr>
+                                                <td><?= $x ?></td>
+                                                <td><?= $data['study_id'] ?></td>
 
+                                                <?php
+                                                if ($user->data()->position == 1 || $user->data()->position == 5 || $user->data()->position == 6 || $user->data()->position == 12) {
+                                                ?>
+                                                    <td><?= $data['phone_number'] ?></td>
 
-                                    $x = 1;
-                                    foreach ($override->getDataOrderByA('clients', 'status', 0, 'study_id', 'project_id', $study) as $data) {
-                                        $lastVisit = $override->getlastRow('visit', 'client_id', $data['id'], 'id');
-                                        if ($lastVisit) {
-                                            $lVisit = $lastVisit[0]['visit_date'];
-                                        } else {
-                                            $lVisit = '';
+                                                <?php } ?>
+                                                <td><?= $override->get('study', 'id', $data['project_id'])[0]['study_code'] ?></td>
+                                                <td><?= $override->get('patient_group', 'id', $data['pt_group'])[0]['name'] ?></td>
+                                                <td>
+                                                    <div class="btn-group btn-group-xs"><button class="btn btn-danger">End Study</button></div>
+                                                </td>
+                                                <td>( <?= $data['reason'] ?> )</td>
+                                                <td><?= $data['details'] ?></td>
+                                            </tr>
+                                        <?php $x++;
                                         } ?>
-                                        <tr>
-                                            <td><?= $x ?></td>
-                                            <td><?= $data['study_id'] ?></td>
 
-                                            <?php
-                                            if ($user->data()->position == 1 || $user->data()->position == 5 || $user->data()->position == 6 || $user->data()->position == 12) {
-                                            ?>
-                                                <td><?= $data['phone_number'] ?></td>
 
-                                            <?php } ?>
-                                            <td><?= $override->get('study', 'id', $data['project_id'])[0]['study_code'] ?></td>
-                                            <td><?= $override->get('patient_group', 'id', $data['pt_group'])[0]['name'] ?></td>
-                                            <td>
-                                                <div class="btn-group btn-group-xs"><button class="btn btn-danger">End Study</button></div>
-                                            </td>
-                                            <td>( <?= $data['reason'] ?> )</td>
-                                            <td><?= $data['details'] ?></td>
-                                        </tr>
+                                        <?php } else {
 
-                                    <?php $x++;
-                                    } ?>
+                                        $x = 1;
+
+                                        foreach ($override->getDataOrderByA1('clients', 'status', 0, 'study_id') as $data) {
+                                            $lastVisit = $override->getlastRow('visit', 'client_id', $data['id'], 'id');
+                                            if ($lastVisit) {
+                                                $lVisit = $lastVisit[0]['visit_date'];
+                                            } else {
+                                                $lVisit = '';
+                                            }
+                                        ?>
+                                            <tr>
+                                                <td><?= $x ?></td>
+                                                <td><?= $data['study_id'] ?></td>
+
+                                                <?php
+                                                if ($user->data()->position == 1 || $user->data()->position == 5 || $user->data()->position == 6 || $user->data()->position == 12) {
+                                                ?>
+                                                    <td><?= $data['phone_number'] ?></td>
+
+                                                <?php } ?>
+                                                <td><?= $override->get('study', 'id', $data['project_id'])[0]['study_code'] ?></td>
+                                                <td><?= $override->get('patient_group', 'id', $data['pt_group'])[0]['name'] ?></td>
+                                                <td>
+                                                    <div class="btn-group btn-group-xs"><button class="btn btn-danger">End Study</button></div>
+                                                </td>
+                                                <td>( <?= $data['reason'] ?> )</td>
+                                                <td><?= $data['details'] ?></td>
+                                            </tr>
+
+                                    <?php }
+                                    }
+                                    $x++; ?>
+
                                 </tbody>
                             </table>
 
@@ -4127,7 +4267,7 @@ if ($user->isLoggedIn()) {
 
                         </div>
                     </div>
-                <?php }elseif ($_GET['id'] == 15) { ?>
+                <?php } elseif ($_GET['id'] == 15) { ?>
                     <div class="block">
                         <div class="header">
                             <h2>LIST OF SCHEDULES</h2>
@@ -4140,15 +4280,15 @@ if ($user->isLoggedIn()) {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php                                   
-                                        $site = $override->get('visit', 'visit_date', $number);
+                                    <?php
+                                    $site = $override->get('visit', 'visit_date', $number);
                                     foreach ($site as $dif) {
-                                            $position = $override->get('position', 'id', $staff['position'])[0] ?>
-                                            <tr>
-                                                <td><?= $x ?></td>
-                                                <td><?= $dif['visit_date']; ?></td>                                                                                           
-                                            </tr>                                     
-                                  <?php  } ?>
+                                        $position = $override->get('position', 'id', $staff['position'])[0] ?>
+                                        <tr>
+                                            <td><?= $x ?></td>
+                                            <td><?= $dif['visit_date']; ?></td>
+                                        </tr>
+                                    <?php  } ?>
                                 </tbody>
                             </table>
 

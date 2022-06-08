@@ -573,21 +573,24 @@ if ($user->isLoggedIn()) {
     </div>
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav">
-            <li class="active">
-                <a href="index.php">
-                    <span class="icon-home"></span> dashboard
-                </a>
-            </li>
+            <!-- <li class="dropdown active"> -->
+                <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-home"></span>&nbsp;&nbsp; dashboard</a>
+                <ul class="dropdown-menu"> -->
+                    <li><a href="dashboard1.php"><span class="icon-bookmark"></span>&nbsp;&nbsp;Dsaboard</a></li>
+                    <!-- <li><a href="dashboard2.php"><span class="icon-bookmark"></span>&nbsp;&nbsp;Dsaboard 2</a></li>
+                    <li><a href="dashboard3.php"><span class="icon-bookmark"></span>&nbsp;&nbsp;Dsaboard 3</a></li>
+                </ul> -->
+            <!-- </li> -->
 
             <li class="dropdown active">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-group"></span>&nbsp;&nbsp; VOLUNTIER</a>
+                <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-group"></span>&nbsp;&nbsp; VOLUNTIER</a> -->
                 <ul class="dropdown-menu">
                     <li><a href="register.php"><span class="icon-bookmark"></span>&nbsp;&nbsp;REGISTER</a></li>
                 </ul>
             </li>
 
             <li class="dropdown active">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-group"></span>&nbsp;&nbsp; VISIT CONFIRMATION</a>
+                <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-group"></span>&nbsp;&nbsp; VISIT CONFIRMATION</a> -->
                 <ul class="dropdown-menu">
                     <?php
                     if ($user->data()->position == 1 || $user->data()->position == 5 || $user->data()->position == 6 || $user->data()->position == 12) {
@@ -634,7 +637,7 @@ if ($user->isLoggedIn()) {
             ?>
                 <?php if ($user->data()->access_level == 1 || $user->data()->access_level == 2 || $user->data()->access_level == 3) { ?>
                     <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-gear"></span>&nbsp;&nbsp; MANAGEMENT</a>
+                        <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-gear"></span>&nbsp;&nbsp; MANAGEMENT</a> -->
                         <ul class="dropdown-menu">
                             <li><a href="search.php?id=searchSchedule"><span class="icon-search"></span>&nbsp;&nbsp; Search Schedule</a></li>
                             <li><a href="#add_staff" data-toggle="modal" data-backdrop="static" data-keyboard="false"><span class="icon-user"></span>&nbsp;&nbsp;ADD STAFF</a></li>

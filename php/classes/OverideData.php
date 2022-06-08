@@ -88,6 +88,13 @@ class OverideData{
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+
+    public function getRepeatAll1($table,$param,$id){
+        $query = $this->_pdo->query("SELECT DISTINCT $param FROM $table ORDER BY '$id' ASC");
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
     public function getRepeat($table,$param,$id,$value){
         $query = $this->_pdo->query("SELECT DISTINCT $param FROM $table WHERE $id = '$value'");
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -136,6 +143,13 @@ class OverideData{
 
     public function getDataOrderByAsc($table,$id,$where,$value){
         $query = $this->_pdo->query("SELECT * FROM $table WHERE $where = '$value' ORDER BY $id ASC");
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+
+    public function getDataOrderByAsc1($table,$id){
+        $query = $this->_pdo->query("SELECT * FROM $table ORDER BY $id ASC");
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }

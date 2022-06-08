@@ -54,10 +54,10 @@ if ($user->isLoggedIn()) {
 
     <link href="css/stylesheets.css" rel="stylesheet" type="text/css">
 
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous"> --> -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">  -->
 
 
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.3/themes/base/jquery-ui.css" />
+    <!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.3/themes/base/jquery-ui.css" />
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/ui/1.8.3/jquery-ui.js"></script>
 
@@ -84,7 +84,7 @@ if ($user->isLoggedIn()) {
 
     <script type='text/javascript' src='js/plugins.js'></script>
     <script type='text/javascript' src='js/actions.js'></script>
-    <script type='text/javascript' src='js/settings.js'></script>
+    <script type='text/javascript' src='js/settings.js'></script> -->
 
     <style>
         .tabs-wrap {
@@ -113,12 +113,16 @@ if ($user->isLoggedIn()) {
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <?php require 'topBar.php' ?>
+                <?php
+                require 'topBar.php'
+                ?>
             </div>
         </div>
         <div class="row">
             <div class="col-md-2">
-                <?php require 'sideBar.php' ?>
+                <?php require
+                    'sideBar.php'
+                ?>
             </div>
             <div class="col-md-10">
                 <?php if ($errorMessage) { ?>
@@ -146,54 +150,75 @@ if ($user->isLoggedIn()) {
                     </div>
                 <?php } ?>
 
-                <form method="post">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">SEARCH SCHEDULE</h4>
-                    </div>
-                    <div class="modal-body clearfix">
-                        <div class="controls">
-                            <div class="form-row" id="st">
-                                <div class="col-md-2">Project:</div>
-                                <div class="input-group">
-                                    <div class="input-group-addon"></div>
-                                    <select class="form-control" id="project_id" name="project_id" required>
-                                        <option value="ALL">ALL STUDIES</option>
-                                        <?php foreach ($override->getData('study') as $group) { ?>
-                                            <option value="<?= $group['name'] ?>"><?= $group['name'] ?></option>
-                                        <?php } ?>
-                                    </select>
+                <div class="col-md-4">
+                    <!-- <div class="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form method="post">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title">SEARCH SCHEDULE</h4>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-md-2">From:</div>
-                                <div class="input-group">
-                                    <div class="input-group-addon"><span class="icon-calendar-empty"></span></div>
-                                    <input type="text" name="from_date" class="datepicker form-control" value="" required />
+                                <div class="modal-body clearfix">
+                                    <div class="controls">
+                                        <div class="col-md-12">
+                                            <div class="form-row">
+                                                <div><i class="fas fa-calendar input-prefix" tabindex="0"></i>Project:</div>
+                                                <select class="form-control" id="project_id" name="project_id" required>
+                                                    <option value="ALL">ALL STUDIES</option>
+                                                    <?php foreach ($override->getData('study') as $group) { ?>
+                                                        <option value="<?= $group['name'] ?>"><?= $group['name'] ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row-md-12">
+                                            <div class="col-md-12">
+                                                <div class="form-row">
+                                                    <div><i class="fas fa-calendar input-prefix" tabindex="0"></i>From:</div>
+                                                    <div class="col-md-10">
+                                                        <input type="date" class="form-control fas fa-calendar input-prefix" name="from_date" id="from_date" required="" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="col-md-12">
+                                                <div class="form-row">
+                                                    <div><i class="fas fa-calendar input-prefix" tabindex="0"></i>TO:</div>
+                                                    <div class="col-md-10">
+                                                        <input type="date" class="form-control fas fa-calendar input-prefix" name="to_date" id="to_date" required="" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-md-2">To:</div>
-                                <div class="input-group">
-                                    <div class="input-group-addon"><span class="icon-calendar-empty"></span></div>
-                                    <input type="text" name="to_date" class="datepicker form-control" value="" required />
+                                <div class="modal-footer">
+                                    <div class="pull-right col-md-3">
+                                        <input type="submit" name="search_schedule" id="search_schedule" value="Search" class="btn btn-success btn-clean">
+                                    </div>
+                                    <div class="pull-right col-md-2">
+                                        <button type="button" class="btn btn-default btn-clean" data-dismiss="modal">Close</button>
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <div class="pull-right col-md-3">
-                            <input type="submit" name="search_schedule" id="search_schedule" value="Search" class="btn btn-success btn-clean">
-                        </div>
-                        <div class="pull-right col-md-2">
-                            <button type="button" class="btn btn-default btn-clean" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </form>
+                    <!-- </div> -->
+                </div>
+
             </div>
         </div>
     </div>
 </body>
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.3/themes/base/jquery-ui.css" />
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.8.3/jquery-ui.js"></script>
 
 <script>
     if (window.history.replaceState) {
