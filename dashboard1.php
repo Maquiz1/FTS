@@ -98,92 +98,6 @@ $tv = $override->getCount('visit', 'visit_date', date('Y-m-d'));
                         </form>
                     </div>
                 </li>
-
-                <!-- Messages Dropdown Menu -->
-                <li class="nav-item dropdown">
-                    <!-- <a class="nav-link" data-toggle="dropdown" href="#">
-                        <i class="far fa-comments"></i>
-                        <span class="badge badge-danger navbar-badge">3</span>
-                    </a> -->
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <a href="#" class="dropdown-item">
-                            <!-- Message Start -->
-                            <div class="media">
-                                <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-                                <div class="media-body">
-                                    <h3 class="dropdown-item-title">
-                                        Brad Diesel
-                                        <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                                    </h3>
-                                    <p class="text-sm">Call me whenever you can...</p>
-                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                </div>
-                            </div>
-                            <!-- Message End -->
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <!-- Message Start -->
-                            <div class="media">
-                                <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                                <div class="media-body">
-                                    <h3 class="dropdown-item-title">
-                                        John Pierce
-                                        <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                                    </h3>
-                                    <p class="text-sm">I got your message bro</p>
-                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                </div>
-                            </div>
-                            <!-- Message End -->
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <!-- Message Start -->
-                            <div class="media">
-                                <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                                <div class="media-body">
-                                    <h3 class="dropdown-item-title">
-                                        Nora Silvester
-                                        <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                                    </h3>
-                                    <p class="text-sm">The subject goes here</p>
-                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                </div>
-                            </div>
-                            <!-- Message End -->
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-                    </div>
-                </li>
-                <!-- Notifications Dropdown Menu -->
-                <li class="nav-item dropdown">
-                    <!-- <a class="nav-link" data-toggle="dropdown" href="#">
-                        <i class="far fa-bell"></i>
-                        <span class="badge badge-warning navbar-badge">15</span>
-                    </a> -->
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <span class="dropdown-item dropdown-header">15 Notifications</span>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-envelope mr-2"></i> 4 new messages
-                            <span class="float-right text-muted text-sm">3 mins</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-users mr-2"></i> 8 friend requests
-                            <span class="float-right text-muted text-sm">12 hours</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-file mr-2"></i> 3 new reports
-                            <span class="float-right text-muted text-sm">2 days</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-                    </div>
-                </li>
                 <li class="nav-item">
                     <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                         <i class="fas fa-expand-arrows-alt"></i>
@@ -265,7 +179,8 @@ $tv = $override->getCount('visit', 'visit_date', date('Y-m-d'));
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="info.php?id=14" class="nav-link">
+                                    <!-- <a href="info.php?id=14" class="nav-link"> -->
+                                    <a href="dashboard3.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>MANAGE VOLUNTIER</p>
                                     </a>
@@ -305,11 +220,11 @@ $tv = $override->getCount('visit', 'visit_date', date('Y-m-d'));
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
-                                Search
+                                    Search
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview">                               
+                            <ul class="nav nav-treeview">
 
                                 <li class="nav-item">
                                     <a href="search.php?id=searchSchedule" class="nav-link">
@@ -319,88 +234,7 @@ $tv = $override->getCount('visit', 'visit_date', date('Y-m-d'));
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            <!-- <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-edit"></i>
-                                <p>
-                                    Forms
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a> -->
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="pages/forms/general.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>General Elements</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pages/forms/advanced.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Advanced Elements</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pages/forms/editors.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Editors</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pages/forms/validation.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Validation</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <!-- <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-table"></i>
-                                <p>
-                                    Tables
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a> -->
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="pages/tables/simple.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Simple Tables</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pages/tables/data.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>DataTables</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pages/tables/jsgrid.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>jsGrid</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <!-- <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon far fa-circle text-danger"></i>
-                                <p class="text">Important</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon far fa-circle text-warning"></i>
-                                <p>Warning</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon far fa-circle text-info"></i>
-                                <p>Informational</p>
-                            </a>
-                        </li> -->
+
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -497,10 +331,10 @@ $tv = $override->getCount('visit', 'visit_date', date('Y-m-d'));
                     <!-- /.row -->
                     <!-- Main row -->
                     <!-- <div class="row"> -->
-                        <!-- Left col -->
-                        <!-- <section class="col-lg-7 connectedSortable"> -->
-                            <!-- Custom tabs (Charts with tabs)-->
-                            <!-- <div class="card">
+                    <!-- Left col -->
+                    <!-- <section class="col-lg-7 connectedSortable"> -->
+                    <!-- Custom tabs (Charts with tabs)-->
+                    <!-- <div class="card">
                                 <div class="card-header">
                                     <h3 class="card-title">
                                         <i class="fas fa-chart-pie mr-1"></i>
@@ -516,36 +350,36 @@ $tv = $override->getCount('visit', 'visit_date', date('Y-m-d'));
                                             </li>
                                         </ul>
                                     </div> -->
-                                </div><!-- /.card-header -->
-                                <!-- <div class="card-body">
+                </div><!-- /.card-header -->
+                <!-- <div class="card-body">
                                     <div class="tab-content p-0"> -->
-                                        <!-- Morris chart - Sales -->
-                                        <!-- <div class="chart tab-pane active" id="revenue-chart" style="position: relative; height: 300px;">
+                <!-- Morris chart - Sales -->
+                <!-- <div class="chart tab-pane active" id="revenue-chart" style="position: relative; height: 300px;">
                                             <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
                                         </div>
                                         <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
                                             <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
                                         </div> -->
-                                    <!-- </div> -->
-                                </div><!-- /.card-body -->
-                            <!-- </div> -->
-                            <!-- /.card -->
+                <!-- </div> -->
+        </div><!-- /.card-body -->
+        <!-- </div> -->
+        <!-- /.card -->
 
-                            <!-- /.card -->
-                        <!-- </section> -->
-                        <!-- /.Left col -->
-                        <!-- right col (We are only adding the ID to make the widgets sortable)-->
-                        <!-- <section class="col-lg-5 connectedSortable"> -->
+        <!-- /.card -->
+        <!-- </section> -->
+        <!-- /.Left col -->
+        <!-- right col (We are only adding the ID to make the widgets sortable)-->
+        <!-- <section class="col-lg-5 connectedSortable"> -->
 
-                            <!-- Map card -->
-                            <!-- <div class="card bg-gradient-primary">
+        <!-- Map card -->
+        <!-- <div class="card bg-gradient-primary">
                                 <div class="card-header border-0">
                                     <h3 class="card-title">
                                         <i class="fas fa-map-marker-alt mr-1"></i>
                                         Visitors
                                     </h3> -->
-                                    <!-- card tools -->
-                                    <!-- <div class="card-tools">
+        <!-- card tools -->
+        <!-- <div class="card-tools">
                                         <button type="button" class="btn btn-primary btn-sm daterange" title="Date range">
                                             <i class="far fa-calendar-alt"></i>
                                         </button>
@@ -553,49 +387,49 @@ $tv = $override->getCount('visit', 'visit_date', date('Y-m-d'));
                                             <i class="fas fa-minus"></i>
                                         </button>
                                     </div> -->
-                                    <!-- /.card-tools -->
-                                <!-- </div>
+        <!-- /.card-tools -->
+        <!-- </div>
                                 <div class="card-body">
                                     <div id="world-map" style="height: 250px; width: 100%;"></div>
                                 </div> -->
-                                <!-- /.card-body-->
-                                <!-- <div class="card-footer bg-transparent">
+        <!-- /.card-body-->
+        <!-- <div class="card-footer bg-transparent">
                                     <div class="row">
                                         <div class="col-4 text-center">
                                             <div id="sparkline-1"></div>
                                             <div class="text-white">Visitors</div>
                                         </div> -->
-                                        <!-- ./col -->
-                                        <!-- <div class="col-4 text-center">
+        <!-- ./col -->
+        <!-- <div class="col-4 text-center">
                                             <div id="sparkline-2"></div>
                                             <div class="text-white">Online</div>
                                         </div> -->
-                                        <!-- ./col -->
-                                        <!-- <div class="col-4 text-center">
+        <!-- ./col -->
+        <!-- <div class="col-4 text-center">
                                             <div id="sparkline-3"></div>
                                             <div class="text-white">Sales</div>
                                         </div> -->
-                                        <!-- ./col -->
-                                    <!-- </div> -->
-                                    <!-- /.row -->
-                                <!-- </div>
+        <!-- ./col -->
+        <!-- </div> -->
+        <!-- /.row -->
+        <!-- </div>
                             </div> -->
-                            <!-- /.card -->
+        <!-- /.card -->
 
 
 
-                            <!-- Calendar -->
-                            <!-- <div class="card bg-gradient-success">
+        <!-- Calendar -->
+        <!-- <div class="card bg-gradient-success">
                                 <div class="card-header border-0">
 
                                     <h3 class="card-title">
                                         <i class="far fa-calendar-alt"></i>
                                         Calendar
                                     </h3> -->
-                                    <!-- tools card -->
-                                    <!-- <div class="card-tools"> -->
-                                        <!-- button with a dropdown -->
-                                        <!-- <div class="btn-group">
+        <!-- tools card -->
+        <!-- <div class="card-tools"> -->
+        <!-- button with a dropdown -->
+        <!-- <div class="btn-group">
                                             <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown" data-offset="-52">
                                                 <i class="fas fa-bars"></i>
                                             </button>
@@ -613,38 +447,38 @@ $tv = $override->getCount('visit', 'visit_date', date('Y-m-d'));
                                             <i class="fas fa-times"></i>
                                         </button>
                                     </div> -->
-                                    <!-- /. tools -->
-                                <!-- </div> -->
-                                <!-- /.card-header -->
-                                <!-- <div class="card-body pt-0"> -->
-                                    <!--The calendar -->
-                                    <!-- <div id="calendar" style="width: 100%"></div> -->
-                                <!-- </div> -->
-                                <!-- /.card-body -->
-                            <!-- </div> -->
-                            <!-- /.card -->
-                        <!-- </section> -->
-                        <!-- right col -->
-                    <!-- </div> -->
-                    <!-- /.row (main row) -->
-                </div><!-- /.container-fluid -->
-            </section>
-            <!-- /.content -->
+        <!-- /. tools -->
+        <!-- </div> -->
+        <!-- /.card-header -->
+        <!-- <div class="card-body pt-0"> -->
+        <!--The calendar -->
+        <!-- <div id="calendar" style="width: 100%"></div> -->
+        <!-- </div> -->
+        <!-- /.card-body -->
+        <!-- </div> -->
+        <!-- /.card -->
+        <!-- </section> -->
+        <!-- right col -->
+        <!-- </div> -->
+        <!-- /.row (main row) -->
+    </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <footer class="main-footer">
+        <strong>Copyright &copy; 2022 <a href="https://ihi.or.tz.io">ihi.or.tz</a>.</strong>
+        All rights reserved.
+        <div class="float-right d-none d-sm-inline-block">
+            <b>Version</b> 1.2.0
         </div>
-        <!-- /.content-wrapper -->
-        <footer class="main-footer">
-            <strong>Copyright &copy; 2022 <a href="https://ihi.or.tz.io">ihi.or.tz</a>.</strong>
-            All rights reserved.
-            <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 1.2.0
-            </div>
-        </footer>
+    </footer>
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
 

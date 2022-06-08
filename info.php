@@ -3828,11 +3828,10 @@ if ($user->isLoggedIn()) {
                                                     <div class="btn-group btn-group-xs">
                                                         <?php if ($staff['status'] == 'Enrolled') { ?><button class="btn btn-success">Enrolled</button> <?php } elseif ($staff['status'] == 'Not Enrolled') { ?><button class="btn btn-warning">Not Enrolled</button><?php } elseif ($staff['status'] == 'On Screening') { ?><button class="btn btn-info">On Screening</button><?php } else { ?><button class="btn btn-warning">Not Enrolled</button><?php } ?>
                                                     </div>
-                                                </td>
-                                                </td>
+                                                </td>                
                                                 <td>
                                                     <?php if ($staff['access_level'] != 2 || $power == 1) { ?>
-                                                        <a href="#edit_participant<?= $y ?>" data-toggle="modal" class="widget-icon" title="Edit Participant Information"><span class="icon-pencil"></span></a>
+                                                        <a href="#edit_participant<?= $y ?>" data-toggle="modal" class="widget-icon" title="Edit Participant Information"><span class="icon-pencil">View</span></a>
                                                     <?php } ?>
                                                 </td>
                                             </tr>

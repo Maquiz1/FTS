@@ -50,7 +50,7 @@ if ($user->isLoggedIn()) {
                             $user->generateScheduleRAB002(Input::get('study_name'), Input::get('client_id'), $date = date('Y-m-d', strtotime(Input::get('visit_date'))), 1, 'c', Input::get('participant_group'));
                         } elseif ((Input::get('study_name') == 'EBL08')) {
                             $user->generateScheduleEBL08(Input::get('study_name'), Input::get('client_id'), $date = date('Y-m-d', strtotime(Input::get('visit_date'))), 1, 'c', Input::get('participant_group'));
-                        }elseif ((Input::get('study_name') == 'HELP-OFZ')) {
+                        } elseif ((Input::get('study_name') == 'HELP-OFZ')) {
                             $user->generateScheduleHELP(Input::get('study_name'), Input::get('client_id'), $date = date('Y-m-d', strtotime(Input::get('visit_date'))), 1, 'c', Input::get('participant_group'));
                         }
 
@@ -207,6 +207,12 @@ if ($user->isLoggedIn()) {
                                                     <option value="">SELECT VISIT TYPE</option>
                                                     <option value="Clinic">Clinic</option>
                                                 </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-row" id="s1">
+                                            <div class="col-md-2">Investigation Product:</div>
+                                            <div class="col-md-10" id="v_code">
+                                                <input type="text" name="imp" class="datepicker form-control" value="" required />
                                             </div>
                                         </div>
                                         <div class="form-row">
