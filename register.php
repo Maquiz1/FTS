@@ -353,6 +353,31 @@ if ($user->isLoggedIn()) {
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
+
+            <?php if ($errorMessage) { ?>
+                <div class="block">
+                    <div class="alert alert-danger">
+                        <b>Error!</b> <?= $errorMessage ?>
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    </div>
+                </div>
+            <?php } elseif ($pageError) { ?>
+                <div class="block col-md-12">
+                    <div class="alert alert-danger">
+                        <b>Error!</b> <?php foreach ($pageError as $error) {
+                                            echo $error . ' , ';
+                                        } ?>
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    </div>
+                </div>
+            <?php } elseif ($successMessage) { ?>
+                <div class="block">
+                    <div class="alert alert-success">
+                        <b>Success!</b> <?= $successMessage ?>
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    </div>
+                </div>
+            <?php } ?>
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <div class="container-fluid">
@@ -448,7 +473,7 @@ if ($user->isLoggedIn()) {
 
 
                                                 <div class="row">
-                                                    <div class="col-sm-6">
+                                                    <div class="col-sm-4">
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>SENSITIZATION TWO:</label>
@@ -461,7 +486,20 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-sm-6">
+                                                    <div class="col-sm-4">
+                                                        <!-- select -->
+                                                        <div class="form-group">
+                                                            <label>Category</label>
+                                                            <select id="client_category" name="client_category" class="form-control" required>
+                                                                <option value="">Select</option>
+                                                                <?php foreach ($override->getData('client_category') as $lt) { ?>
+                                                                    <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-sm-4">
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>INITIAL</label>
@@ -526,7 +564,7 @@ if ($user->isLoggedIn()) {
                                                         <div class="form-group">
                                                             <label>GENDER:</label>
                                                             <select id="gender" name="gender" class="form-control" required>
-                                                            <option value="">Select</option>
+                                                                <option value="">Select</option>
                                                                 <?php foreach ($override->getData('gender') as $gender) { ?>
                                                                     <option value="<?= $gender['name'] ?>"><?= $gender['name'] ?></option>
                                                                 <?php } ?>
@@ -545,7 +583,7 @@ if ($user->isLoggedIn()) {
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>Phone:</label>
-                                                            <input type="text" name="phone1" class="form-control"  pattern="\d*" minlength="10" maxlength="10" required="" />
+                                                            <input type="text" name="phone1" class="form-control" pattern="\d*" minlength="10" maxlength="10" required="" />
                                                         </div>
                                                     </div>
 
@@ -553,7 +591,7 @@ if ($user->isLoggedIn()) {
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>Phone2:</label>
-                                                            <input type="text" name="phone2" class="form-control"  pattern="\d*" minlength="10" maxlength="10" required="" />
+                                                            <input type="text" name="phone2" class="form-control" pattern="\d*" minlength="10" maxlength="10" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -576,7 +614,7 @@ if ($user->isLoggedIn()) {
                                                         <div class="form-group">
                                                             <label>GENDER</label>
                                                             <select id="gender" name="gender" class="form-control" required>
-                                                            <option value="">Select</option>
+                                                                <option value="">Select</option>
                                                                 <?php foreach ($override->getData('gender') as $gender) { ?>
                                                                     <option value="<?= $gender['name'] ?>"><?= $gender['name'] ?></option>
                                                                 <?php } ?>
@@ -589,7 +627,7 @@ if ($user->isLoggedIn()) {
                                                         <div class="form-group">
                                                             <label>REGION:</label>
                                                             <select id="region" name="region" class="form-control" required>
-                                                            <option value="">Select</option>
+                                                                <option value="">Select</option>
                                                                 <?php foreach ($override->getData('region') as $lt) { ?>
                                                                     <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
                                                                 <?php } ?>
@@ -601,7 +639,7 @@ if ($user->isLoggedIn()) {
                                                         <div class="form-group">
                                                             <label>DISTRICT:</label>
                                                             <select id="district" name="district" class="form-control" required>
-                                                            <option value="">Select</option>
+                                                                <option value="">Select</option>
                                                                 <?php foreach ($override->getData('district') as $lt) { ?>
                                                                     <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
                                                                 <?php } ?>
@@ -615,7 +653,7 @@ if ($user->isLoggedIn()) {
                                                         <div class="form-group">
                                                             <label>WARD:</label>
                                                             <select id="ward" name="ward" class="form-control" required>
-                                                            <option value="">Select</option>
+                                                                <option value="">Select</option>
                                                                 <?php foreach ($override->getData('ward') as $lt) { ?>
                                                                     <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
                                                                 <?php } ?>
@@ -627,7 +665,7 @@ if ($user->isLoggedIn()) {
                                                         <div class="form-group">
                                                             <label>VILLAGE:</label>
                                                             <select id="village" name="village" class="form-control">
-                                                            <option value="">Select</option>
+                                                                <option value="">Select</option>
                                                                 <?php foreach ($override->getData('village') as $lt) { ?>
                                                                     <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
                                                                 <?php } ?>
@@ -639,7 +677,7 @@ if ($user->isLoggedIn()) {
                                                         <div class="form-group">
                                                             <label>Hamlet / Kitongoji:</label>
                                                             <select id="hamlet" name="hamlet" class="form-control" required>
-                                                            <option value="">Select</option>
+                                                                <option value="">Select</option>
                                                                 <?php foreach ($override->getData('hamlet') as $lt) { ?>
                                                                     <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
                                                                 <?php } ?>
@@ -667,7 +705,7 @@ if ($user->isLoggedIn()) {
                                                         <div class="form-group">
                                                             <label>For Bagamoyo residents, please specify the intended duration of stay in Bagamoyo:</label>
                                                             <select id="duration" name="duration" class="form-control" required>
-                                                            <option value="">Select</option>
+                                                                <option value="">Select</option>
                                                                 <?php foreach ($override->getData('duration') as $lt) { ?>
                                                                     <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
                                                                 <?php } ?>
@@ -680,7 +718,7 @@ if ($user->isLoggedIn()) {
                                                         <div class="form-group">
                                                             <label>Is the participant willing to be contacted for the next sensitization meeting?:</label>
                                                             <select id="willing_contact" name="willing_contact" class="form-control" required>
-                                                            <option value="">Select</option>
+                                                                <option value="">Select</option>
                                                                 <?php foreach ($override->getData('yes_no') as $lt) { ?>
                                                                     <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
                                                                 <?php } ?>
@@ -695,7 +733,7 @@ if ($user->isLoggedIn()) {
                                                         <div class="form-group">
                                                             <label>Briefly describe participant residential location in relation to the nearest famous neighborhoods:</label>
                                                             <select id="willing_contact" name="willing_contact" class="form-control" required>
-                                                            <option value="">Select</option>
+                                                                <option value="">Select</option>
                                                                 <?php foreach ($override->getData('yes_no') as $lt) { ?>
                                                                     <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
                                                                 <?php } ?>
@@ -707,7 +745,7 @@ if ($user->isLoggedIn()) {
                                                         <!-- textarea -->
                                                         <div class="form-group">
                                                             <label>Location(SPECIFY Place of a Participant)</label>
-                                                            <textarea name="location" id="location"  cols="60%" rows="3" required></textarea>
+                                                            <textarea name="location" id="location" cols="60%" rows="3" required></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -718,7 +756,7 @@ if ($user->isLoggedIn()) {
                                                         <div class="form-group">
                                                             <label>Status:</label>
                                                             <select id="status" name="status" class="form-control" required>
-                                                            <option value="">Select</option>
+                                                                <option value="">Select</option>
                                                                 <?php foreach ($override->getData('status') as $lt) { ?>
                                                                     <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
                                                                 <?php } ?>
@@ -731,7 +769,7 @@ if ($user->isLoggedIn()) {
                                                         <div class="form-group">
                                                             <label>Reason:</label>
                                                             <select id="reason" name="reason" class="form-control">
-                                                            <option value="">Select</option>
+                                                                <option value="">Select</option>
                                                                 <?php foreach ($override->getData('end_study_reason') as $lt) { ?>
                                                                     <option value="<?= $lt['reason'] ?>"><?= $lt['reason'] ?></option>
                                                                 <?php } ?>
@@ -743,7 +781,7 @@ if ($user->isLoggedIn()) {
                                                         <!-- textarea -->
                                                         <div class="form-group">
                                                             <label>Other reason Details:</label>
-                                                            <textarea name="other_reason" id="other_reason"  cols="25%" rows="4"></textarea>
+                                                            <textarea name="other_reason" id="other_reason" cols="25%" rows="4"></textarea>
                                                         </div>
                                                     </div>
 
@@ -788,7 +826,7 @@ if ($user->isLoggedIn()) {
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
-       <?php include 'footerNav.php' ?>
+        <?php include 'footerNav.php' ?>
 
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
