@@ -91,7 +91,7 @@ $tv = $override->getCount('visit', 'visit_date', date('Y-m-d'));
                                 <div class="icon">
                                     <i class="ion ion-bag"></i>
                                 </div>
-                                <a href="info.php?id=14" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                                <a href="dashboard3.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <!-- ./col -->
