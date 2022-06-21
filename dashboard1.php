@@ -86,7 +86,7 @@ $tv = $override->getCount('visit', 'visit_date', date('Y-m-d'));
                                 <div class="inner">
                                     <h3><?= $override->getNo('details'); ?></h3>
 
-                                    <p>Currently Registered (Volunteers)</p>
+                                    <p>Registered (Volunteers)</p>
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-bag"></i>
@@ -99,14 +99,15 @@ $tv = $override->getCount('visit', 'visit_date', date('Y-m-d'));
                             <!-- small box -->
                             <div class="small-box bg-success">
                                 <div class="inner">
-                                    <h3><?= $clntNo ?><sup style="font-size: 20px"></sup></h3>
+                                    <h3><?= $override->getCount('clients', 'status', 2); ?><sup style="font-size: 20px"></sup></h3>
 
                                     <p>On Screening</p>
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-stats-bars"></i>
                                 </div>
-                                <a href="info.php?id=5" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                                <!-- <a href="info.php?id=5" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+                                <a href="on_screening.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <!-- ./col -->
@@ -114,14 +115,15 @@ $tv = $override->getCount('visit', 'visit_date', date('Y-m-d'));
                             <!-- small box -->
                             <div class="small-box bg-warning">
                                 <div class="inner">
-                                    <h3><?= $override->countNoRepeatAll('visit', 'client_id'); ?></h3>
+                                    <h3><?= $override->getCount('clients', 'status', 1); ?></h3>
 
                                     <p>On Enrollment</p>
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-person-add"></i>
                                 </div>
-                                <a href="info.php?id=4" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                                <!-- <a href="info.php?id=4" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+                                <a href="on_enrollment.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <!-- ./col -->
@@ -131,12 +133,13 @@ $tv = $override->getCount('visit', 'visit_date', date('Y-m-d'));
                                 <div class="inner">
                                     <h3><?= $override->getCount('clients', 'status', 0); ?></h3>
 
-                                    <p>Currently on Termination And Screened Failure</p>
+                                    <p>On Termination</p>
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-pie-graph"></i>
                                 </div>
-                                <a href="info.php?id=10" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                                <!-- <a href="info.php?id=10" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
+                                <a href="on_termination.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <!-- ./col -->

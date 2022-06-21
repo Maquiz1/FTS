@@ -183,6 +183,12 @@ if ($user->isLoggedIn()) {
     <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
     <!-- summernote -->
     <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+
+    <style>
+        thead input {
+            width: 100%;
+        }
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -220,106 +226,113 @@ if ($user->isLoggedIn()) {
             <!-- Main content -->
             <div class="content">
                 <div class="container-fluid">
-                    <?php if ($successMessage) { ?>
+                    <?php if ($errorMessage) { ?>
+                        <div class="block">
+                            <div class="alert alert-danger">
+                                <b>Error!</b> <?= $errorMessage ?>
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            </div>
+                        </div>
+                    <?php } elseif ($pageError) { ?>
+                        <div class="block col-md-12">
+                            <div class="alert alert-danger">
+                                <b>Error!</b> <?php foreach ($pageError as $error) {
+                                                    echo $error . ' , ';
+                                                } ?>
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            </div>
+                        </div>
+                    <?php } elseif ($successMessage) { ?>
                         <div class="block">
                             <div class="alert alert-success">
                                 <b>Success!</b> <?= $successMessage ?>
                                 <button type="button" class="close" data-dismiss="alert">&times;</button>
                             </div>
-                        </div><?php } ?>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <!-- /.card -->
+                        </div>
+                    <?php } ?>
+                    <div class="col-lg-12">
+                        <!-- /.card -->
 
 
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">List of Registered Subjects</h3>
-                                </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">List of Registered Subjects</h3>
+                            </div>
 
 
-                                <div class="card-body">
-                                    <table id="example1" class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>FIRST NAME</th>
-                                                <th>MIDDLE NAME </th>
-                                                <th>LAST NAME</th>
-                                                <th>INITIAL</th>
-                                                <th>SENSITIZATION</th>
-                                                <th>CATEGORY</th>
-                                                <th>STUDY</th>
-                                                <th>GENDER</th>
-                                                <th>DATE BIRTH</th>
-                                                <th>PHONE</th>
-                                                <th>NEXT CONTACT</th>
-                                                <th>STATUS</th>
-                                                <th>MANAGE</th>
-                                                <th>More</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>FIRST NAME</th>
+                                            <th>MIDDLE NAME </th>
+                                            <th>LAST NAME</th>
+                                            <th>SENSITIZATION</th>
+                                            <th>CATEGORY</th>
+                                            <th>STUDY</th>
+                                            <th>GENDER</th>
+                                            <th>NEXT CONTACT</th>
+                                            <th>STATUS</th>
+                                            <th>MANAGE</th>
+                                            <th>More</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
 
 
-                                            <?php $y = 0;
-                                            $x = 1;
-                                            if ($user->data()->access_level == 1 || $user->data()->access_level == 2 || $user->data()->access_level == 3) {
-                                                $staffs = $override->get1('details');
-                                            } elseif ($user->data()->access_level == 4) {
-                                                // $staffs = $override->getNews('staff', 'status', 1, 'c_id', $user->data()->c_id);
-                                                $staffs = $override->getNews1('details');
-                                            }
-                                            foreach ($staffs as $staff) {
-                                                if ($user->data()->access_level != 1 || $user->data()->id != $staff['id']) {
-                                                    if ($user->data()->access_level == 1) {
-                                                        $power = 1;
-                                                    } else {
-                                                        $power = 0;
-                                                    }
-                                                    $site = $override->get('site', 'id', $staff['s_id']);
-                                                    $country = $override->get('country', 'id', $staff['c_id']);
-                                                    $position = $override->get('position', 'id', $staff['position'])[0] ?>
-
-
-                                                    <tr>
-                                                        <td>
-                                                            <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-                                                            <?= $x ?>
-                                                        </td>
-                                                        <td><?= $staff['fname']; ?></td>
-                                                        <td>
-                                                            <?= $staff['mname']; ?>
-                                                        </td>
-                                                        <td><?= $staff['lname']; ?></td>
-                                                        <td><?= $staff['initial'] ?></td>
-                                                        <td><?= $staff['sensitization_no'] ?></td>
-                                                        <td><?= $staff['client_category'] ?></td>
-                                                        <td><?= $staff['project_name'] ?></td>
-                                                        <td><?= $staff['gender'] ?></td>
-                                                        <td><?= $staff['dob'] ?></td>
-                                                        <td><?= $staff['phone1'] ?></td>
-                                                        <td><?= $staff['willing_contact'] ?></td>
-                                                        <td>
-                                                            <div class="btn-group btn-group-xs">
-                                                                <?php if ($staff['status'] == 'Enrolled') { ?><button class="btn btn-success">Enrolled</button> <?php } elseif ($staff['status'] == 'Not Enrolled') { ?><button class="btn btn-warning">Not Enrolled</button><?php } elseif ($staff['status'] == 'On Screening') { ?><button class="btn btn-info">On Screening</button><?php } else { ?><button class="btn btn-warning">Not Enrolled</button><?php } ?>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <?php if ($staff['access_level'] != 2 || $power == 1) { ?>
-                                                                <a href="#edit_participant<?= $y ?>" data-toggle="modal" class="widget-icon" title="Edit Participant Information"><span class="icon-pencil">Edit</span></a>
-                                                            <?php } ?>
-                                                        </td>
-                                                        <td>
-                                                            <a href="#" class="text-muted">
-                                                                <i class="fas fa-search"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                <?php $x++;
+                                        <?php $y = 0;
+                                        $x = 1;
+                                        if ($user->data()->access_level == 1 || $user->data()->access_level == 2 || $user->data()->access_level == 3) {
+                                            $staffs = $override->get1('details');
+                                        } elseif ($user->data()->access_level == 4) {
+                                            // $staffs = $override->getNews('staff', 'status', 1, 'c_id', $user->data()->c_id);
+                                            $staffs = $override->getNews1('details');
+                                        }
+                                        foreach ($staffs as $staff) {
+                                            if ($user->data()->access_level != 1 || $user->data()->id != $staff['id']) {
+                                                if ($user->data()->access_level == 1) {
+                                                    $power = 1;
+                                                } else {
+                                                    $power = 0;
                                                 }
-                                                $y++; ?>
+                                                $site = $override->get('site', 'id', $staff['s_id']);
+                                                $country = $override->get('country', 'id', $staff['c_id']);
+                                                $position = $override->get('position', 'id', $staff['position'])[0] ?>
+
+
+                                                <tr>
+                                                    <td>
+                                                        <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
+                                                        <?= $x ?>
+                                                    </td>
+                                                    <td><?= $staff['fname']; ?></td>
+                                                    <td>
+                                                        <?= $staff['mname']; ?>
+                                                    </td>
+                                                    <td><?= $staff['lname']; ?></td>
+                                                    <td><?= $staff['sensitization_no'] ?></td>
+                                                    <td><?= $staff['client_category'] ?></td>
+                                                    <td><?= $staff['project_name'] ?></td>
+                                                    <td><?= $staff['gender'] ?></td>
+                                                    <td><?= $staff['willing_contact'] ?></td>
+                                                    <td>
+                                                        <div class="btn-group btn-group-xs">
+                                                            <?php if ($staff['status'] == 'Enrolled') { ?><button class="btn btn-success">Enrolled</button> <?php } elseif ($staff['status'] == 'Not Enrolled') { ?><button class="btn btn-warning">Not Enrolled</button><?php } elseif ($staff['status'] == 'On Screening') { ?><button class="btn btn-info">On Screening</button><?php } else { ?><button class="btn btn-warning">Not Enrolled</button><?php } ?>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <?php if ($staff['access_level'] != 2 || $power == 1) { ?>
+                                                            <a href="#edit_participant<?= $y ?>" data-toggle="modal" class="widget-icon" title="Edit Participant Information"><span class="icon-pencil">Edit</span></a>
+                                                        <?php } ?>
+                                                    </td>
+                                                    <td>
+                                                        <a href="#" class="text-muted">
+                                                            <i class="fas fa-search"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
 
                                                 <!-- Main content -->
                                                 <section class="content">
@@ -648,48 +661,48 @@ if ($user->isLoggedIn()) {
                                                     <!-- /.modal -->
                                                 </section>
                                                 <!-- /.content -->
-                                            <?php  } ?>
-                                        </tbody>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>FIRST NAME</th>
-                                            <th>MIDDLE NAME </th>
-                                            <th>LAST NAME</th>
-                                            <th>INITIAL</th>
-                                            <th>SENSITIZATION</th>
-                                            <th>CATEGORY</th>
-                                            <th>STUDY</th>
-                                            <th>GENDER</th>
-                                            <th>DATE BIRTH</th>
-                                            <th>PHONE</th>
-                                            <th>NEXT CONTACT</th>
-                                            <th>STATUS</th>
-                                            <th>MANAGE</th>
-                                            <th>More</th>
-                                        </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
+                                        <?php $x++;
+                                            }
+                                            $y++;
+                                        } ?>
+                                    </tbody>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>FIRST NAME</th>
+                                        <th>MIDDLE NAME </th>
+                                        <th>LAST NAME</th>
+                                        <th>SENSITIZATION</th>
+                                        <th>CATEGORY</th>
+                                        <th>STUDY</th>
+                                        <th>GENDER</th>
+                                        <th>NEXT CONTACT</th>
+                                        <th>STATUS</th>
+                                        <th>MANAGE</th>
+                                        <th>More</th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
                             </div>
-                            <!-- /.card -->
                         </div>
+                        <!-- /.card -->
                     </div>
-                    <!-- /.row -->
                 </div>
-                <!-- /.container-fluid -->
+                <!-- /.row -->
             </div>
-            <!-- /.content -->
+            <!-- /.container-fluid -->
         </div>
-        <!-- /.content-wrapper -->
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
 
-        <!-- /.content-wrapper -->
-        <?php include 'footerNav.php' ?>
+    <!-- /.content-wrapper -->
+    <?php include 'footerNav.php' ?>
     </div>
     <!-- ./wrapper -->
 
@@ -728,13 +741,14 @@ if ($user->isLoggedIn()) {
 
 
     <script>
-        $(function() {
-            $("#example1").DataTable({
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        $(document).ready(function() {
+            // $("#example1").DataTable({
+            //     "responsive": true,
+            //     "lengthChange": false,
+            //     "autoWidth": false,
+            //     // "lBfrtip": true,
+            //     "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            // }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
                 "paging": true,
                 "lengthChange": false,
@@ -744,6 +758,84 @@ if ($user->isLoggedIn()) {
                 "autoWidth": false,
                 "responsive": true,
             });
+
+            // var table = $('#example1').DataTable();
+
+            // var filteredData = table
+            //     .columns([0, 1])
+            //     .data()
+            //     .flatten()
+            //     .filter(function(value, index) {
+            //         return value > 20 ? true : false;
+            //     });
+
+
+            // Setup - add a text input to each footer cell
+            $('#example1 thead tr')
+                .clone(true)
+                .addClass('filters')
+                .appendTo('#example1 thead');
+
+            var table = $('#example1').DataTable({
+
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "lBfrtip": true,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+
+                orderCellsTop: true,
+                fixedHeader: true,
+                initComplete: function() {
+                    var api = this.api();
+
+                    // For each column
+                    api
+                        .columns()
+                        .eq(0)
+                        .each(function(colIdx) {
+                            // Set the header cell to contain the input element
+                            var cell = $('.filters th').eq(
+                                $(api.column(colIdx).header()).index()
+                            );
+                            var title = $(cell).text();
+                            $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                            // On every keypress in this input
+                            $(
+                                    'input',
+                                    $('.filters th').eq($(api.column(colIdx).header()).index())
+                                )
+                                .off('keyup change')
+                                .on('change', function(e) {
+                                    // Get the search value
+                                    $(this).attr('title', $(this).val());
+                                    var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                                    var cursorPosition = this.selectionStart;
+                                    // Search the column for that value
+                                    api
+                                        .column(colIdx)
+                                        .search(
+                                            this.value != '' ?
+                                            regexr.replace('{search}', '(((' + this.value + ')))') :
+                                            '',
+                                            this.value != '',
+                                            this.value == ''
+                                        )
+                                        .draw();
+                                })
+                                .on('keyup', function(e) {
+                                    e.stopPropagation();
+
+                                    $(this).trigger('change');
+                                    $(this)
+                                        .focus()[0]
+                                        .setSelectionRange(cursorPosition, cursorPosition);
+                                });
+                        });
+                },
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
     </script>
 </body>

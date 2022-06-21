@@ -58,6 +58,10 @@ if ($user->isLoggedIn()) {
                             'status' => 'Enrolled'
                         ), Input::get('participant_id'));
 
+                        $user->updateRecord('clients', array(
+                            'status' => 1
+                        ), Input::get('participant_id'));
+
                         $successMessage = 'Schedules Added Successful';
                     } else {
                         $errorMessage = 'Patient Schedules already exist';
@@ -210,7 +214,7 @@ if ($user->isLoggedIn()) {
                                             </div>
                                         </div>
                                         <div class="form-row" id="s1">
-                                            <div class="col-md-2">Investigation Product:</div>
+                                            <div class="col-md-2"></div>
                                             <div class="col-md-10" id="v_code">
                                                 <input type="text" name="imp" class="datepicker form-control" value="" required />
                                             </div>

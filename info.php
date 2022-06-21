@@ -2118,7 +2118,6 @@ if ($user->isLoggedIn()) {
                                                 <td><?= $data['project_id'] ?></td>
                                                 <td><?= $override->get('patient_group', 'id', $client[0]['pt_group'])[0]['name'] ?></td>
                                                 <td><?= $data['visit_code'] ?></td>
-
                                                 <td>
                                                     <?php if ($data['visit_type'] == 'Clinic') { ?>
                                                         <div class="btn-group btn-group-xs">
@@ -2135,7 +2134,6 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     <?php }  ?>
                                                 </td>
-
                                                 <td>
                                                     <div class="btn-group btn-group-xs">
                                                         <?php if ($data['schedule'] == 'Scheduled') { ?>&nbsp;
@@ -2145,10 +2143,8 @@ if ($user->isLoggedIn()) {
                                                     <?php } ?>
                                                     </div>
                                                 </td>
-
                                                 <td><?= $data['visit_date'] ?></td>
                                                 <td><?= date('l', strtotime($data['visit_date'])) ?></td>
-
                                                 <td>
                                                     <div class="btn-group btn-group-xs">
                                                         <?php if ($data['status'] == 0) { ?>&nbsp;
@@ -2162,13 +2158,8 @@ if ($user->isLoggedIn()) {
                                                     <?php } ?>
                                                     </div>
                                                 </td>
-
                                                 <td><?= $data['details'] ?></td>
                                                 <td><?= $data['reason'] ?></td>
-
-
-
-
                                                 <?php
                                                 if ($user->data()->position == 1 || $user->data()->position == 5 || $user->data()->position == 6 || $user->data()->position == 12) {
                                                 ?>
@@ -3828,7 +3819,7 @@ if ($user->isLoggedIn()) {
                                                     <div class="btn-group btn-group-xs">
                                                         <?php if ($staff['status'] == 'Enrolled') { ?><button class="btn btn-success">Enrolled</button> <?php } elseif ($staff['status'] == 'Not Enrolled') { ?><button class="btn btn-warning">Not Enrolled</button><?php } elseif ($staff['status'] == 'On Screening') { ?><button class="btn btn-info">On Screening</button><?php } else { ?><button class="btn btn-warning">Not Enrolled</button><?php } ?>
                                                     </div>
-                                                </td>                
+                                                </td>
                                                 <td>
                                                     <?php if ($staff['access_level'] != 2 || $power == 1) { ?>
                                                         <a href="#edit_participant<?= $y ?>" data-toggle="modal" class="widget-icon" title="Edit Participant Information"><span class="icon-pencil">View</span></a>

@@ -83,7 +83,7 @@ $tv = $override->getCount('visit', 'visit_date', date('Y-m-d'));
                                     <!-- <a href="info.php?id=14" class="nav-link"> -->
                                     <a href="dashboard3.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>MANAGE VOLUNTIER</p>
+                                        <p>Manager Volunteers</p>
                                     </a>
                                 </li>
                             </ul>
@@ -98,13 +98,13 @@ $tv = $override->getCount('visit', 'visit_date', date('Y-m-d'));
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="dashboard1.php" class="nav-link">
+                                    <a href="add_screening.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Add Screening</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="add.php" class="nav-link">
+                                    <a href="add_enrollment.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Add Enrollment</p>
                                     </a>

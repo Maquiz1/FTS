@@ -204,6 +204,13 @@ class OverideData{
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+
+    public function getDataOrderByAsc2($table,$where,$value){
+        $query = $this->_pdo->query("SELECT * FROM $table WHERE $where = '$value'");
+        $num = $query->rowCount();
+        return $num;
+    }
+
     public function dateRangeNoR($table,$param,$value,$start,$end){
         $query = $this->_pdo->query("SELECT DISTINCT $param FROM $table WHERE $value BETWEEN '$start' AND '$end'");
         $num = $query->rowCount();

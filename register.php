@@ -60,7 +60,7 @@ if ($user->isLoggedIn()) {
                 ),
                 'phone1' => array(
                     'required' => true,
-                    'unique' => 'details'
+                    // 'unique' => 'details'
                 ),
                 'attend_school' => array(
                     'required' => true,
@@ -130,7 +130,6 @@ if ($user->isLoggedIn()) {
                         'details' => Input::get('details'),
                         'end_study' => Input::get('end_study'),
                     ));
-
                     $successMessage = 'Client Registered Successful';
                 } catch (Exception $e) {
                     die($e->getMessage());
@@ -165,6 +164,10 @@ if ($user->isLoggedIn()) {
     <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
+
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.3/themes/base/jquery-ui.css" />
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.8.3/jquery-ui.js"></script>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -182,45 +185,44 @@ if ($user->isLoggedIn()) {
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-
-            <?php if ($errorMessage) { ?>
-                <div class="block">
-                    <div class="alert alert-danger">
-                        <b>Error!</b> <?= $errorMessage ?>
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    </div>
-                </div>
-            <?php } elseif ($pageError) { ?>
-                <div class="block col-md-12">
-                    <div class="alert alert-danger">
-                        <b>Error!</b> <?php foreach ($pageError as $error) {
-                                            echo $error . ' , ';
-                                        } ?>
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    </div>
-                </div>
-            <?php } elseif ($successMessage) { ?>
-                <div class="block">
-                    <div class="alert alert-success">
-                        <b>Success!</b> <?= $successMessage ?>
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    </div>
-                </div>
-            <?php } ?>
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <div class="container-fluid">
+
+
                     <div class="row mb-2">
                         <div class="col-sm-6">
                             <h1>
-                                Register
-                                <small>new</small>
+                                <?php if ($errorMessage) { ?>
+                                    <div class="block">
+                                        <div class="alert alert-danger">
+                                            <b>Error!</b> <?= $errorMessage ?>
+                                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                        </div>
+                                    </div>
+                                <?php } elseif ($pageError) { ?>
+                                    <div class="block col-md-12">
+                                        <div class="alert alert-danger">
+                                            <b>Error!</b> <?php foreach ($pageError as $error) {
+                                                                echo $error . ' , ';
+                                                            } ?>
+                                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                        </div>
+                                    </div>
+                                <?php } elseif ($successMessage) { ?>
+                                    <div class="block">
+                                        <div class="alert alert-success">
+                                            <b>Success!</b> <?= $successMessage ?>
+                                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                        </div>
+                                    </div>
+                                <?php } ?>
                             </h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="dashboard1.php">Home</a></li>
-                                <li class="breadcrumb-item active">List</li>
+                                <li class="breadcrumb-item active">Register Form</li>
                             </ol>
                         </div>
                     </div>
@@ -232,7 +234,7 @@ if ($user->isLoggedIn()) {
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
-                            <h4>Register Volunteer <small>Subjetcs</small></h4>
+                            <h4>Register <small>Subjetcs</small></h4>
                         </div>
                     </div>
                     <!-- ./row -->
@@ -242,27 +244,23 @@ if ($user->isLoggedIn()) {
                                 <div class="card-header p-0 pt-1">
                                     <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
                                         <li class="pt-2 px-3">
-                                            <h3 class="card-title">Card Title</h3>
+                                            <h3 class="card-title">Register Form</h3>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link active" id="custom-tabs-two-home-tab" data-toggle="pill" href="#custom-tabs-two-home" role="tab" aria-controls="custom-tabs-two-home" aria-selected="true">Study Details</a>
+                                            <a class="nav-link active" id="tab1" data-toggle="pill" href="#tab-1" role="tab" aria-controls="custom-tabs-two-home" aria-selected="true">Study Details</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" id="custom-tabs-two-profile-tab" data-toggle="pill" href="#custom-tabs-two-profile" role="tab" aria-controls="custom-tabs-two-profile" aria-selected="false">Demographic</a>
+                                            <a class="nav-link" id="tab2" data-toggle="pill" href="#tab-2" role="tab" aria-controls="custom-tabs-two-profile" aria-selected="false">Demographic</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" id="custom-tabs-two-messages-tab" data-toggle="pill" href="#custom-tabs-two-messages" role="tab" aria-controls="custom-tabs-two-messages" aria-selected="false">Status</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" id="custom-tabs-two-settings-tab" data-toggle="pill" href="#custom-tabs-two-settings" role="tab" aria-controls="custom-tabs-two-settings" aria-selected="false">Submit</a>
+                                            <a class="nav-link" id="tab3" data-toggle="pill" href="#tab-3" role="tab" aria-controls="custom-tabs-two-messages" aria-selected="false">Status</a>
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="card-body">
                                     <form method="post">
                                         <div class="tab-content" id="custom-tabs-two-tabContent">
-
-                                            <div class="tab-pane fade show active" id="custom-tabs-two-home" role="tabpanel" aria-labelledby="custom-tabs-two-home-tab">
+                                            <div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="custom-tabs-two-home-tab">
 
                                                 <div class="row">
                                                     <div class="col-sm-4">
@@ -427,29 +425,14 @@ if ($user->isLoggedIn()) {
 
 
                                                 <div class="back-cont mt-4">
-                                                    <a class="btn btn-primary continue">
-                                                        <input type="button" id="btnNext" value="Next" class="btn btn-primary" />
+                                                    <a class="btn btn-primary continue" data-toggle="pill" id="tab2" href="#tab-2" role="tab" aria-controls="custom-tabs-two-home" aria-selected="true">
+                                                        NEXT
                                                     </a>
                                                 </div>
                                             </div>
 
-
-
-
-                                            <div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel" aria-labelledby="custom-tabs-two-profile-tab">
+                                            <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="custom-tabs-two-profile-tab">
                                                 <div class="row">
-                                                    <div class="col-sm-4">
-                                                        <!-- select -->
-                                                        <div class="form-group">
-                                                            <label>GENDER</label>
-                                                            <select id="gender" name="gender" class="form-control" required>
-                                                                <option value="">Select</option>
-                                                                <?php foreach ($override->getData('gender') as $gender) { ?>
-                                                                    <option value="<?= $gender['name'] ?>"><?= $gender['name'] ?></option>
-                                                                <?php } ?>
-                                                            </select>
-                                                        </div>
-                                                    </div>
 
                                                     <div class="col-sm-4">
                                                         <!-- select -->
@@ -516,18 +499,16 @@ if ($user->isLoggedIn()) {
                                                 </div>
 
                                                 <div class="back-cont mt-4">
-                                                    <a class="btn btn-primary continue">
-                                                        <input type="button" id="btnPrevious" value="Previous" class="btn btn-primary" />
+                                                    <a class="btn btn-primary continue" data-toggle="pill" id="tab2" href="#tab-2" role="tab" aria-controls="custom-tabs-two-home" aria-selected="true">
+                                                        PREVIOUS
                                                     </a>
-                                                    <a class="btn btn-primary continue">
-                                                        <input type="button" id="btnNext" value="Next" class="btn btn-primary" />
+                                                    <a class="btn btn-primary continue" data-toggle="pill" id="tab3" href="#tab-3" role="tab" aria-controls="custom-tabs-two-home" aria-selected="true">
+                                                        NEXT
                                                     </a>
                                                 </div>
                                             </div>
 
-
-
-                                            <div class="tab-pane fade" id="custom-tabs-two-messages" role="tabpanel" aria-labelledby="custom-tabs-two-messages-tab">
+                                            <div class="tab-pane fade" id="tab-3" role="tabpanel" aria-labelledby="custom-tabs-two-messages-tab">
                                                 <div class="row">
                                                     <div class="col-sm-6">
                                                         <!-- select -->
@@ -616,23 +597,9 @@ if ($user->isLoggedIn()) {
 
                                                 </div>
 
-                                                <div class="back-cont mt-4">
-                                                    <a class="btn btn-primary continue">
-                                                        <input type="button" id="btnPrevious" value="Previous" class="btn btn-primary" />
-                                                    </a>
-                                                    <a class="btn btn-primary continue">
-                                                        <input type="button" id="btnNext" value="Next" class="btn btn-primary" />
-                                                    </a>
-                                                </div>
-                                            </div>
-
-
-
-
-                                            <div class="tab-pane fade" id="custom-tabs-two-settings" role="tabpanel" aria-labelledby="custom-tabs-two-settings-tab">
                                                 <div class="modal-footer justify-content-between">
-                                                    <a class="btn btn-primary continue">
-                                                        <input type="button" id="btnPrevious" value="Previous" />
+                                                    <a class="btn btn-primary continue" data-toggle="pill" id="tab2" href="#tab-2" role="tab" aria-controls="custom-tabs-two-home" aria-selected="true">
+                                                        PREVIOUS
                                                     </a>
                                                     <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
                                                     <!-- <button type="button" class="btn btn-outline-light">Save changes</button> -->
@@ -640,8 +607,6 @@ if ($user->isLoggedIn()) {
                                                     <input type="submit" name="Register" value="Submit" class="btn btn-success btn-clean">
                                                 </div>
                                             </div>
-
-                                        </div>
                                     </form>
                                 </div>
                                 <!-- /.card -->
@@ -676,7 +641,44 @@ if ($user->isLoggedIn()) {
 </body>
 
 
+<script type="text/javascript">
+    var currentTab = 0;
+    $(function() {
+        $("#custom-tabs-two-tabContent").tabs({
+            select: function(e, i) {
+                currentTab = i.index;
+            }
+        });
+    });
+    $("#btnNext").live("click", function() {
+        var tabs = $('#custom-tabs-two-tabContent').tabs();
+        var c = $('#custom-tabs-two-tabContent').tabs("length");
+        currentTab = currentTab == (c - 1) ? currentTab : (currentTab + 1);
+        tabs.tabs('select', currentTab);
+        $("#btnPrevious").show();
+        if (currentTab == (c - 1)) {
+            $("#btnNext").hide();
+        } else {
+            $("#btnNext").show();
+        }
+    });
+    $("#btnPrevious").live("click", function() {
+        var tabs = $('#custom-tabs-two-tabContent').tabs();
+        var c = $('#custom-tabs-two-tabContent').tabs("length");
+        currentTab = currentTab == 0 ? currentTab : (currentTab - 1);
+        tabs.tabs('select', currentTab);
+        if (currentTab == 0) {
+            $("#btnNext").show();
+            $("#btnPrevious").hide();
+        }
+        if (currentTab < (c - 1)) {
+            $("#btnNext").show();
+        }
+    });
+</script>
 
+
+<!-- 
 <script type="text/javascript">
     $(document).ready(function() {
         var currentTab = 0;
@@ -717,6 +719,44 @@ if ($user->isLoggedIn()) {
     if (window.history.replaceState) {
         window.history.replaceState(null, null, window.location.href);
     }
-</script>
+</script> -->
+
+
+<!-- 
+<script type="text/javascript">
+    var currentTab = 0;
+    $(function () {
+        $("#tabs").tabs({
+        select: function (e, i) {
+            currentTab = i.index;
+            }
+        });
+    });
+    $("#btnNext").live("click", function () {
+        var tabs = $('#tabs').tabs();
+        var c = $('#tabs').tabs("length");
+        currentTab = currentTab == (c - 1) ? currentTab : (currentTab + 1);
+        tabs.tabs('select', currentTab);
+        $("#btnPrevious").show();
+            if (currentTab == (c - 1)) {
+                $("#btnNext").hide();
+            } else {
+                $("#btnNext").show();
+            }
+    });
+    $("#btnPrevious").live("click", function () {
+        var tabs = $('#tabs').tabs();
+        var c = $('#tabs').tabs("length");
+        currentTab = currentTab == 0 ? currentTab : (currentTab - 1);
+        tabs.tabs('select', currentTab);
+            if (currentTab == 0) {
+                $("#btnNext").show();
+                $("#btnPrevious").hide();
+            }
+            if (currentTab < (c - 1)) {
+                $("#btnNext").show();
+            }
+    });
+</script> -->
 
 </html>
