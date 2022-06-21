@@ -21,7 +21,7 @@ $logo = $override->get('images', 'cat', 2)[0];
 
 //modification remove all pilot crf have been removed/deleted from study crf
 if ($user->isLoggedIn()) {
-    if (Input::exists('post')) {print_r($_POST);
+    if (Input::exists('post')) {
         if (Input::get('Register')) {
             $validate = new validate();
             $validate = $validate->check($_POST, array(
