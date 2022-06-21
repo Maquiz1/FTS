@@ -21,7 +21,7 @@ $logo = $override->get('images', 'cat', 2)[0];
 
 //modification remove all pilot crf have been removed/deleted from study crf
 if ($user->isLoggedIn()) {
-    if (Input::exists('post')) {
+    if (Input::exists('post')) {print_r($_POST);
         if (Input::get('Register')) {
             $validate = new validate();
             $validate = $validate->check($_POST, array(
@@ -434,7 +434,7 @@ if ($user->isLoggedIn()) {
                                             <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="custom-tabs-two-profile-tab">
                                                 <div class="row">
 
-                                                    <div class="col-sm-4">
+                                                    <div class="col-sm-6">
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>REGION:</label>
@@ -446,7 +446,7 @@ if ($user->isLoggedIn()) {
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-4">
+                                                    <div class="col-sm-6">
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>DISTRICT:</label>
@@ -460,7 +460,8 @@ if ($user->isLoggedIn()) {
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-sm-4">
+
+                                                    <div class="col-sm-6">
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>WARD:</label>
@@ -472,7 +473,7 @@ if ($user->isLoggedIn()) {
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-4">
+                                                    <div class="col-sm-6">
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>VILLAGE:</label>
@@ -484,7 +485,9 @@ if ($user->isLoggedIn()) {
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-4">
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>Hamlet / Kitongoji:</label>
@@ -510,7 +513,7 @@ if ($user->isLoggedIn()) {
 
                                             <div class="tab-pane fade" id="tab-3" role="tabpanel" aria-labelledby="custom-tabs-two-messages-tab">
                                                 <div class="row">
-                                                    <div class="col-sm-6">
+                                                    <div class="col-sm-4">
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>For Bagamoyo residents, please specify the intended duration of stay in Bagamoyo:</label>
@@ -523,7 +526,7 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-sm-6">
+                                                    <div class="col-sm-4">
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>Is the participant willing to be contacted for the next sensitization meeting?:</label>
@@ -535,31 +538,16 @@ if ($user->isLoggedIn()) {
                                                             </select>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="row">
 
                                                     <div class="col-sm-4">
-                                                        <!-- select -->
-                                                        <div class="form-group">
-                                                            <label>Briefly describe participant residential location in relation to the nearest famous neighborhoods:</label>
-                                                            <select id="willing_contact" name="willing_contact" class="form-control" required>
-                                                                <option value="">Select</option>
-                                                                <?php foreach ($override->getData('yes_no') as $lt) { ?>
-                                                                    <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
-                                                                <?php } ?>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-sm-8">
                                                         <!-- textarea -->
                                                         <div class="form-group">
-                                                            <label>Location(SPECIFY Place of a Participant)</label>
-                                                            <textarea name="location" id="location" cols="60%" rows="3" required></textarea>
+                                                            <label>Briefly describe participant residential location in relation to the nearest famous neighborhoods:
+                                                            </label>
+                                                            <textarea name="location" id="location" cols="50%" rows="3" required></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
-
                                                 <div class="row">
                                                     <div class="col-sm-4">
                                                         <!-- select -->
@@ -590,8 +578,8 @@ if ($user->isLoggedIn()) {
                                                     <div class="col-sm-4">
                                                         <!-- textarea -->
                                                         <div class="form-group">
-                                                            <label>Other reason Details:</label>
-                                                            <textarea name="other_reason" id="other_reason" cols="25%" rows="4"></textarea>
+                                                            <label>Other reason Details:Location(SPECIFY Place of a Participant)</label>
+                                                            <textarea name="other_reason" id="other_reason" cols="50%" rows="3"></textarea>
                                                         </div>
                                                     </div>
 

@@ -63,7 +63,6 @@ if ($user->isLoggedIn()) {
                         ), Input::get('participant_id'));
 
                         $successMessage = 'Schedules Added Successful';
-                        print_r($successMessage);
                     } else {
                         $errorMessage = 'Patient Schedules already exist';
                     }
@@ -202,8 +201,6 @@ if ($user->isLoggedIn()) {
                                         <div class="tab-content" id="custom-tabs-two-tabContent">
 
                                             <div class="tab-pane fade show active" id="custom-tabs-two-home" role="tabpanel" aria-labelledby="custom-tabs-two-home-tab">
-
-
                                                 <div class="row">
 
                                                     <div class="col-sm-4">
@@ -259,7 +256,13 @@ if ($user->isLoggedIn()) {
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>Investigation Product:</label>
-                                                            <input type="text" name="imp" class="datepicker form-control" value="" required />
+                                                            <select name="imp" id="imp" class="form-control" style="width: 100%;" tabindex="-1" required="">
+                                                                <option value="">Select Product</option>
+                                                                <option value="vaccine">Vaccine</option>
+                                                                <option value="drugs">Drugs</option>
+                                                                <option value="chmi">CHMI</option>
+                                                                <option value="none">None</option>
+                                                            </select>
                                                         </div>
                                                     </div>
 
@@ -368,7 +371,8 @@ if ($user->isLoggedIn()) {
                     $('#participant_id').val(data.participant_id);
                     // $('#fl_wait').hide();
                     // console.log(data);
-                    console.log(data.participant_id);
+                    // console.log(data.participant_id);
+                    // alert(data.participant_id);
                 }
             });
 
