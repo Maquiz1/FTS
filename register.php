@@ -243,9 +243,9 @@ if ($user->isLoggedIn()) {
                             <div class="card card-primary card-tabs">
                                 <div class="card-header p-0 pt-1">
                                     <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
-                                        <li class="pt-2 px-3">
+                                        <!-- <li class="pt-2 px-3">
                                             <h3 class="card-title">Register Form</h3>
-                                        </li>
+                                        </li> -->
                                         <li class="nav-item">
                                             <a class="nav-link active" id="tab1" data-toggle="pill" href="#tab-1" role="tab" aria-controls="custom-tabs-two-home" aria-selected="true">Study Details</a>
                                         </li>
@@ -477,12 +477,7 @@ if ($user->isLoggedIn()) {
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>VILLAGE:</label>
-                                                            <select id="village" name="village" class="form-control">
-                                                                <option value="">Select</option>
-                                                                <?php foreach ($override->getData('village') as $lt) { ?>
-                                                                    <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
-                                                                <?php } ?>
-                                                            </select>
+                                                            <input type="text" name="village" id="village" class="form-control" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -491,12 +486,7 @@ if ($user->isLoggedIn()) {
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>Hamlet / Kitongoji:</label>
-                                                            <select id="hamlet" name="hamlet" class="form-control" required>
-                                                                <option value="">Select</option>
-                                                                <?php foreach ($override->getData('hamlet') as $lt) { ?>
-                                                                    <option value="<?= $lt['name'] ?>"><?= $lt['name'] ?></option>
-                                                                <?php } ?>
-                                                            </select>
+                                                            <input type="text" name="hamlet" id="hamlet" class="form-control" />
                                                         </div>
                                                     </div>
                                                 </div>

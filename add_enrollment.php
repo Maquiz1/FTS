@@ -38,6 +38,7 @@ if ($user->isLoggedIn()) {
             if ($validate->passed()) {
                 try {
                     if (!$override->get('visit', 'client_id', Input::get('client_id'))) {
+
                         if ((Input::get('study_name') == 'VAC080') and (Input::get('group') == 'Group 1A' || Input::get('group') == 'Group 2A')) {
                             $user->generateScheduleNotDelayedVac080(Input::get('study_name'), Input::get('client_id'), $date = date('Y-m-d', strtotime(Input::get('visit_date'))), 1, 'c', Input::get('participant_group'));
                         } elseif ((Input::get('study_name') == 'VAC080') and (Input::get('group') == 'Group 1B' || Input::get('group') == 'Group 2B' || Input::get('group') == 'Group 2C' || Input::get('group') == 'Group 2D')) {
@@ -54,17 +55,22 @@ if ($user->isLoggedIn()) {
                             $user->generateScheduleHELP(Input::get('study_name'), Input::get('client_id'), $date = date('Y-m-d', strtotime(Input::get('visit_date'))), 1, 'c', Input::get('participant_group'));
                         }
 
-                        $user->updateRecord('details', array(
-                            'status' => 'Enrolled'
-                        ), Input::get('participant_id'));
+                        // $user->updateRecord('clients', array(
+                        //     'status' => '1',
+                        //     'imp' => Input::get('imp')
+                        // ), Input::get('participant_id'));
 
-                        $user->updateRecord('clients', array(
-                            'status' => 1
-                        ), Input::get('participant_id'));
+                        // $p = $user->updateRecord('details', array(
+                        //     'status' => 'Enrolled'
+                        // ), Input::get('participant_id'));
 
-                        $successMessage = 'Schedules Added Successful';
+                        // print_r($p);
+
+                        // var_dump($p);
+
+                        echo $successMessage = 'Schedules Added Successful';
                     } else {
-                        $errorMessage = 'Patient Schedules already exist';
+                        echo $errorMessage = 'Patient Schedules already exist';
                     }
                 } catch (Exception $e) {
                     die($e->getMessage());
@@ -78,6 +84,8 @@ if ($user->isLoggedIn()) {
     Redirect::to('index.php');
 }
 ?>
+
+
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -207,7 +215,7 @@ if ($user->isLoggedIn()) {
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>STUDY NAME:</label>
-                                                            <select class="form-control" id="project_name" name="project_name" required>
+                                                            <select class="form-control" id="study_name" name="study_name" required>
                                                                 <option value="">SELECT STUDY</option>
                                                                 <?php foreach ($override->getData('study') as $group) { ?>
                                                                     <option value="<?= $group['name'] ?>"><?= $group['name'] ?></option>
@@ -265,8 +273,6 @@ if ($user->isLoggedIn()) {
                                                             </select>
                                                         </div>
                                                     </div>
-
-
 
                                                     <div class="col-sm-4">
                                                         <!-- select -->
@@ -339,7 +345,7 @@ if ($user->isLoggedIn()) {
             });
         });
 
-        $('#project_name').change(function() {
+        $('#study_name').change(function() {
             var study_name = $(this).val();
             // $('#fl_wait').show();
             $.ajax({
@@ -378,8 +384,10 @@ if ($user->isLoggedIn()) {
 
         });
 
+
         $('#group').change(function() {
             var patient_group_name = $(this).val();
+            // console.log(patient_group_name);
             // $('#fl_wait').show();
             $.ajax({
                 url: "process.php?content=participant_group_id",
@@ -389,7 +397,7 @@ if ($user->isLoggedIn()) {
                 },
                 dataType: "json",
                 success: function(data) {
-                    console.log(data.participant_group_id);
+                    // console.log(data.participant_group_id);
                     $('#participant_group').val(data.participant_group_id);
                 }
             });

@@ -74,7 +74,7 @@ $tv = $override->getCount('visit', 'visit_date', date('Y-m-d'));
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="dashboard.php" class="nav-link">
+                                    <a href="today_visit.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>View Today Visit</p>
                                     </a>

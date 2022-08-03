@@ -81,7 +81,7 @@ if ($user->isLoggedIn()) {
                     ), Input::get('full_name'));
 
                     $user->updateRecord('clients', array(
-                        'status' => 2
+                        'status' => '2'
                     ), Input::get('participant_id'));
 
                     $successMessage = 'Client Screened Successful';
