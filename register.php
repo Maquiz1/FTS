@@ -143,7 +143,7 @@ if ($user->isLoggedIn()) {
                         die($e->getMessage());
                     }
                 }else{
-                    $errorMessage = 'Fill "9999999999" Number to Phone1;
+                    $errorMessage = 'Fill "9999999999" Number to Phone1';
                 }
             } else {
                 $pageError = $validate->errors();
