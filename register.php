@@ -103,9 +103,9 @@ if ($user->isLoggedIn()) {
                 $phone = $override->selectData1('details', 'phone', Input::get('phone1'))[0];
                 if ($details) {
                     $errorMessage = 'That Participants Already Registered, please re-check Sensitization number!';
-                } elseif ($phone) {
+                } elseif ($phone && Input::get('phone1') != '') {
                     $errorMessage = 'Phone Number Already Registered, please re-check!';
-                } else {
+                } elseif(Input::get('phone1') == '9999999999') {
                     try {
                         $user->createRecord('details', array(
                             'project_name' => Input::get('project_id'),
@@ -142,6 +142,8 @@ if ($user->isLoggedIn()) {
                     } catch (Exception $e) {
                         die($e->getMessage());
                     }
+                }else{
+                    $errorMessage = 'Fill "9999999999" Number to Phone1;
                 }
             } else {
                 $pageError = $validate->errors();
