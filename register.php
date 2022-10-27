@@ -58,10 +58,10 @@ if ($user->isLoggedIn()) {
                 'gender' => array(
                     'required' => true,
                 ),
-                'phone1' => array(
-                    'required' => true,
-                    // 'unique' => 'details'
-                ),
+                // 'phone1' => array(
+                //     'required' => true,
+                //     // 'unique' => 'details'
+                // ),
                 'attend_school' => array(
                     'required' => true,
                 ),
@@ -100,7 +100,7 @@ if ($user->isLoggedIn()) {
                 $death_date = date('Y-m-d', strtotime(Input::get('death_date')));
 
                 $details = $override->selectData3('details', 'sensitization_no', Input::get('sensitization_no'), 'project_name', Input::get('project_id'))[0];
-                $phone = $override->selectData1('details', 'phone1', Input::get('phone1'))[0];
+                $phone = $override->selectData1('details', 'phone', Input::get('phone1'))[0];
                 if ($details) {
                     $errorMessage = 'That Participants Already Registered, please re-check Sensitization number!';
                 } elseif ($phone) {
@@ -119,7 +119,7 @@ if ($user->isLoggedIn()) {
                             'lname' => Input::get('lname'),
                             'dob' => $dob_date,
                             'gender' => Input::get('gender'),
-                            'phone1' => Input::get('phone1'),
+                            'phone' => Input::get('phone1'),
                             'phone2' => Input::get('phone2'),
                             'attend_school' => Input::get('attend_school'),
                             'region' => Input::get('region'),
@@ -419,7 +419,7 @@ if ($user->isLoggedIn()) {
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>Phone:</label>
-                                                            <input type="text" name="phone1" class="form-control" pattern="\d*" minlength="10" maxlength="10" required="" />
+                                                            <input type="text" name="phone1" class="form-control" pattern="\d*" minlength="10" maxlength="10" />
                                                         </div>
                                                     </div>
 
