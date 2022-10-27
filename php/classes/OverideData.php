@@ -468,6 +468,23 @@ class OverideData{
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+
+    public function selectData1($table,$field,$value){
+        $query = $this->_pdo->query("SELECT * FROM $table WHERE $field = '$value'");
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function selectData2($table,$field,$value,$field1,$value1,$value2,$field2){
+        $query = $this->_pdo->query("SELECT * FROM $table WHERE $field = '$value' AND $field1 = '$value1' AND $value2 = '$field2'");
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+    public function selectData3($table,$field,$value,$field1,$value1){
+        $query = $this->_pdo->query("SELECT * FROM $table WHERE $field = '$value' AND $field1 = '$value1'");
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
     public function selectData4($table,$field,$value,$field1,$value1,$value2,$field2,$field3,$value3){
         $query = $this->_pdo->query("SELECT * FROM $table WHERE $field = '$value' AND $field1 = '$value1' AND $value2 = '$field2' AND $field3 = '$value3'");
         $result = $query->fetchAll(PDO::FETCH_ASSOC);

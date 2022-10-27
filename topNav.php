@@ -5,10 +5,10 @@ $user = new User();
 $override = new OverideData();
 $user->scheduleUpdate();
 $user->schedule();
-$pageError = null;
-$successMessage = null;
+// $pageError = null;
+// $successMessage = null;
 $errorM = false;
-$errorMessage = null;
+// $errorMessage = null;
 $t_crf = 0;
 $p_crf = 0;
 $w_crf = 0;
@@ -119,10 +119,6 @@ if ($user->isLoggedIn()) {
                 ),
                 'district_id' => array(
                     'required' => true,
-                ),
-                'short_code' => array(
-                    'required' => true,
-                    'min' => 3,
                 )
             ));
             if ($validate->passed()) {
@@ -131,7 +127,7 @@ if ($user->isLoggedIn()) {
                         'name' => Input::get('ward_name'),
                         'region_id' => Input::get('region_id'),
                         'district_id' => Input::get('district_id'),
-                        'short_code' => Input::get('short_code'),
+                        'short_code' => 'N/A',
                         'status' => 1
                     ));
                     $successMessage = 'Ward Registered Successful';
@@ -365,12 +361,6 @@ if ($user->isLoggedIn()) {
                             <div class="col-md-2">Name:</div>
                             <div class="col-md-10">
                                 <input type="text" name="ward_name" id="ward_name" class="form-control" value="" />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-md-2">Short Code:</div>
-                            <div class="col-md-10">
-                                <input type="text" name="short_code" id="short_code" class="form-control" value="" />
                             </div>
                         </div>
                     </div>

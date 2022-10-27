@@ -10,6 +10,25 @@ $clntNo = $override->getNo('clients');
 $ap = $override->countNoRepeatAll('visit', 'client_id');
 $end = $override->getCount('clients', 'status', 0);
 $tv = $override->getCount('visit', 'visit_date', date('Y-m-d'));
+
+
+$user->scheduleUpdate();
+$user->schedule();
+$pageError = null;
+$successMessage = null;
+$errorM = false;
+$errorMessage = null;
+$t_crf = 0;
+$p_crf = 0;
+$w_crf = 0;
+$s_name = null;
+$c_name = null;
+$site = null;
+$country = null;
+$study_crf = null;
+$data_limit = 10000;
+$favicon = $override->get('images', 'cat', 1)[0];
+$logo = $override->get('images', 'cat', 2)[0];
 ?>
 
 <!DOCTYPE html>
@@ -72,6 +91,32 @@ $tv = $override->getCount('visit', 'visit_date', date('Y-m-d'));
                         </div><!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
+
+                <?php if ($errorMessage) { ?>
+                    <div class="block">
+                        <div class="alert alert-danger">
+                            <b>Error!</b> <?= $errorMessage ?>
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        </div>
+                    </div>
+                <?php } elseif ($pageError) { ?>
+                    <div class="block col-md-12">
+                        <div class="alert alert-danger">
+                            <b>Error!</b> <?php foreach ($pageError as $error) {
+                                                echo $error . ' , ';
+                                            } ?>
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        </div>
+                    </div>
+                <?php } elseif ($successMessage) { ?>
+                    <div class="block">
+                        <div class="alert alert-success">
+                            <b>Success!</b> <?= $successMessage ?>
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        </div>
+                    </div>
+                <?php } ?>   
+                
             </div>
             <!-- /.content-header -->
 

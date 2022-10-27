@@ -98,41 +98,50 @@ if ($user->isLoggedIn()) {
                 $intwr_date = date('Y-m-d', strtotime(Input::get('interviewer_date')));
                 $rvwr_date = date('Y-m-d', strtotime(Input::get('reviewer_date')));
                 $death_date = date('Y-m-d', strtotime(Input::get('death_date')));
-                try {
-                    $user->createRecord('details', array(
-                        'project_name' => Input::get('project_id'),
-                        'initial' => Input::get('initial'),
-                        'sensitization_one' => Input::get('sensitization_one'),
-                        'sensitization_two' => Input::get('sensitization_two'),
-                        'sensitization_no' => Input::get('sensitization_no'),
-                        'client_category' => Input::get('client_category'),
-                        'fname' => Input::get('fname'),
-                        'mname' => Input::get('mname'),
-                        'lname' => Input::get('lname'),
-                        'dob' => $dob_date,
-                        'gender' => Input::get('gender'),
-                        'phone1' => Input::get('phone1'),
-                        'phone2' => Input::get('phone2'),
-                        'attend_school' => Input::get('attend_school'),
-                        'region' => Input::get('region'),
-                        'district' => Input::get('district'),
-                        'ward' => Input::get('ward'),
-                        'village' => Input::get('village'),
-                        'hamlet' => Input::get('hamlet'),
-                        'duration' => Input::get('duration'),
-                        'willing_contact' => Input::get('willing_contact'),
-                        'location' => Input::get('location'),
-                        'staff_id' => $user->data()->id,
-                        'status' => Input::get('status'),
-                        'reason' => Input::get('reason'),
-                        'other_reason' => Input::get('other_reason'),
-                        'death_date' => $death_date,
-                        'details' => Input::get('details'),
-                        'end_study' => Input::get('end_study'),
-                    ));
-                    $successMessage = 'Client Registered Successful';
-                } catch (Exception $e) {
-                    die($e->getMessage());
+
+                $details = $override->selectData3('details', 'sensitization_no', Input::get('sensitization_no'), 'project_name', Input::get('project_id'))[0];
+                $phone = $override->selectData1('details', 'phone1', Input::get('phone1'))[0];
+                if ($details) {
+                    $errorMessage = 'That Participants Already Registered, please re-check Sensitization number!';
+                } elseif ($phone) {
+                    $errorMessage = 'Phone Number Already Registered, please re-check!';
+                } else {
+                    try {
+                        $user->createRecord('details', array(
+                            'project_name' => Input::get('project_id'),
+                            'initial' => Input::get('initial'),
+                            'sensitization_one' => Input::get('sensitization_one'),
+                            'sensitization_two' => Input::get('sensitization_two'),
+                            'sensitization_no' => Input::get('sensitization_no'),
+                            'client_category' => Input::get('client_category'),
+                            'fname' => Input::get('fname'),
+                            'mname' => Input::get('mname'),
+                            'lname' => Input::get('lname'),
+                            'dob' => $dob_date,
+                            'gender' => Input::get('gender'),
+                            'phone1' => Input::get('phone1'),
+                            'phone2' => Input::get('phone2'),
+                            'attend_school' => Input::get('attend_school'),
+                            'region' => Input::get('region'),
+                            'district' => Input::get('district'),
+                            'ward' => Input::get('ward'),
+                            'village' => Input::get('village'),
+                            'hamlet' => Input::get('hamlet'),
+                            'duration' => Input::get('duration'),
+                            'willing_contact' => Input::get('willing_contact'),
+                            'location' => Input::get('location'),
+                            'staff_id' => $user->data()->id,
+                            'status' => Input::get('status'),
+                            'reason' => Input::get('reason'),
+                            'other_reason' => Input::get('other_reason'),
+                            'death_date' => $death_date,
+                            'details' => Input::get('details'),
+                            'end_study' => Input::get('end_study'),
+                        ));
+                        $successMessage = 'Client Registered Successful';
+                    } catch (Exception $e) {
+                        die($e->getMessage());
+                    }
                 }
             } else {
                 $pageError = $validate->errors();
