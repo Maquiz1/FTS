@@ -614,17 +614,21 @@ if ($user->isLoggedIn()) {
     </div>
     <!-- ./wrapper -->
 
+
     <!-- jQuery -->
     <script src="plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="dist/js/adminlte.min.js"></script>
+
+    <!-- ✅ load jQuery UI ✅ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <!-- AdminLTE for demo purposes -->
     <script src="dist/js/demo.js"></script>
 </body>
 
-<!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -636,7 +640,6 @@ if ($user->isLoggedIn()) {
                 }
             });
         });
-        // $("#btnNext").live("click", function() {
         $(document).on('click', '.btnNext', function() {
 
             var tabs = $('#custom-tabs-two-tabContent').tabs();
@@ -667,7 +670,7 @@ if ($user->isLoggedIn()) {
         $('#status').change(function() {
             var getUid = $(this).val();
             $('#fl_wait').show();
-            if (getUid == 'Screening Failure') {
+            if (getUid == 'Screening Failure' || getUid == 'Not Enrolled' || getUid == 'Other') {
                 $(".box1").show();
                 $(".box2").show();
             } else {
@@ -678,87 +681,5 @@ if ($user->isLoggedIn()) {
         });
     });
 </script>
-
-
-<!-- 
-<script type="text/javascript">
-    $(document).ready(function() {
-        var currentTab = 0;
-        $(function() {
-            $("#custom-tabs-two-tabContent").tabs({
-                select: function(e, i) {
-                    currentTab = i.index;
-                }
-            });
-        });
-        $("#btnNext").live("click", function() {
-            var tabs = $('#tabs').tabs();
-            var c = $('#tabs').tabs("length");
-            currentTab = currentTab == (c - 1) ? currentTab : (currentTab + 1);
-            tabs.tabs('select', currentTab);
-            $("#btnPrevious").show();
-            if (currentTab == (c - 1)) {
-                $("#btnNext").hide();
-            } else {
-                $("#btnNext").show();
-            }
-        });
-        $("#btnPrevious").live("click", function() {
-            var tabs = $('#tabs').tabs();
-            var c = $('#tabs').tabs("length");
-            currentTab = currentTab == 0 ? currentTab : (currentTab - 1);
-            tabs.tabs('select', currentTab);
-            if (currentTab == 0) {
-                $("#btnNext").show();
-                $("#btnPrevious").hide();
-            }
-            if (currentTab < (c - 1)) {
-                $("#btnNext").show();
-            }
-        });
-    });
-
-    if (window.history.replaceState) {
-        window.history.replaceState(null, null, window.location.href);
-    }
-</script> -->
-
-
-<!-- 
-<script type="text/javascript">
-    var currentTab = 0;
-    $(function () {
-        $("#tabs").tabs({
-        select: function (e, i) {
-            currentTab = i.index;
-            }
-        });
-    });
-    $("#btnNext").live("click", function () {
-        var tabs = $('#tabs').tabs();
-        var c = $('#tabs').tabs("length");
-        currentTab = currentTab == (c - 1) ? currentTab : (currentTab + 1);
-        tabs.tabs('select', currentTab);
-        $("#btnPrevious").show();
-            if (currentTab == (c - 1)) {
-                $("#btnNext").hide();
-            } else {
-                $("#btnNext").show();
-            }
-    });
-    $("#btnPrevious").live("click", function () {
-        var tabs = $('#tabs').tabs();
-        var c = $('#tabs').tabs("length");
-        currentTab = currentTab == 0 ? currentTab : (currentTab - 1);
-        tabs.tabs('select', currentTab);
-            if (currentTab == 0) {
-                $("#btnNext").show();
-                $("#btnPrevious").hide();
-            }
-            if (currentTab < (c - 1)) {
-                $("#btnNext").show();
-            }
-    });
-</script> -->
 
 </html>
