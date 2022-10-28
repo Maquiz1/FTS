@@ -493,7 +493,7 @@ if ($user->isLoggedIn()) {
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>Hamlet / Kitongoji:</label>
-                                                            <input type="text" name="hamlet" id="hamlet" class="form-control"  value="" />
+                                                            <input type="text" name="hamlet" id="hamlet" class="form-control" value="" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -559,7 +559,7 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-sm-4">
+                                                    <div class="col-sm-4 box1">
                                                         <!-- select -->
                                                         <div class="form-group">
                                                             <label>Reason:</label>
@@ -572,7 +572,7 @@ if ($user->isLoggedIn()) {
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-sm-4">
+                                                    <div class="col-sm-4 box2">
                                                         <!-- textarea -->
                                                         <div class="form-group">
                                                             <label>Other reason Details:Location(SPECIFY Place of a Participant)</label>
@@ -624,40 +624,58 @@ if ($user->isLoggedIn()) {
     <script src="dist/js/demo.js"></script>
 </body>
 
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
 
 <script type="text/javascript">
-    var currentTab = 0;
-    $(function() {
-        $("#custom-tabs-two-tabContent").tabs({
-            select: function(e, i) {
-                currentTab = i.index;
+    $(document).ready(function() {
+        var currentTab = 0;
+        $(function() {
+            $("#custom-tabs-two-tabContent").tabs({
+                select: function(e, i) {
+                    currentTab = i.index;
+                }
+            });
+        });
+        // $("#btnNext").live("click", function() {
+        $(document).on('click', '.btnNext', function() {
+
+            var tabs = $('#custom-tabs-two-tabContent').tabs();
+            var c = $('#custom-tabs-two-tabContent').tabs("length");
+            currentTab = currentTab == (c - 1) ? currentTab : (currentTab + 1);
+            tabs.tabs('select', currentTab);
+            $("#btnPrevious").show();
+            if (currentTab == (c - 1)) {
+                $("#btnNext").hide();
+            } else {
+                $("#btnNext").show();
             }
         });
-    });
-    $("#btnNext").live("click", function() {
-        var tabs = $('#custom-tabs-two-tabContent').tabs();
-        var c = $('#custom-tabs-two-tabContent').tabs("length");
-        currentTab = currentTab == (c - 1) ? currentTab : (currentTab + 1);
-        tabs.tabs('select', currentTab);
-        $("#btnPrevious").show();
-        if (currentTab == (c - 1)) {
-            $("#btnNext").hide();
-        } else {
-            $("#btnNext").show();
-        }
-    });
-    $("#btnPrevious").live("click", function() {
-        var tabs = $('#custom-tabs-two-tabContent').tabs();
-        var c = $('#custom-tabs-two-tabContent').tabs("length");
-        currentTab = currentTab == 0 ? currentTab : (currentTab - 1);
-        tabs.tabs('select', currentTab);
-        if (currentTab == 0) {
-            $("#btnNext").show();
-            $("#btnPrevious").hide();
-        }
-        if (currentTab < (c - 1)) {
-            $("#btnNext").show();
-        }
+        $(document).on('click', '.btnPrevious', function() {
+            var tabs = $('#custom-tabs-two-tabContent').tabs();
+            var c = $('#custom-tabs-two-tabContent').tabs("length");
+            currentTab = currentTab == 0 ? currentTab : (currentTab - 1);
+            tabs.tabs('select', currentTab);
+            if (currentTab == 0) {
+                $("#btnNext").show();
+                $("#btnPrevious").hide();
+            }
+            if (currentTab < (c - 1)) {
+                $("#btnNext").show();
+            }
+        });
+
+        $('#status').change(function() {
+            var getUid = $(this).val();
+            $('#fl_wait').show();
+            if (getUid == 'Screening Failure') {
+                $(".box1").show();
+                $(".box2").show();
+            } else {
+                $(".box1").hide();
+                $(".box2").hide();
+            }
+
+        });
     });
 </script>
 
