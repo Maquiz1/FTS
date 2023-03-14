@@ -590,6 +590,14 @@ if ($user->isLoggedIn()) {
             </li>
 
             <li class="dropdown active">
+                <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-group"></span>&nbsp;&nbsp; VOLUNTIER</a> -->
+                <ul class="dropdown-menu">
+                   <!-- <li><a href="add_project.php"><span class="icon-bookmark"></span>&nbsp;&nbsp;REGISTER</a></li>-->
+                    <li><a href="#add_project" data-toggle="modal" data-backdrop="static" data-keyboard="false"><span class="icon-user"></span>&nbsp;&nbsp;ADD Study</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown active">
                 <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="icon-group"></span>&nbsp;&nbsp; VISIT CONFIRMATION</a> -->
                 <ul class="dropdown-menu">
                     <?php
